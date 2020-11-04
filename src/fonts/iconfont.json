@@ -1,0 +1,275 @@
+{
+  "id": "2178788",
+  "name": "MES",
+  "font_family": "iconfont",
+  "css_prefix_text": "icon-",
+  "description": "",
+  "glyphs": [
+    {
+      "icon_id": "688093",
+      "name": "全屏 最大化",
+      "font_class": "quanpingzuidahua",
+      "unicode": "e786",
+      "unicode_decimal": 59270
+    },
+    {
+      "icon_id": "1049935",
+      "name": "生产加工",
+      "font_class": "shengchanjiagong",
+      "unicode": "e605",
+      "unicode_decimal": 58885
+    },
+    {
+      "icon_id": "1221466",
+      "name": "锁",
+      "font_class": "lock",
+      "unicode": "e614",
+      "unicode_decimal": 58900
+    },
+    {
+      "icon_id": "1232433",
+      "name": "信息",
+      "font_class": "xinxi",
+      "unicode": "e724",
+      "unicode_decimal": 59172
+    },
+    {
+      "icon_id": "1365605",
+      "name": "生产实时",
+      "font_class": "shengchanshishi",
+      "unicode": "e609",
+      "unicode_decimal": 58889
+    },
+    {
+      "icon_id": "2150401",
+      "name": "退出",
+      "font_class": "tuichu",
+      "unicode": "e7c8",
+      "unicode_decimal": 59336
+    },
+    {
+      "icon_id": "2468150",
+      "name": "生产工序查询",
+      "font_class": "shengchangongxuchaxun",
+      "unicode": "e616",
+      "unicode_decimal": 58902
+    },
+    {
+      "icon_id": "6241671",
+      "name": "生产流程管理",
+      "font_class": "shengchanliuchengguanli",
+      "unicode": "e629",
+      "unicode_decimal": 58921
+    },
+    {
+      "icon_id": "6241672",
+      "name": "生产过程管理",
+      "font_class": "shengchanguochengguanli",
+      "unicode": "e62a",
+      "unicode_decimal": 58922
+    },
+    {
+      "icon_id": "6241675",
+      "name": "生产消耗",
+      "font_class": "shengchanxiaohao",
+      "unicode": "e62b",
+      "unicode_decimal": 58923
+    },
+    {
+      "icon_id": "6264962",
+      "name": "生产流程",
+      "font_class": "shengchanliucheng",
+      "unicode": "e62f",
+      "unicode_decimal": 58927
+    },
+    {
+      "icon_id": "7992454",
+      "name": "生产",
+      "font_class": "shengchan-",
+      "unicode": "e60a",
+      "unicode_decimal": 58890
+    },
+    {
+      "icon_id": "8554292",
+      "name": "生产统计",
+      "font_class": "tubiao_shengchantongji",
+      "unicode": "e63b",
+      "unicode_decimal": 58939
+    },
+    {
+      "icon_id": "8777039",
+      "name": "unlock",
+      "font_class": "icon-test",
+      "unicode": "e644",
+      "unicode_decimal": 58948
+    },
+    {
+      "icon_id": "9011932",
+      "name": "生产",
+      "font_class": "shengchan",
+      "unicode": "e630",
+      "unicode_decimal": 58928
+    },
+    {
+      "icon_id": "10529944",
+      "name": "刷新",
+      "font_class": "shuaxin",
+      "unicode": "e65a",
+      "unicode_decimal": 58970
+    },
+    {
+      "icon_id": "10793672",
+      "name": "窗口最大化_操作_jurassic",
+      "font_class": "jurassic_Window-max",
+      "unicode": "e6fb",
+      "unicode_decimal": 59131
+    },
+    {
+      "icon_id": "12875289",
+      "name": "生产管理",
+      "font_class": "shengchanguanli",
+      "unicode": "e610",
+      "unicode_decimal": 58896
+    },
+    {
+      "icon_id": "13468957",
+      "name": "生产订单",
+      "font_class": "shengchandingdan",
+      "unicode": "e636",
+      "unicode_decimal": 58934
+    },
+    {
+      "icon_id": "14095007",
+      "name": "生产制造",
+      "font_class": "shengchanzhizao",
+      "unicode": "e600",
+      "unicode_decimal": 58880
+    },
+    {
+      "icon_id": "14656272",
+      "name": "生产企业",
+      "font_class": "shengchanqiye",
+      "unicode": "e732",
+      "unicode_decimal": 59186
+    },
+    {
+      "icon_id": "14690036",
+      "name": "生产力",
+      "font_class": "shengchanli",
+      "unicode": "e613",
+      "unicode_decimal": 58899
+    },
+    {
+      "icon_id": "14719551",
+      "name": "生产监控",
+      "font_class": "header-14",
+      "unicode": "e647",
+      "unicode_decimal": 58951
+    },
+    {
+      "icon_id": "15515120",
+      "name": "生产日报",
+      "font_class": "shengchanribao",
+      "unicode": "e637",
+      "unicode_decimal": 58935
+    },
+    {
+      "icon_id": "15667078",
+      "name": "生产台账",
+      "font_class": "shengchantaizhang",
+      "unicode": "e643",
+      "unicode_decimal": 58947
+    },
+    {
+      "icon_id": "16398986",
+      "name": "信息",
+      "font_class": "xinxi1",
+      "unicode": "e85d",
+      "unicode_decimal": 59485
+    },
+    {
+      "icon_id": "17099937",
+      "name": "生产前确认QA复核",
+      "font_class": "shengchanqianquerenQAfuhe",
+      "unicode": "e601",
+      "unicode_decimal": 58881
+    },
+    {
+      "icon_id": "17619261",
+      "name": "生产排单",
+      "font_class": "tubiaozhizuomoban-144",
+      "unicode": "e62c",
+      "unicode_decimal": 58924
+    },
+    {
+      "icon_id": "17619262",
+      "name": "生产统计",
+      "font_class": "tubiaozhizuomoban-147",
+      "unicode": "e62d",
+      "unicode_decimal": 58925
+    },
+    {
+      "icon_id": "17619274",
+      "name": "生产领料",
+      "font_class": "tubiaozhizuomoban-143",
+      "unicode": "e631",
+      "unicode_decimal": 58929
+    },
+    {
+      "icon_id": "17619275",
+      "name": "生产进度",
+      "font_class": "tubiaozhizuomoban-145",
+      "unicode": "e632",
+      "unicode_decimal": 58930
+    },
+    {
+      "icon_id": "17619289",
+      "name": "生产制造",
+      "font_class": "tubiaozhizuomoban-116",
+      "unicode": "e633",
+      "unicode_decimal": 58931
+    },
+    {
+      "icon_id": "17749966",
+      "name": "生产监视",
+      "font_class": "shengchanjianshi",
+      "unicode": "e603",
+      "unicode_decimal": 58883
+    },
+    {
+      "icon_id": "17749968",
+      "name": "生产管理",
+      "font_class": "shengchanguanli1",
+      "unicode": "e604",
+      "unicode_decimal": 58884
+    },
+    {
+      "icon_id": "17750008",
+      "name": "生产报表设置",
+      "font_class": "shengchanbaobiaoshezhi",
+      "unicode": "e607",
+      "unicode_decimal": 58887
+    },
+    {
+      "icon_id": "17750030",
+      "name": "生产任务",
+      "font_class": "shengchanrenwu",
+      "unicode": "e608",
+      "unicode_decimal": 58888
+    },
+    {
+      "icon_id": "17750050",
+      "name": "生产趋势",
+      "font_class": "shengchanqushi",
+      "unicode": "e60b",
+      "unicode_decimal": 58891
+    },
+    {
+      "icon_id": "17750084",
+      "name": "生产报警",
+      "font_class": "shengchanbaojing",
+      "unicode": "e60c",
+      "unicode_decimal": 58892
+    }
+  ]
+}

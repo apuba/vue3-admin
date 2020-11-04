@@ -1,0 +1,71 @@
+// 默认样式 begin
+$bg-color: #181542; // 背景颜色
+$primary-color: #211b66; // 主颜色, 菜单背景色，页面背景色等
+$transition-color-1: #1f1c4b; // 过滤色
+$transition-color-2: #03c; // 过滤色
+$transition-color-3: #06c; // 过滤色
+$transition-color-4: #191645;
+
+$secondary-color: #f0c; // 过滤色
+$success-color: #a1d380;
+$info-color: #3cc;
+$danger-color: #ff0000;
+$warning-color: #ffbc00;
+// 默认样式 end
+
+$base-border: 2px solid $bg-color;
+$base-bar-heigth: 48px;
+$base-text-color: #999;
+
+@mixin base-padding {
+    padding: 20px;
+}
+
+@mixin base-margin {
+    margin: 20px;
+}
+
+@mixin base-padding-10 {
+    padding: 10px;
+}
+
+@mixin base-margin-10 {
+    margin: 10px;
+}
+
+@mixin base-padding-15 {
+    padding: 15px;
+}
+
+@mixin base-margin-15 {
+    margin: 15px;
+}
+
+@mixin base-linear-gradient {
+    background-image: linear-gradient(90deg, #0f3992, $secondary-color);
+}
+@mixin secondary-linear-gradient {
+    background-image: linear-gradient(90deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+}
+
+@mixin base-border-bottom {
+    border-bottom: $base-border;
+}
+
+@mixin scrollBarStyle() {
+    &::-webkit-scrollbar {
+        width: 7px;
+        height: 7px;
+    }
+    &::-webkit-scrollbar-thumb {
+        border-radius: 10px;
+        // box-shadow: inset 0 0 5px #6e6e94;
+        background: #3e3681;
+    }
+}
+
+// 公共样式
+
+.base-border-bottom {
+    @include base-border-bottom;
+}
