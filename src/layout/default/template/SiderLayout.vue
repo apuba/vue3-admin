@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-11-03 01:51:48
- * @LastEditTime: 2020-11-04 00:35:24
+ * @LastEditTime: 2020-11-10 02:06:30
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -25,18 +25,29 @@
       </div>
     </div>
     <div data-desc="导航菜单" class="side-bar-bottom big-icon-menu">
-      <a-menu v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys" mode="inline" @click="handleClick" inlineIndent="15">
-        <a-sub-menu key="sub1" @titleClick="titleClick" class="base-border-bottom">
+      <a-menu v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys" mode="inline" inlineIndent="15">
+        <!--  <a-sub-menu key="sub1" @titleClick="titleClick" class="base-border-bottom">
           <template v-slot:title>
             <span class="iconfont icon-shengchanjiagong"></span>
             <span class="txt">基础设置</span>
           </template>
           <a-menu-item key="1">Option 1</a-menu-item>
-          <a-menu-item key="2">Option 2</a-menu-item>
-          <a-menu-item key="3">Option 3</a-menu-item>
-          <a-menu-item key="4">Option 4</a-menu-item>
-        </a-sub-menu>
-        <a-sub-menu key="sub2" @titleClick="titleClick" class="base-border-bottom">
+        </a-sub-menu> -->
+
+        <template v-for="item in menuList" :key="item.id">
+          <!-- <MenuItem :menu-info="item"   /> -->
+          <template v-if="!item.children">
+            <a-menu-item :key="item.id" @click="handleClick(item)" class="ant-menu-submenu-title">
+              <span :class="item.icon" v-if="item.icon"></span>
+              <span class="txt">{{ item.name }}在</span>
+            </a-menu-item>
+          </template>
+          <template v-else>
+            <MenuItem :menu-info="item" :key="item.id" />
+          </template>
+        </template>
+
+        <!-- <a-sub-menu key="sub2" @titleClick="titleClick" class="base-border-bottom">
           <template v-slot:title>
             <span class="iconfont icon-shengchan"></span>
             <span class="txt">智能机器生产</span>
@@ -47,44 +58,39 @@
             <a-menu-item key="7">Option 7</a-menu-item>
             <a-menu-item key="8">Option 8</a-menu-item>
           </a-sub-menu>
-        </a-sub-menu>
-        <a-sub-menu key="sub4" @titleClick="titleClick" class="base-border-bottom">
-          <template v-slot:title>
-            <span>
-              <span class="iconfont icon-shengchanzhizao"></span>
-              <span class="txt">生产统计</span>
-            </span>
-          </template>
-          <a-menu-item key="9">Option 9</a-menu-item>
-          <a-menu-item key="10">Option 10</a-menu-item>
-          <a-menu-item key="11">Option 11</a-menu-item>
-          <a-menu-item key="12">Option 12</a-menu-item>
-        </a-sub-menu>
+        </a-sub-menu> -->
       </a-menu>
     </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, ref } from 'vue';
-
+import { computed, defineComponent, ref } from 'vue';
+import { appStore } from '@/store/modules/appStore';
+// import { Menu } from '@/router/types';
+import MenuItem from './MenuItem.vue';
+import { Menu } from '@/router/types.d';
 interface ImenuItem {
   key: string;
   domEvent: MouseEvent;
 }
 export default defineComponent({
+  components: {
+    MenuItem
+  },
   setup() {
     const selectedKeys = ref(['']);
     const openKeys = ref(['']);
 
-    function handleClick(val: ImenuItem) {
-      selectedKeys.value = [val.key];
-      console.log(val.key);
+    const menuList = computed(() => appStore.getMenuData);
+
+    function handleClick(menu: Menu) {
+      if (menu.path) {
+        appStore.commitAddTab(menu);
+      }
     }
-    function titleClick(val: ImenuItem) {
-      handleClick(val);
-    }
-    return { selectedKeys, openKeys, handleClick, titleClick };
+
+    return { selectedKeys, openKeys, handleClick, menuList };
   }
 });
 </script>

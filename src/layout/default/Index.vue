@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-11-01 13:30:04
- * @LastEditTime: 2020-11-03 04:20:05
+ * @LastEditTime: 2020-11-08 23:43:25
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -15,18 +15,7 @@
         <HeaderLayout @collapsed-hander="collapsedHander" />
       </a-layout-header>
       <a-layout-content class="content">
-        <div class="tab">
-          <span class="item active">工作台</span>
-          <ul>
-            <li class="item">工作台</li>
-            <li class="item">工作台</li>
-            <li class="item">工作台</li>
-            <li class="item">工作台</li>
-            <li class="item">工作台</li>
-            <li class="item">工作台</li>
-            <li class="item">工作台</li>
-          </ul>
-        </div>
+        <TabList />
         <div class="content-page pt20">
           <keep-alive>
             <router-view></router-view>
@@ -40,11 +29,14 @@
 import { defineComponent, ref } from 'vue';
 import SiderLayout from '@/layout/default/template/SiderLayout.vue';
 import HeaderLayout from '@/layout/default/template/HeaderLayout.vue';
+import TabList from '@/layout/default/template/TabList.vue';
+
 export default defineComponent({
   name: 'Index',
   components: {
     HeaderLayout,
-    SiderLayout
+    SiderLayout,
+    TabList
   },
   setup() {
     const collapsed = ref(false);
@@ -80,41 +72,6 @@ export default defineComponent({
     text-align: left;
     padding: 20px;
   }
-  .tab {
-    height: 36px;
-    line-height: 36px;
-    white-space: nowrap;
-    .item {
-      display: inline-block;
-      background-color: $primary-color;
-      border-radius: 30px;
-      padding: 0 18px;
-      margin-right: 10px;
-      color: #669;
-      cursor: pointer;
-      transition: all 0.2s;
-      &:hover {
-        @include base-linear-gradient;
-        background-size: 300%;
-        color: #ccc;
-      }
-      &.active {
-        color: $text-color;
-        @include base-linear-gradient;
-        background-size: 250%;
-        color: #ccc;
-        &:hover {
-          background-size: 200%;
-          color: #ddd;
-        }
-      }
-    }
-    ul {
-      display: inline-block;
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-  }
+
 }
 </style>

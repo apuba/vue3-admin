@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-01 00:33:27
- * @LastEditTime: 2020-11-01 00:57:49
+ * @LastEditTime: 2020-11-09 01:25:17
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -48,6 +48,7 @@ export interface Menu {
   name: string;
   icon?: string;
   path: string;
+  id: number | string;
   disabled?: boolean;
   children?: Menu[];
   orderNo?: number;

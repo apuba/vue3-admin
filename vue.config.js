@@ -1,20 +1,41 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-13 01:19:23
- * @LastEditTime: 2020-11-05 00:23:13
+ * @LastEditTime: 2020-11-06 03:14:01
  * @LastEditors: 侯兴章
  * @Description: 配置
  */
 
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
-
 const resolve = dir => path.join(__dirname, dir);
 const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
 
+
+// 代理配置
+const createProxy = () => {
+  const enablePro = process.env.ENABLE_PROXY;
+  if (enablePro === 'yes') {
+    return {
+      '/api': {
+        target: 'http://localhost:4000',
+        secure: false,
+        changeOrigin: false, // 开启代理，在本地创建一个虚拟服务端
+        // ws: true, // 是否启用websockets
+        pathRewrite: {
+          '^/api': '/'
+        }
+      }
+    }
+  } else {
+    return {}
+  }
+}
+
 module.exports = {
   publicPath: IS_PROD ? process.env.VUE_APP_PUBLIC_PATH : './', // 默认'/'，部署应用包时的基本 URL
-  // outputDir: process.env.outputDir || 'dist', // 'dist', 生产环境构建文件的目录
+  outputDir: process.env.outputDir || 'dist', // 'dist', 生产环境构建文件的目录
   // assetsDir: '', // 相对于outputDir的静态资源(js、css、img、fonts)目录
   lintOnSave: false,
   runtimeCompiler: true, // 是否使用包含运行时编译器的 Vue 构建版本
@@ -26,6 +47,7 @@ module.exports = {
     config.resolve.alias
       // .set('vue$', 'vue/dist/vue.esm.js')
       .set('@', resolve('src'))
+      .set('@common', resolve('src/common'))
       .set('@assets', resolve('src/assets'))
       .set('@fonts', resolve('src/fonts'))
       .set('@components', resolve('src/components'))
@@ -53,27 +75,15 @@ module.exports = {
     }
   },
   devServer: {
-    // overlay: { // 让浏览器 overlay 同时显示警告和错误
-    //   warnings: true,
-    //   errors: true
-    // },
-    // open: false, // 是否打开浏览器
+    overlay: { // 让浏览器 overlay 同时显示警告和错误
+      warnings: true,
+      errors: true
+    },
     // host: 'localhost',
-    // port: '8080', // 代理断就
-    // https: false,
-    // hotOnly: false, // 热更新
-    proxy: {
-      '/api': {
-        target:
-          // 'https://www.easy-mock.com/mock/5bc75b55dc36971c160cad1b/sheets', // 目标代理接口地址
-          'https://localhost:4000',
-        secure: false,
-        changeOrigin: true, // 开启代理，在本地创建一个虚拟服务端
-        // ws: true, // 是否启用websockets
-        pathRewrite: {
-          '^/api': '/'
-        }
-      }
-    }
+    // port: '8080', // 代理端口
+    https: false,
+    hotOnly: true, // 热更新
+    open: true, // 是否打开浏览器
+    proxy: createProxy()
   }
 };

@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-11-03 01:56:30
- * @LastEditTime: 2020-11-03 03:28:39
+ * @LastEditTime: 2020-11-10 01:19:44
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -17,6 +17,7 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
+
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined
@@ -53,7 +54,7 @@ export default defineComponent({
     font-size: 18px;
     .title {
       color: $transition-color-3;
-      cursor:default;
+      cursor: default;
     }
   }
   .container {
@@ -66,7 +67,7 @@ export default defineComponent({
       .trigger {
         color: #999;
         &:hover {
-            color: $info-color;
+          color: $info-color;
         }
       }
     }
