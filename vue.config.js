@@ -1,17 +1,15 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-13 01:19:23
- * @LastEditTime: 2020-11-06 03:14:01
+ * @LastEditTime: 2020-11-14 18:21:19
  * @LastEditors: 侯兴章
  * @Description: 配置
  */
-
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const path = require('path');
 const resolve = dir => path.join(__dirname, dir);
 const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
-
 
 // 代理配置
 const createProxy = () => {
@@ -27,11 +25,11 @@ const createProxy = () => {
           '^/api': '/'
         }
       }
-    }
+    };
   } else {
-    return {}
+    return {};
   }
-}
+};
 
 module.exports = {
   publicPath: IS_PROD ? process.env.VUE_APP_PUBLIC_PATH : './', // 默认'/'，部署应用包时的基本 URL

@@ -8,7 +8,7 @@
 import defalutLayout from './default/Index.vue';
 import blueLayout from './blue/Index.vue';
 
-const getLayout = (layout: string) => {
+const getIndexLayout = (layout: string,) => {
 
     switch (layout) {
         case 'blue':
@@ -19,4 +19,4 @@ const getLayout = (layout: string) => {
 }
 
 export { defalutLayout, blueLayout }
-export default getLayout
+export default getIndexLayout

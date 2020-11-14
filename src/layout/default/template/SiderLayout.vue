@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-11-03 01:51:48
- * @LastEditTime: 2020-11-10 02:06:30
+ * @LastEditTime: 2020-11-15 02:46:47
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -24,41 +24,19 @@
         <span class="item"><span class="iconfont icon-shengchanxiaohao"></span></span>
       </div>
     </div>
-    <div data-desc="导航菜单" class="side-bar-bottom big-icon-menu">
-      <a-menu v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys" mode="inline" inlineIndent="15">
-        <!--  <a-sub-menu key="sub1" @titleClick="titleClick" class="base-border-bottom">
-          <template v-slot:title>
-            <span class="iconfont icon-shengchanjiagong"></span>
-            <span class="txt">基础设置</span>
-          </template>
-          <a-menu-item key="1">Option 1</a-menu-item>
-        </a-sub-menu> -->
-
+    <div data-desc="导航菜单" class="side-bar-bottom" :class="{'big-icon-menu': !collapsed, 'small-icon-menu': collapsed}">
+      <a-menu v-model:openKeys="openKeys" v-model:selectedKeys="selectedKeys" :inline-collapsed="collapsed" :theme="collapsed ? 'dark' : 'light'" mode="inline" inlineIndent="15">
         <template v-for="item in menuList" :key="item.id">
-          <!-- <MenuItem :menu-info="item"   /> -->
           <template v-if="!item.children">
             <a-menu-item :key="item.id" @click="handleClick(item)" class="ant-menu-submenu-title">
               <span :class="item.icon" v-if="item.icon"></span>
-              <span class="txt">{{ item.name }}在</span>
+              <span class="txt" v-show="!collapsed">{{ item.name }}</span>
             </a-menu-item>
           </template>
           <template v-else>
-            <MenuItem :menu-info="item" :key="item.id" />
+            <MenuItem :menu-info="item" :key="item.id" :collapsed="collapsed" />
           </template>
         </template>
-
-        <!-- <a-sub-menu key="sub2" @titleClick="titleClick" class="base-border-bottom">
-          <template v-slot:title>
-            <span class="iconfont icon-shengchan"></span>
-            <span class="txt">智能机器生产</span>
-          </template>
-          <a-menu-item key="5">Option 5</a-menu-item>
-          <a-menu-item key="6">Option 6</a-menu-item>
-          <a-sub-menu key="sub3" title="Submenu">
-            <a-menu-item key="7">Option 7</a-menu-item>
-            <a-menu-item key="8">Option 8</a-menu-item>
-          </a-sub-menu>
-        </a-sub-menu> -->
       </a-menu>
     </div>
   </div>
@@ -75,21 +53,21 @@ interface ImenuItem {
   domEvent: MouseEvent;
 }
 export default defineComponent({
+  props: {
+    collapsed: Boolean
+  },
   components: {
     MenuItem
   },
   setup() {
-    const selectedKeys = ref(['']);
+    const selectedKeys = computed(() => appStore.getMenuSelectedKeys);
     const openKeys = ref(['']);
-
     const menuList = computed(() => appStore.getMenuData);
-
     function handleClick(menu: Menu) {
       if (menu.path) {
         appStore.commitAddTab(menu);
       }
     }
-
     return { selectedKeys, openKeys, handleClick, menuList };
   }
 });
@@ -180,7 +158,7 @@ export default defineComponent({
   .big-icon-menu {
     .ant-menu-item {
       margin: 0 !important;
-      color: #666;
+      color: #999;
       &:hover {
         color: $info-color;
       }
@@ -188,7 +166,10 @@ export default defineComponent({
         // border: none;
       }
     }
-
+    .ant-menu-sub .ant-menu-submenu-title .txt {
+      position: relative;
+      bottom: inherit;
+    }
     .ant-menu-submenu-title {
       padding-top: 10px;
       padding-bottom: 10px;
@@ -214,7 +195,7 @@ export default defineComponent({
         width: 100%;
         left: 0;
         bottom: 12px;
-        font-size: 13px;
+        font-size: 14px;
       }
 
       &:hover {
@@ -264,9 +245,45 @@ export default defineComponent({
     .ant-menu-inline {
       border: none;
     }
+    .ant-menu-inline .ant-menu-submenu-title {
+      padding-right: 15px;
+    }
     .ant-menu:not(.ant-menu-horizontal) .ant-menu-item-selected {
       background-color: $transition-color-4;
       color: $info-color;
+    }
+  }
+
+  .small-icon-menu {
+    .ant-menu-inline-collapsed > .ant-menu-submenu > .ant-menu-submenu-title {
+      padding: 0 5px !important;
+      margin: 0;
+    }
+    .ant-menu-submenu-title {
+      padding: 0 !important;
+      margin: 0;
+      &:hover {
+        color: $info-color;
+        &::before {
+          transition: all 0.2s;
+          content: '';
+          display: block;
+          background-color: transparentize($transition-color-2, 0.8);
+          z-index: 0;
+          position: absolute;
+          top: 0;
+          left: 0;
+          right: -10px;
+          bottom: 0;
+        }
+        .iconfont {
+          text-shadow: $info-color 0 0 15px;
+        }
+      }
+      .iconfont {
+        font-size: 24px;
+        width: 100%;
+      }
     }
   }
 }

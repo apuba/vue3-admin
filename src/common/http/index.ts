@@ -39,8 +39,9 @@ class Abstract {
             }).then((res) => {
                 // 200:服务端业务处理正常结束
                 if (res.status === 200) {
-                    if (res.data.success || res.data.status === 'S') {
-                        resolve({ status: true, message: 'success', data: res.data?.data, origin: res.data });
+                    if (res.data.success || res.data.code == 200 || res.data.status === 'S') {
+                        // resolve({ status: true, message: 'success', data: res.data?.data, origin: res.data });
+                        resolve(res.data)
                     } else {
                         // Vue.prototype.$message({ type: 'error', message: res.data?.errorMessage || (url + '请求失败') });
                         message.error(res.data?.errorMessage || (url + '请求失败'));
@@ -52,7 +53,7 @@ class Abstract {
             }).catch((err) => {
                 const msg = err?.data?.errorMessage || err?.message || (url + '请求失败');
                 // Vue.prototype.$message({ type: 'error', message });
-                message.error(msg) 
+                message.error(msg)
                 reject({ status: false, msg, data: null });
             });
         });
@@ -61,7 +62,7 @@ class Abstract {
     /**
      * GET类型的网络请求  
      */
-    protected get(obj: string | AxiosRequest, params: any, headers?: any) {
+    get(obj: string | AxiosRequest, params: any, headers?: any) {
         let url;
         if (typeof obj === 'object') {
             return this.getReq(obj);
@@ -71,13 +72,13 @@ class Abstract {
         return this.apiAxios({ headers, method: 'GET', url, params });
     }
 
-    protected getReq({ headers, url, data, params, responseType }: AxiosRequest) {
+    getReq({ headers, url, data, params, responseType }: AxiosRequest) {
         return this.apiAxios({ headers, method: 'GET', url, data, params, responseType });
     }
     /**
      * POST类型的网络请求
      */
-    protected post(obj: string | AxiosRequest, data: any, headers?: any) {
+    post(obj: string | AxiosRequest, data: any, headers?: any) {
         let url;
         if (typeof obj === 'object') {
             return this.postReq(obj);
@@ -86,20 +87,20 @@ class Abstract {
         }
         return this.apiAxios({ headers, method: 'POST', url, data });
     }
-    protected postReq({ baseURL, headers, url, data, params, responseType }: AxiosRequest) {
+    postReq({ baseURL, headers, url, data, params, responseType }: AxiosRequest) {
         return this.apiAxios({ baseURL, headers, method: 'POST', url, data, params, responseType });
     }
     /**
      * PUT类型的网络请求
      */
-    protected put({ baseURL, headers, url, data, params, responseType }: AxiosRequest) {
+    put({ baseURL, headers, url, data, params, responseType }: AxiosRequest) {
         return this.apiAxios({ baseURL, headers, method: 'PUT', url, data, params, responseType });
     }
 
     /**
      * DELETE类型的网络请求
      */
-    protected del({ baseURL, headers, url, data, params, responseType }: AxiosRequest) {
+    del({ baseURL, headers, url, data, params, responseType }: AxiosRequest) {
         return this.apiAxios({ baseURL, headers, method: 'DELETE', url, data, params, responseType });
     }
 }

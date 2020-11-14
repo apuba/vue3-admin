@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 00:44:21
- * @LastEditTime: 2020-11-10 02:09:15
+ * @LastEditTime: 2020-11-15 02:51:52
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -12,15 +12,17 @@ import { VuexModule, Module, getModule, Mutation, Action } from 'vuex-module-dec
 import store from '@/store/index';
 import router from '@/router';
 import type { TabItem } from './appTypes.d';
-import type { Menu, AppRouteRecordRaw } from '@/router/types.d';
+import type { Menu } from '@/router/types.d';
 import { PageEnum } from '@/common/enums/PageEnum';
-import _ from 'lodash';
-
+import _, { replace } from 'lodash';
+import http from '@/common/http/index.ts';
+import { mappingMenu } from '@/dataMapping'
+import { NESTED_MENU } from '@/config';
+import { getMenusServer } from '@/pages/menus/server';
 
 const NAME = 'app';
 hotUnregisterModule(NAME);
 
- 
 const menuList: Menu[] = [
   {
     id: '1',
@@ -30,15 +32,21 @@ const menuList: Menu[] = [
     children: [
       {
         id: '11',
-        name: '人员管理',
+        name: '菜单管理',
         icon: '',
-        path: '/base'
+        path: '/menus'
       },
       {
         id: '12',
         name: '角色管理',
         icon: '',
         path: '/role'
+      },
+      {
+        id: '13',
+        name: '用户管理',
+        icon: '',
+        path: '/user'
       }
     ]
   },
@@ -90,16 +98,25 @@ const menuList: Menu[] = [
 class App extends VuexModule {
   private title: string = '工业4。0 智能智造';
   private layout: string = 'default';
-  private menuData: Menu[] = menuList; // 存储菜单路由数据
+  private menuData: Menu[] = []; // menuList; // 存储菜单路由数据
   private tabList: TabItem[] = []; // 页面tab功能数据
   private tabActiveKey: number | string = -1; // 当前激活tab页面
+  private menuSelectedKeys: Array<string | number> = [''];  // 已选中的主导航菜单
   private keepList = []; // 需要缓存的页面name
 
+  private isLoadMenu: boolean = false; // 是否已加载菜单？
+
+  get getMenuSelectedKeys() {
+    return this.menuSelectedKeys;
+  }
   get getTabActiveKey() {
     return this.tabActiveKey;
   }
   get getTitleState() {
     return this.title
+  }
+  get getIsLoadMenu() {
+    return this.isLoadMenu;
   }
 
   /* 获取tab */
@@ -112,8 +129,28 @@ class App extends VuexModule {
   }
 
   @Mutation
-  commitChangeTabActive(index: string | number): void {
+  commitLoadMenu(val: boolean = true): void {
+    this.isLoadMenu = val;
+  }
+
+  @Mutation
+  commitChangeTabActive(payload: any): void {
+    debugger
+    const { index, menu } = payload;
     this.tabActiveKey = index;
+    if (menu) {
+      this.menuSelectedKeys = [menu.id];
+
+      const { path, name, meta, id } = menu;
+      if (!NESTED_MENU) {
+        let routePath = path.replace(/^\//, '');
+        // 把多级嵌套路由转为 下划线  
+        routePath = '/' + routePath.replace(/\//g, '_')
+        router.push(routePath);
+      } else {
+        router.push(path);
+      }
+    }
   }
 
   @Mutation
@@ -122,38 +159,58 @@ class App extends VuexModule {
   }
 
   @Mutation
-  commitAddTab(route: TabItem ): void {
-    
-    router.push(route.path)
+  commitCreateMenu(data: Menu[]): void {
+    this.menuData = data
+  }
 
+  @Mutation
+  commitAddTab(route: TabItem | Menu): void {
     const { path, name, meta, id } = route;
     // 404  页面不需要添加tab
     if (path === PageEnum.ERROR_PAGE) {
       return;
     }
- 
-    /* else if ([REDIRECT_ROUTE.name, PAGE_NOT_FOUND_ROUTE.name].includes(name as string)) {
-      return;
-    } */
 
+    this.menuSelectedKeys = [id]
+    if (!NESTED_MENU) {
+      let routePath = path.replace(/^\//, '');
+      // 把多级嵌套路由转为 下划线  
+      routePath = '/' + routePath.replace(/\//g, '_')
+      router.push(routePath);
+    } else {
+      router.push(path);
+    }
     // 已经存在的页面，不重复添加tab
     const hasTab = this.tabList.some((tab) => {
       return tab.path === path;
     });
     if (hasTab) {
-      const tabIndex = _.findIndex(this.tabList, (obj:TabItem | Menu) => obj.id === id); 
-      this.tabActiveKey =tabIndex // 当前tab的索引
+      const tabIndex = _.findIndex(this.tabList, (obj) => obj.id === id);
+      this.tabActiveKey = tabIndex // 当前tab的索引
       return
     };
 
     this.tabActiveKey = this.tabList.length // 添加tab的索引
     this.tabList.push(route);
- 
+
     /* if (unref(getOpenKeepAliveRef) && name) {
       const noKeepAlive = meta && meta.ignoreKeepAlive;
       const hasName = this.keepAliveTabsState.includes(name);
       !noKeepAlive && !hasName && this.keepAliveTabsState.push(name);
     } */
+  }
+
+  /* 获取菜单与路由 */
+  @Action
+  async getMenuAction(): Promise<Menu[]> {
+    let menuList: Menu[] = []
+   /*  const res = await http.post('/base/menu/list', { params: {} });
+    menuList = mappingMenu(res.data); // 数据清洗映射 */
+    
+    const menuData = await getMenusServer();
+    menuList = mappingMenu(menuData); // 数据清洗映射
+    this.commitCreateMenu(menuList);
+    return menuList
   }
 
 }

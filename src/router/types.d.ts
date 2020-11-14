@@ -1,10 +1,11 @@
 /*
- * @Author: 侯兴章
- * @Date: 2020-11-01 00:33:27
- * @LastEditTime: 2020-11-09 01:25:17
+ * @Author: 侯兴章 3603317@qq.com
+ * @Date: 2020-11-05 00:44:20
+ * @LastEditTime: 2020-11-14 17:26:00
  * @LastEditors: 侯兴章
  * @Description: 
  */
+
 import type { RouteRecordRaw } from 'vue-router';
  
 export interface RouteMeta {
@@ -45,10 +46,11 @@ export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
 }
 
 export interface Menu {
-  name: string;
+  name: string; // 菜单显示名称
   icon?: string;
-  path: string;
+  path: string; // 菜单对应路由
   id: number | string;
+  pId?: number | string;
   disabled?: boolean;
   children?: Menu[];
   orderNo?: number;

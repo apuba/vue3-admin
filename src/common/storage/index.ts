@@ -1,3 +1,10 @@
+/*
+ * @Author: 侯兴章 3603317@qq.com
+ * @Date: 2020-11-05 00:44:19
+ * @LastEditTime: 2020-11-12 21:17:00
+ * @LastEditors: 侯兴章
+ * @Description: 
+ */
 /**
  * 统一封装对外的接口
  */
@@ -23,7 +30,7 @@ export default (store?: string): UseStoreType => {
             UseStore = require('./localstorage').LocalStorageAPI;
             break;
         default:
-            UseStore = require('./sessionstorage').SessionStorageAPI;
+            UseStore = require('./localstorage').LocalStorageAPI;
             break;
     }
     return new UseStore();

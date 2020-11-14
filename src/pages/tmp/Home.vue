@@ -1,13 +1,13 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-10-13 00:13:21
- * @LastEditTime: 2020-10-31 17:24:34
+ * @LastEditTime: 2020-11-14 22:46:36
  * @LastEditors: 侯兴章
  * @Description:
 -->
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
+    <img alt="Vue logo" src="../../assets/logo.png" />
     <HelloWorld msg="Welcome to Your Vue.js + TypeScript App" />
   </div>
 </template>

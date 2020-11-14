@@ -1,59 +1,71 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-13 00:04:42
- * @LastEditTime: 2020-11-01 16:21:21
+ * @LastEditTime: 2020-11-15 01:27:42
  * @LastEditors: 侯兴章
  * @Description: 
  */
 import { createRouter, createWebHistory, RouteRecordRaw } from 'vue-router';
 import { AppRouteRecordRaw } from './types';
-import DefalutLayout from '@/layout/Index.vue'
+import DefalutLayout from '@/layout/Index.vue';
+import LoginLayout from '@/layout/Login.vue';
 
-import Home from '../pages/Home.vue'
-
-const routes: Array<RouteRecordRaw> = [
+const routeList: Array<RouteRecordRaw> = [
+  {
+    path: 'about',
+    name: 'About',
+    component: () => import('@/pages/about/views/Index.vue')
+  },
 
   {
-    path: '/',
+    path: 'menus',
+    name: 'menu',
+    component: () => import('@/pages/menus/Index.vue'),
+    meta: {
+      title: '首页'
+    },
+    children: [
+      {
+        path: 'Index',
+        name: 'menu_index',
+        component: () => import('@/pages/menus/views/Index.vue'),
+
+      },
+      {
+        path: 'Add',
+        name: 'menu_add',
+        component: () => import('@/pages/menus/views/Add.vue'),
+      },
+    ]
+  },
+]
+const routes: Array<RouteRecordRaw> = [
+  {
+    path: '/', // 主框架根路由
     name: 'Root',
     component: DefalutLayout,
-    redirect: '/Home',
+    redirect: '/dashbord',
     meta: {
       title: '首页',
     },
     children: [
       {
-        path: '/login',
-        name: 'Login',
-        component: () => import('../pages/Login.vue')
+        path: '/dashbord',
+        name: 'dashbord',
+        component: () => import('@/pages/dashbord/views/Index.vue')
       },
-      {
-        path: '/about',
-        name: 'About',
-        // route level code-splitting
-        // this generates a separate chunk (about.[hash].js) for this route
-        // which is lazy-loaded when the route is visited.
-        component: () => import(/* webpackChunkName: "about" */ '../pages/About.vue')
-      },
-    ],
+    ]
+    // children: routeList
   },
-  // {
-  //   path: '/',
-  //   name: 'Home',
-  //   component: Home,
-  //   meta: {
-  //     title: '首页'
-  //   }
-  // },
-  
-  
-]
 
+  {
+    path: '/login',
+    name: 'Login',
+    component: LoginLayout
+  }
+]
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
-
-
-
 export default router

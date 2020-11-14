@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-10-13 00:13:21
- * @LastEditTime: 2020-11-02 23:34:51
+ * @LastEditTime: 2020-11-14 22:37:52
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -9,7 +9,7 @@
   <div class="about">
     <h1>{{ state.title }}</h1>
     <div>
-      万万没想到啊。这样了
+      万万没想到啊。这样了32523523523
     </div>
     <a-button type="primary" @click="clickHander">引入antd成功</a-button>
   </div>

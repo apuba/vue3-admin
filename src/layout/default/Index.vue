@@ -8,7 +8,7 @@
 <template>
   <a-layout id="mes-default-layout" class="mes-default-layout">
     <a-layout-sider v-model:collapsed="collapsed" :trigger="null" collapsible class="sider">
-      <SiderLayout />
+      <SiderLayout :collapsed="collapsed" />
     </a-layout-sider>
     <a-layout>
       <a-layout-header class="header">
