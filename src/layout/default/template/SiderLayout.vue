@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-11-03 01:51:48
- * @LastEditTime: 2020-11-15 02:46:47
+ * @LastEditTime: 2020-11-15 23:42:54
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -11,7 +11,7 @@
       <div class="logo">AI MES</div>
       <div class="user-info base-border-bottom">
         <figure>
-          <img src="@static/img/photo.jpg" />
+          <img src="@public/img/photo.jpg" />
         </figure>
         <span class="user-name">
           张小勇
