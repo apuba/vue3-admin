@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-10-13 00:13:21
- * @LastEditTime: 2020-11-16 00:58:44
+ * @LastEditTime: 2020-11-16 02:10:15
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -51,7 +51,7 @@ import MakeEffect from '@/effect';
 import '@/effect/eff.scss';
 import { useForm } from '@ant-design-vue/use';
 
-const eff = new MakeEffect(28, 88);
+const eff = new MakeEffect(38, 100); // 实例一个28-88个粒子的动画效果
 
 export default defineComponent({
   setup() {
@@ -94,11 +94,10 @@ export default defineComponent({
     };
 
     onMounted(() => {
-      // MakeEffect // 创建一个 100到 500之间的元素
-      eff.init();
+      eff.init(); // 初始化粒子动画效果
     });
     onUnmounted(() => {
-      eff.clear();
+      eff.clear(); // 清除粒子动画
     });
     return { loginStyle, formRef, rulesRef, loginHandler, resetFields, validate, validateInfos, wrapperCol: { span: 24 } };
   }
