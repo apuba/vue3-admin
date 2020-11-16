@@ -1,26 +1,29 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 00:44:21
- * @LastEditTime: 2020-11-15 02:51:52
+ * @LastEditTime: 2020-11-17 02:58:17
  * @LastEditors: 侯兴章
  * @Description: 
  */
 
+import store from '@/store/index';
+import router from '@/router';
 
 import { hotUnregisterModule } from '../helper';
 import { VuexModule, Module, getModule, Mutation, Action } from 'vuex-module-decorators';
-import store from '@/store/index';
-import router from '@/router';
+
 import type { TabItem } from './appTypes.d';
 import type { Menu } from '@/router/types.d';
 import { PageEnum } from '@/common/enums/PageEnum';
 import _, { replace } from 'lodash';
-import http from '@/common/http/index.ts';
-import { mappingMenu } from '@/dataMapping'
-import { NESTED_MENU } from '@/config';
-import { getMenusServer } from '@/pages/menus/server';
 
-const NAME = 'app';
+import { mappingMenu } from '@/mapping'
+import { NESTED_MENU, APP_NAME } from '@/config';
+import { ServiceGetMenus, ServiceLogin } from '@/service/appService';
+import storage from '@/common/storage';
+import { DTOlogin, UserInfoModel } from '@/service/appModel';
+
+const NAME = 'appStore';
 hotUnregisterModule(NAME);
 
 const menuList: Menu[] = [
@@ -96,13 +99,14 @@ const menuList: Menu[] = [
 // namespaced: true, name: 'passenger' 命名空间
 @Module({ namespaced: true, name: NAME, dynamic: true, store })
 class App extends VuexModule {
-  private title: string = '工业4。0 智能智造';
+  public title: string = APP_NAME;
   private layout: string = 'default';
   private menuData: Menu[] = []; // menuList; // 存储菜单路由数据
   private tabList: TabItem[] = []; // 页面tab功能数据
   private tabActiveKey: number | string = -1; // 当前激活tab页面
   private menuSelectedKeys: Array<string | number> = [''];  // 已选中的主导航菜单
   private keepList = []; // 需要缓存的页面name
+  private userInfo = {};
 
   private isLoadMenu: boolean = false; // 是否已加载菜单？
 
@@ -117,6 +121,9 @@ class App extends VuexModule {
   }
   get getIsLoadMenu() {
     return this.isLoadMenu;
+  }
+  get getUserInfo() {
+    return this.userInfo;
   }
 
   /* 获取tab */
@@ -200,17 +207,27 @@ class App extends VuexModule {
     } */
   }
 
+  @Mutation
+  commitSetUserIfo(user: UserInfoModel) {
+    this.userInfo = user;
+  }
   /* 获取菜单与路由 */
   @Action
   async getMenuAction(): Promise<Menu[]> {
     let menuList: Menu[] = []
-   /*  const res = await http.post('/base/menu/list', { params: {} });
-    menuList = mappingMenu(res.data); // 数据清洗映射 */
-    
-    const menuData = await getMenusServer();
+    const menuData = await ServiceGetMenus();
     menuList = mappingMenu(menuData); // 数据清洗映射
     this.commitCreateMenu(menuList);
     return menuList
+  }
+
+  @Action
+  async actionLogin(params: DTOlogin) {
+    const userInfo: UserInfoModel = await ServiceLogin(params);
+    this.commitSetUserIfo(userInfo);
+    storage().set('token', userInfo.token);
+    storage().set('userInfo', JSON.stringify(userInfo));
+    router.push('/dashbord');
   }
 
 }

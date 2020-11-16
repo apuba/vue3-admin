@@ -8,14 +8,14 @@
 
 import { Menu } from '@/router/types.d';
 import http from '@/common/http/index.ts';
-import { arrayToTreeHelper, Iconfig } from '@/common/helper/arrayToTreeHelper';
+import { arrayToTreeHelper, MapToTree } from '@/common/helper/arrayToTreeHelper';
 
-export const getMenusServer = async (): Promise<Array<any>> => {
+/* export const getMenusServer = async (): Promise<Array<any>> => {
     const res = await http.post('/systemServer/sysMenuController/findMenu', { params: {} });
-    const treeMap: Iconfig = {
+    const treeMap: DTOMap = {
         id: 'menuId',
         pId: 'menuParentId'
     }
     const data: any[] = arrayToTreeHelper(res.data, treeMap);
     return data
-}
+} */

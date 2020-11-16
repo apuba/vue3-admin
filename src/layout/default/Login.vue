@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-10-13 00:13:21
- * @LastEditTime: 2020-11-16 02:10:15
+ * @LastEditTime: 2020-11-17 01:49:48
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -44,18 +44,21 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, onUnmounted, reactive, toRaw } from 'vue';
-import storage from '@/common/storage';
-import router from '@/router';
-import MakeEffect from '@/effect';
 import '@/effect/eff.scss';
+
+import { defineComponent, onMounted, onUnmounted, reactive, toRaw } from 'vue';
+import { DTOlogin } from '@/service/appModel';
+
+import MakeEffect from '@/effect';
 import { useForm } from '@ant-design-vue/use';
+import { appStore } from '@/store/modules/appStore';
 
-const eff = new MakeEffect(38, 100); // 实例一个28-88个粒子的动画效果
-
+const eff = new MakeEffect(38, 100, 150); // 实例一个28-88个粒子的动画效果
 export default defineComponent({
+  name: 'defaultlogin',
   setup() {
-    const formRef = reactive({
+    const appName = appStore.title;
+    const formRef: DTOlogin = reactive({
       password: '',
       userName: ''
     });
@@ -73,7 +76,6 @@ export default defineComponent({
         }
       ]
     });
-
     const loginStyle = {
       backgroundImage: 'url(' + require('../../../public/img/bg1.jpg') + ')'
     };
@@ -84,9 +86,7 @@ export default defineComponent({
       e.preventDefault();
       validate()
         .then(() => {
-          console.log(toRaw(formRef));
-          storage().set('token', 'test1234567890');
-          router.push('/dashbord');
+          appStore.actionLogin(formRef);
         })
         .catch(err => {
           console.log('error', err);
@@ -99,7 +99,7 @@ export default defineComponent({
     onUnmounted(() => {
       eff.clear(); // 清除粒子动画
     });
-    return { loginStyle, formRef, rulesRef, loginHandler, resetFields, validate, validateInfos, wrapperCol: { span: 24 } };
+    return { appName, loginStyle, formRef, rulesRef, loginHandler, resetFields, validate, validateInfos, wrapperCol: { span: 24 } };
   }
 });
 </script>

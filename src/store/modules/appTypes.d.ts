@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-08 22:52:22
- * @LastEditTime: 2020-11-14 00:42:50
+ * @LastEditTime: 2020-11-16 21:56:17
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -14,3 +14,4 @@ export interface TabItem {
     name?: routeName;
     meta?: RouteMeta;
 }
+

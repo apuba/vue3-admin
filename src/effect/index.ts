@@ -1,20 +1,23 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-15 21:31:46
- * @LastEditTime: 2020-11-16 02:17:06
+ * @LastEditTime: 2020-11-16 22:34:45
  * @LastEditors: 侯兴章
- * @Description:  随机创建元素动画
+ * @Description:  随机创建元素动画,
+ * 粒子属性查看对应的css进行设置
  */
 
+// const animationDuration = '6s'; // 动画持续时间
 export default class MakeEffect {
-    minNum: number;
-    maxNum: number;
-    timer1: any;
-    timer2: any;
+    minNum: number; // 粒子最少数量 
+    maxNum: number;  // 粒子最多数量 
+
+    step: number = 60;  // 粒子移动的步长距离
     stopEff: Boolean = false;
-    constructor(minNum: number, maxNum: number) {
+    constructor(minNum: number, maxNum: number, step?: number) {
         this.minNum = minNum;
         this.maxNum = maxNum;
+        step && (this.step = step);
     }
     init() {
         this.stopEff = false;
@@ -26,8 +29,7 @@ export default class MakeEffect {
     }
     clear() {
         this.stopEff = true;
-        clearTimeout(this.timer2);
-        clearTimeout(this.timer1)
+
         const allEle = document.querySelectorAll('.span-eff');
         allEle.forEach(item => {
             document.body.removeChild(item);
@@ -42,24 +44,28 @@ export default class MakeEffect {
         let left = Math.floor(Math.random() * window.innerWidth);
         span.style.top = top + 'px';
         span.style.left = left + 'px';
+        // span.style.animationDirection = animationDuration;
+        // span.style.transitionDuration = animationDuration
         span.style.position = 'absolute';
-        
-        this.timer1 = setTimeout(() => {
+
+        setTimeout(() => {
             if (this.stopEff) return; // 停止创建元素
             document.body.appendChild(span);
             setTimeout(() => {
                 let y = Math.floor(Math.random() * 2);
-                top = y === 0 ? (top + Math.floor(Math.random() * 60)) : (top - Math.floor(Math.random() * 60));
-                left = y === 0 ? (left + Math.floor(Math.random() * 60)) : left - Math.floor(Math.random() * 60);
+                // 粒子移动步长
+                top = y === 0 ? (top + Math.floor(Math.random() * this.step)) : (top - Math.floor(Math.random() * this.step));
+                left = y === 0 ? (left + Math.floor(Math.random() * this.step)) : left - Math.floor(Math.random() * this.step);
                 span.style.top = top + 'px';
                 span.style.left = left + 'px';
             }, 200)
 
-            this.timer2 = setTimeout(() => {
+            setTimeout(() => {
                 //  document.body.removeChild(span); // 移除元素
                 const node = document.querySelector('#' + id);
                 node && document.body.removeChild(node);
-                !this.stopEff && this.createEle(long, index); // 重新建元素
+                const newlong = Math.floor(Math.random() * 10) + 1; // 10S 
+                !this.stopEff && this.createEle(newlong, index); // 重新建元素
             }, 6 * 1000) // 6秒为css 动画的时长
 
         }, long * 1000)

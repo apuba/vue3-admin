@@ -1,11 +1,13 @@
+$animationDuration: 6s; // 动画持续时长
+
 .span-eff {
     // background-color: rgba(0, 0, 0, 0);
     width: 3px;
     height: 3px;
     display: inline-block;
     border-radius: 10px;
-    animation: span-eff-animation 5s ;
-    transition: all 6s ;
+    animation: span-eff-animation $animationDuration;
+    transition: all $animationDuration;
     z-index: 0;
 }
 body {
@@ -23,7 +25,7 @@ body {
         transform: scale(1, 1);
     }
     90% {
-        box-shadow: rgb(2, 183, 255) 0 0 10px;
+        box-shadow: rgb(2, 183, 255) 0 0 8px;
         transform: scale(1.6, 1.6);
     }
     100% {

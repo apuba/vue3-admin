@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-11-05 00:44:20
- * @LastEditTime: 2020-11-06 03:16:05
+ * @LastEditTime: 2020-11-17 01:15:13
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -16,10 +16,10 @@
 </template>
 
 <script>
-import { ref, reactive, toRef, computed, onMounted } from 'vue';
+import { ref, onMounted } from 'vue';
 import { appStore } from '@/store/modules/appStore';
 
-import http, { AxiosRequest } from '@/common/http/index.ts';
+import http from '@/common/http/index.ts';
 
 export default {
   name: 'Login',

@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-11-03 01:51:48
- * @LastEditTime: 2020-11-15 23:42:54
+ * @LastEditTime: 2020-11-17 02:53:53
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -11,11 +11,12 @@
       <div class="logo">AI MES</div>
       <div class="user-info base-border-bottom">
         <figure>
-          <img src="@public/img/photo.jpg" />
+          <!-- <img src="@public/img/photo.jpg" /> -->
+          <img :src="userInfo.photo" />
         </figure>
         <span class="user-name">
-          张小勇
-          <span class="job">(经理)</span>
+          {{ userInfo.name }}
+          <span class="job">({{ userInfo.jobName }})</span>
         </span>
       </div>
       <div class="tool base-border-bottom">
@@ -48,6 +49,7 @@ import { appStore } from '@/store/modules/appStore';
 // import { Menu } from '@/router/types';
 import MenuItem from './MenuItem.vue';
 import { Menu } from '@/router/types.d';
+
 interface ImenuItem {
   key: string;
   domEvent: MouseEvent;
@@ -63,12 +65,14 @@ export default defineComponent({
     const selectedKeys = computed(() => appStore.getMenuSelectedKeys);
     const openKeys = ref(['']);
     const menuList = computed(() => appStore.getMenuData);
+    const userInfo = computed(() => appStore.getUserInfo);
+
     function handleClick(menu: Menu) {
       if (menu.path) {
         appStore.commitAddTab(menu);
       }
     }
-    return { selectedKeys, openKeys, handleClick, menuList };
+    return { selectedKeys, openKeys, handleClick, menuList, userInfo };
   }
 });
 </script>

@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-11-03 01:56:30
- * @LastEditTime: 2020-11-10 01:19:44
+ * @LastEditTime: 2020-11-16 20:48:11
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -11,13 +11,13 @@
       <menu-unfold-outlined v-if="collapsed" class="trigger" @click="clickCollapsed" />
       <menu-fold-outlined v-else class="trigger" @click="clickCollapsed" />
     </span>
-    <h4 class="title pl15 fl">广东省麻省理工业4.0——智能制造系统</h4>
+    <h4 class="title pl15 fl">{{ appName }}</h4>
   </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue';
-
+import { APP_NAME } from '@/config';
 import {
   MenuUnfoldOutlined,
   MenuFoldOutlined
@@ -29,12 +29,14 @@ export default defineComponent({
     MenuFoldOutlined
   },
   setup(props, context) {
+    const appName = APP_NAME;
+
     const collapsed = ref(false);
     function clickCollapsed(): void {
       collapsed.value = !collapsed.value;
       context.emit('collapsed-hander', collapsed.value);
     }
-    return { collapsed, clickCollapsed };
+    return { appName, collapsed, clickCollapsed };
   }
 });
 </script>
