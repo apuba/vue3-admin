@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-24 14:49:06
- * @LastEditTime: 2020-11-16 20:45:00
+ * @LastEditTime: 2020-11-18 22:03:47
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -12,6 +12,6 @@ export const OPEN_KEEPALIVE: boolean   = false; // 是否开启KeepAlive缓存  
 export const LOCK_SCREEN_TIME: number  = 0; // 自动锁屏时间，分钟
 export const NESTED_MENU: boolean = false ; // 是否采用嵌套路由的菜单？ 当前嵌套路由有问题，暂时先用下划线模式
 export const COMPONENT_SETTING: any ={ // 全局组件配置
-
 }
+export const RETENTION_STORE: boolean = true ; // 刷新页面时是否保留状态
 

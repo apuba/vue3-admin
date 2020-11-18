@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-10-13 00:13:21
- * @LastEditTime: 2020-11-17 01:49:48
+ * @LastEditTime: 2020-11-19 01:34:08
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -59,8 +59,8 @@ export default defineComponent({
   setup() {
     const appName = appStore.title;
     const formRef: DTOlogin = reactive({
-      password: '',
-      userName: ''
+      password: '123456',
+      userName: 'admin'
     });
     const rulesRef = reactive({
       password: [

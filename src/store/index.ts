@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-13 00:04:42
- * @LastEditTime: 2020-11-16 21:56:45
+ * @LastEditTime: 2020-11-18 21:52:04
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -12,7 +12,7 @@ import { config } from 'vuex-module-decorators';
 config.rawError = true;
 const store = createStore({
   state: {
-    name: ''
+    name: 'VUE3.0'
   },
   mutations: {
   },

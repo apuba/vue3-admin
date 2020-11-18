@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 21:59:32
- * @LastEditTime: 2020-11-05 21:59:50
+ * @LastEditTime: 2020-11-18 23:31:03
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -34,17 +34,4 @@ export interface CustomResponse {
     readonly message: string;
     data: any;
     origin?: any;
-}
-
-export interface GetDemo {
-    id: number;
-    str: string;
-}
-
-export interface PostDemo {
-    id: number;
-    list: Array<{
-        id: number;
-        version: number;
-    }>;
 }

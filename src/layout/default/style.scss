@@ -1,3 +1,24 @@
-.base-border-bottom {
-    border-bottom: $base-border;
+@import "@scss/base.scss";
+.mes-default-layout {
+    .base-border-bottom {
+        border-bottom: $base-border;
+    }
+    .panel {
+        background-color: $primary-color;
+        border-radius: 4px;
+        padding: 10px;
+        &:hover {
+            background: lighten($color: $primary-color, $amount: 5);
+        }
+    }
+    .ant-input, .ant-input-affix-wrapper {
+        background: $transition-color-4;
+        border: 1px solid #3F51B5;
+        color: #999;
+        border-radius: 4px;
+    }
+    .ant-btn-primary[disabled]{
+        background: $transition-color-2;
+        border: 1px solid #3F51B5;
+    }
 }

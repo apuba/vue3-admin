@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 00:44:21
- * @LastEditTime: 2020-11-17 02:58:17
+ * @LastEditTime: 2020-11-18 21:23:21
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -142,12 +142,10 @@ class App extends VuexModule {
 
   @Mutation
   commitChangeTabActive(payload: any): void {
-    debugger
     const { index, menu } = payload;
     this.tabActiveKey = index;
     if (menu) {
       this.menuSelectedKeys = [menu.id];
-
       const { path, name, meta, id } = menu;
       if (!NESTED_MENU) {
         let routePath = path.replace(/^\//, '');
@@ -225,6 +223,7 @@ class App extends VuexModule {
   async actionLogin(params: DTOlogin) {
     const userInfo: UserInfoModel = await ServiceLogin(params);
     this.commitSetUserIfo(userInfo);
+    sessionStorage.removeItem('store'); // 登录清除刷新后的store
     storage().set('token', userInfo.token);
     storage().set('userInfo', JSON.stringify(userInfo));
     router.push('/dashbord');

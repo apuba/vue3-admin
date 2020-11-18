@@ -1,12 +1,13 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 22:01:26
- * @LastEditTime: 2020-11-06 00:55:53
+ * @LastEditTime: 2020-11-18 23:59:24
  * @LastEditors: 侯兴章
  * @Description: 
  */
 
 import axios, { AxiosRequestConfig, Method } from 'axios';
+import storage from '../storage';
 // import { Loading } from 'element-ui';
 // import { ElLoadingComponent } from 'element-ui/types/loading';
 
@@ -47,10 +48,10 @@ const removePending = (config: AxiosRequestConfig) => {
 // 添加请求拦截器
 instance.interceptors.request.use(
     request => {
-       /*  loadingInstance = Loading.service({
-            text: '加载中',
-            background: 'rgba(0, 0, 0, 0.3)'
-        }); */
+        /*  loadingInstance = Loading.service({
+             text: '加载中',
+             background: 'rgba(0, 0, 0, 0.3)'
+         }); */
 
         removePending(request);
         request.cancelToken = new CancelToken((c) => {
@@ -68,10 +69,15 @@ instance.interceptors.response.use(
     response => {
         // loadingInstance.close();
         removePending(response.config);
-        const errorCode = response?.data?.errorCode;
+        const errorCode = response?.data?.code;
         switch (errorCode) {
-            case '401':
+            case 401:
                 // 根据errorCode，对业务做异常处理(和后端约定)
+                break;
+            case 9000:
+                // token过期
+                storage().clear();
+                storage('sessionstorage').remove('store'); // 刷新页面保留的store需要的
                 break;
             default:
                 break;
@@ -127,7 +133,7 @@ instance.interceptors.response.use(
         }
 
         // eslint-disable-next-line
-        return Promise.reject(response || {message: error.message});
+        return Promise.reject(response || { message: error.message });
     }
 );
 

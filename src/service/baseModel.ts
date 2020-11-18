@@ -10,8 +10,8 @@
 /* 基础请求参数模型 */
 export interface BasicRequestModel<T = any> {
     params: T; // 
-    page?: number;
-    pageSize?: number;
+    pageIndex?: number;
+    pageRows?: number;
 }
 
 /* 基础请求响应报文模型 */

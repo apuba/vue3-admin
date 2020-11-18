@@ -13,6 +13,7 @@ interface UseStoreType {
     set: Function;
     get: Function;
     remove: Function;
+    clear: Function;
     setExpire?: Function;
     getExpire?: Function;
 }

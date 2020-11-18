@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-13 01:19:23
- * @LastEditTime: 2020-11-15 23:42:11
+ * @LastEditTime: 2020-11-19 00:25:23
  * @LastEditors: 侯兴章
  * @Description: 配置
  */
@@ -18,11 +18,12 @@ const createProxy = () => {
     return {
       '/api': {
         target: 'http://localhost:4000',
+        // target: 'http://49.234.61.48:9091',
         secure: false,
         changeOrigin: false, // 开启代理，在本地创建一个虚拟服务端
         // ws: true, // 是否启用websockets
         pathRewrite: {
-          '^/api': '/'
+          '^/api': ''
         }
       }
     };

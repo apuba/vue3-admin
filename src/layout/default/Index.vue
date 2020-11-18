@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-11-01 13:30:04
- * @LastEditTime: 2020-11-08 23:43:25
+ * @LastEditTime: 2020-11-19 01:42:08
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -16,7 +16,7 @@
       </a-layout-header>
       <a-layout-content class="content">
         <TabList />
-        <div class="content-page pt20">
+        <div class="content-page mt15">
           <keep-alive>
             <router-view></router-view>
           </keep-alive>
@@ -48,10 +48,10 @@ export default defineComponent({
 });
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 @import './var.scss';
 @import './antd.scss';
-@import '@scss/base.scss';
+
 @import './style.scss';
 .mes-default-layout {
   height: 100vh;
@@ -70,7 +70,12 @@ export default defineComponent({
 
   .content {
     text-align: left;
-    padding: 20px;
+    padding: 15px;
+  }
+  .content-page{
+    height: calc(100vh - 129px);
+    position: relative;
+    overflow: hidden;
   }
 
 }

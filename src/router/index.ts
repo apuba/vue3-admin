@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-13 00:04:42
- * @LastEditTime: 2020-11-15 01:27:42
+ * @LastEditTime: 2020-11-19 01:24:28
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -20,7 +20,7 @@ const routeList: Array<RouteRecordRaw> = [
   {
     path: 'menus',
     name: 'menu',
-    component: () => import('@/pages/menus/Index.vue'),
+    component: () => import('@/pages/base/menus/Index.vue'),
     meta: {
       title: '首页'
     },
@@ -28,13 +28,13 @@ const routeList: Array<RouteRecordRaw> = [
       {
         path: 'Index',
         name: 'menu_index',
-        component: () => import('@/pages/menus/views/Index.vue'),
+        component: () => import('@/pages/base/menus/views/Index.vue'),
 
       },
       {
         path: 'Add',
         name: 'menu_add',
-        component: () => import('@/pages/menus/views/Add.vue'),
+        component: () => import('@/pages/base/menus/views/Add.vue'),
       },
     ]
   },

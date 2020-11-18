@@ -1,7 +1,11 @@
-/**
- * 存储分装对外提供统一的方法及接口使用
- * Localstorage 存储到客户端
+/*
+ * @Author: 侯兴章 3603317@qq.com
+ * @Date: 2020-11-05 00:44:19
+ * @LastEditTime: 2020-11-18 23:57:40
+ * @LastEditors: 侯兴章
+ * @Description: 
  */
+
 class LocalStorageAPI {
     set(key: string, value: string): void {
         try {
@@ -21,6 +25,10 @@ class LocalStorageAPI {
 
     remove(key: string): void {
         localStorage.removeItem(key);
+    }
+
+    clear(): void {
+        localStorage.clear();
     }
 
     setExpire(key: string, value: string, expire: number): void {
