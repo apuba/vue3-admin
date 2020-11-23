@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-13 01:19:23
- * @LastEditTime: 2020-11-19 00:25:23
+ * @LastEditTime: 2020-11-20 00:39:28
  * @LastEditors: 侯兴章
  * @Description: 配置
  */
@@ -65,13 +65,23 @@ module.exports = {
     sourceMap: false,
     loaderOptions: {
       scss: {
-      // 向全局sass样式传入共享的全局变量, $src可以配置图片cdn前缀
-      // 详情: https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders
+        // 向全局sass样式传入共享的全局变量, $src可以配置图片cdn前缀
+        // 详情: https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders
         prependData: `
         @import '@scss/var.scss';
         @import '@scss/mixin.scss';      
         $src: '${process.env.VUE_APP_PUBLIC_PATH}';
         `
+      },
+      less: {
+        lessOptions: {
+          modifyVars: {
+            // 'primary-color': '#ff9900'
+            // 'link-color': '#1DA57A',
+            // 'border-radius-base': '2px'
+          },
+          javascriptEnabled: true
+        }
       }
     }
   },

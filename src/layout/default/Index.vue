@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-11-01 13:30:04
- * @LastEditTime: 2020-11-19 01:42:08
+ * @LastEditTime: 2020-11-20 00:12:12
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -49,6 +49,7 @@ export default defineComponent({
 </script>
 
 <style lang="scss" scoped>
+// @import './antd.less';
 @import './var.scss';
 @import './antd.scss';
 

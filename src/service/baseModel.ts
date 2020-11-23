@@ -1,14 +1,14 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-16 23:15:14
- * @LastEditTime: 2020-11-16 23:42:19
+ * @LastEditTime: 2020-11-22 04:21:17
  * @LastEditors: 侯兴章
  * @Description: 基础请求参数及返回报文模型，请根据实际团队进行修改配置
  */
 
 
 /* 基础请求参数模型 */
-export interface BasicRequestModel<T = any> {
+export interface BaseRequestModel<T = any> {
     params: T; // 
     pageIndex?: number;
     pageRows?: number;

@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 00:44:21
- * @LastEditTime: 2020-11-18 21:23:21
+ * @LastEditTime: 2020-11-21 23:30:14
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -17,7 +17,7 @@ import type { Menu } from '@/router/types.d';
 import { PageEnum } from '@/common/enums/PageEnum';
 import _, { replace } from 'lodash';
 
-import { mappingMenu } from '@/mapping'
+import { mappingMenu } from '@/mapper'
 import { NESTED_MENU, APP_NAME } from '@/config';
 import { ServiceGetMenus, ServiceLogin } from '@/service/appService';
 import storage from '@/common/storage';

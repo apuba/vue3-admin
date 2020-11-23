@@ -82,7 +82,7 @@ export default defineComponent({
     const { resetFields, validate, validateInfos } = useForm(formRef, rulesRef);
 
     // 登录事件
-    const loginHandler = (e: any) => {
+    const loginHandler = (e: MouseEvent) => {
       e.preventDefault();
       validate()
         .then(() => {

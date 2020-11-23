@@ -13,6 +13,7 @@ import instance from './instance';
 import { AxiosRequest, CustomResponse } from './types';
 import { message } from 'ant-design-vue';
 import storage from '@/common/storage';
+import { mapperHelper } from '@/mapper/mapperHelper';
 
 class Abstract {
     // console.log(process.env.VUE_APP_BASE_API_URL)
@@ -26,7 +27,7 @@ class Abstract {
         'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
     }
 
-    private apiAxios({ baseURL = this.baseURL, headers = this.headers, method, url, data, params, responseType }: AxiosRequest): Promise<CustomResponse> {
+    private apiAxios({ baseURL = this.baseURL, headers = this.headers, method, url, data, params, responseType, mapper }: AxiosRequest): Promise<CustomResponse> {
         const token = storage().get('token');
         //  Authorization
         if (token) {
@@ -47,15 +48,15 @@ class Abstract {
             }).then((res) => {
                 // 200:服务端业务处理正常结束
                 if (res.status === 200) {
+                    const result = mapper ? mapperHelper<any>(res.data?.data, mapper) : res.data?.data; // 数据清洗
                     if (res.data.success || res.data.code == 200 || res.data.status === 'S') {
-                        // resolve({ status: true, message: 'success', data: res.data?.data, origin: res.data });
-                        resolve(res.data)
+                        resolve({ status: true, code: 200, msg: res.data?.msg, data: result, origin: res.data });
                     } else {
                         message.error(res.data?.msg || (url + '请求失败'));
-                        resolve({ status: false, message: res.data?.msg || (url + '请求失败'), data: res.data?.data, origin: res.data });
+                        resolve({ status: false, code: 200, msg: res.data?.msg || (url + '请求失败'), data: result, origin: res.data });
                     }
                 } else {
-                    resolve({ status: false, message: res.data?.msg || (url + '请求失败'), data: null });
+                    resolve({ status: false, code: res.status, msg: res.data?.msg || (url + '请求失败'), data: null });
                 }
             }).catch((err) => {
                 const msg = err?.data?.msg || err?.message || (url + '请求失败');
@@ -68,33 +69,33 @@ class Abstract {
     /**
      * GET类型的网络请求  
      */
-    get(obj: string | AxiosRequest, params: any, headers?: any) {
+    get(obj: string | AxiosRequest, params: any, mapper: any, headers?: any) {
         let url;
         if (typeof obj === 'object') {
             return this.getReq(obj);
         } else {
             url = obj;
         }
-        return this.apiAxios({ headers, method: 'GET', url, params });
+        return this.apiAxios({ headers, method: 'GET', url, params, mapper });
     }
 
-    getReq({ headers, url, data, params, responseType }: AxiosRequest) {
-        return this.apiAxios({ headers, method: 'GET', url, data, params, responseType });
+    getReq({ headers, url, data, params, responseType, mapper }: AxiosRequest) {
+        return this.apiAxios({ headers, method: 'GET', url, data, params, mapper, responseType });
     }
     /**
      * POST类型的网络请求
      */
-    post(obj: string | AxiosRequest, data: any, headers?: any) {
+    post(obj: string | AxiosRequest, data: any, mapper?: any, headers?: any) {
         let url;
         if (typeof obj === 'object') {
             return this.postReq(obj);
         } else {
             url = obj;
         }
-        return this.apiAxios({ headers, method: 'POST', url, data });
+        return this.apiAxios({ headers, method: 'POST', url, data, mapper });
     }
-    postReq({ baseURL, headers, url, data, params, responseType }: AxiosRequest) {
-        return this.apiAxios({ baseURL, headers, method: 'POST', url, data, params, responseType });
+    postReq({ baseURL, headers, url, data, params, responseType, mapper }: AxiosRequest) {
+        return this.apiAxios({ baseURL, headers, method: 'POST', url, data, params, mapper, responseType });
     }
     /**
      * PUT类型的网络请求

@@ -10,6 +10,7 @@
 </template>
 
 <script lang="ts">
+
 import { defineComponent } from 'vue';
 import { BASET_LAYOUT, RETENTION_STORE } from '@/config';
 

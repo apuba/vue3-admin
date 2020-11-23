@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-15 00:28:55
- * @LastEditTime: 2020-11-17 01:00:03
+ * @LastEditTime: 2020-11-22 04:29:42
  * @LastEditors: 侯兴章
  * @Description:  数组转换为树形结构
  */
@@ -25,24 +25,24 @@ export interface MapToTree {
  * @param {Iconfig} map 基础配置
  * @return {*}
  */
-export const arrayToTreeHelper = <T>(originData: Array<any>, configMap: MapToTree = defaultConfig): Array<T> => {
-    configMap = { ...defaultConfig, ...configMap }
+export const arrayToTreeHelper = <T>(originData: Array<any>, mapperConfig: MapToTree = defaultConfig): Array<T> => {
+    mapperConfig = { ...defaultConfig, ...mapperConfig }
     let result: Array<T | any> = [];
     if (!Array.isArray(originData)) {
         return result
     }
     originData.forEach(function (item) {
-        configMap.children && delete item[configMap.children];
+        mapperConfig.children && delete item[mapperConfig.children];
     });
 
     let map: any = {};
     originData.forEach(function (item) {
-        map[item[configMap.id]] = item;
+        map[item[mapperConfig.id]] = item;
     });
     originData.forEach(function (item) {
-        var parent = map[item[configMap.pId]];
-        if (parent && configMap.children) {
-            (parent[configMap.children] || (parent[configMap.children] = [])).push(item);
+        var parent = map[item[mapperConfig.pId]];
+        if (parent && mapperConfig.children) {
+            (parent[mapperConfig.children] || (parent[mapperConfig.children] = [])).push(item);
         } else {
             result.push(item);
         }

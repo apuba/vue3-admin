@@ -17,7 +17,7 @@ export const modelMenu: Menu = {
     path: 'htmlUrl'
 }
 
-// 合登陆信息
+// 登陆信息
 export const mapUserInfo: UserInfoModel = {
     id: 'id',
     name: 'userName',
