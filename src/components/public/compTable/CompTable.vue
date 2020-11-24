@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 20:26:11
- * @LastEditTime: 2020-11-25 00:24:43
+ * @LastEditTime: 2020-11-25 00:37:06
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -55,7 +55,7 @@ export default defineComponent({
       http.post(props.config.api, request, props.config.mapper).then(res => {
         dataSource.data = res.data;
         state.isDataLoaded = true; // 数据请求完成标识
-        console.log(res);
+        // console.log(res);
       });
     }
     onMounted(() => {

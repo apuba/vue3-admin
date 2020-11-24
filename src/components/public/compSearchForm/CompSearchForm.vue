@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { IFormItems, EcomponentType } from './types';
-import { defineComponent, reactive, unref } from 'vue';
+import { defineComponent, reactive } from 'vue';
 import { useForm } from '@ant-design-vue/use';
 import type { PropType } from 'vue';
 
@@ -52,9 +52,8 @@ export default defineComponent({
       e.preventDefault();
       validate()
         .then(() => {
-          console.log('formRef', formRef);
           context.emit('submit', formRef);
-          context.emit('update:value', unref(formRef)); // 数据双向绑定
+          // context.emit('update:value', unref(formRef)); // 数据双向绑定
         })
         .catch(err => {
           console.log('error', err);

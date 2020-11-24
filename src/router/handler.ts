@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-12 22:44:49
- * @LastEditTime: 2020-11-14 23:59:32
+ * @LastEditTime: 2020-11-25 00:38:02
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -32,7 +32,7 @@ function addDynamicRoutes(menuList: Menu[] = [], routes: Array<RouteRecordRaw> =
                 pathArray.splice(pathLen - 1, 0, 'views'); // 插入views目录名
             }
             let vuePath = pathArray.join('/') + '.vue'; // 实现的VUE文件路径
-            console.log(vuePath)
+            // console.log(vuePath)
             // 创建当前路由
             let route: RouteRecordRaw = {
                 path: NESTED_MENU ? item.path : routerPath,
