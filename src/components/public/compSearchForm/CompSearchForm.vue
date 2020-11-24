@@ -1,13 +1,13 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-20 00:41:41
- * @LastEditTime: 2020-11-24 00:07:04
+ * @LastEditTime: 2020-11-24 22:46:40
  * @LastEditors: 侯兴章
- * @Description:
+ * @Description: 常用查询表单的封装，未实现v-model的双向绑定
 -->
 
 <template>
-  <a-form layout="inline" @submit="handleSubmit" class="search-form">
+  <a-form layout="inline" @submit="searchHandler" class="search-form">
     <a-form-item v-bind="validateInfos[item.model]" v-for="(item, index) in items" :key="index" :label="item.label">
       <a-input v-model:value="formRef[item.model]" :placeholder="item.placeholder" />
     </a-form-item>
@@ -19,7 +19,7 @@
 
 <script lang="ts">
 import { IFormItems, EcomponentType } from './types';
-import { defineComponent, reactive } from 'vue';
+import { defineComponent, reactive, unref } from 'vue';
 import { useForm } from '@ant-design-vue/use';
 import type { PropType } from 'vue';
 
@@ -36,7 +36,7 @@ export default defineComponent({
     },
     value: Object
   },
-  setup(props) {
+  setup(props, context) {
     const fromItem: IfromItem = {};
     const fromRules: IfromItem = {};
 
@@ -52,7 +52,9 @@ export default defineComponent({
       e.preventDefault();
       validate()
         .then(() => {
-          console.log(formRef);
+          console.log('formRef', formRef);
+          context.emit('submit', formRef);
+          context.emit('update:value', unref(formRef)); // 数据双向绑定
         })
         .catch(err => {
           console.log('error', err);
@@ -65,5 +67,4 @@ export default defineComponent({
 </script>
 
 <style scoped>
-
 </style>

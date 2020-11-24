@@ -24,9 +24,9 @@ export interface ModelDictList {
 }
 
 // DEMO 数据映射配置，示例为：取出'dictSort', 'dictLabel', 'dictValue', 'dictValue'的值 ，并把后端 createdBy的值映射给status
-export const MapperDict = ['dictSort', 'dictLabel', 'dictValue', { status: 'createdBy' }];
+export const mapperDict = ['dictSort', 'dictLabel', 'dictValue', { status: 'createdBy' }];
 
-export const MapperDictType = ['dictName', 'dictId', 'dictType', 'status'];
+export const mapperDictType = ['dictName', 'dictId', 'dictType', 'status'];
 
 export interface ListDict {
     data: Array<DTOdict>
