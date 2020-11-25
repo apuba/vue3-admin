@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 00:52:57
- * @LastEditTime: 2020-11-24 21:27:40
+ * @LastEditTime: 2020-11-26 00:58:15
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -12,7 +12,7 @@ export interface Icolumns {
     dataIndex: string; // 列数据在数据项中对应的 key，支持 a.b.c 的嵌套写法
     width?: string | number; // 列宽度
     key?: string; //Vue 需要的 key，如果已经设置了唯一的 dataIndex，可以忽略这个属性
-    ellipsis?: boolean;
+    ellipsis?: boolean; // 文本过长显示 省略号
     slots?: any; // 超过宽度将自动省略，暂不支持和排序筛选一起使用。设置为 true 时，表格布局将变成 tableLayout="fixed"
 }
 
@@ -27,4 +27,11 @@ export interface ItableConfig {
     size?: string; // 表格大小
     // isDataLoaded: boolean; // 数据请求是否完成？
 
+}
+
+export interface Ipagination {
+    pageSize: number; // 分页大小
+    current: number; // 当前页面
+    total: number; // 总记录
+ 
 }

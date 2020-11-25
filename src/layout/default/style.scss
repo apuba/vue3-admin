@@ -1,5 +1,29 @@
 @import "@scss/base.scss";
 .mes-default-layout {
+    height: 100vh;
+    color: $base-text-color;
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        color: #ccc;
+    }
+    .ant-layout {
+        background-color: $bg-color;
+    }
+
+    .content {
+        text-align: left;
+        padding: 15px;
+    }
+    .content-page {
+        height: calc(100vh - 129px);
+        position: relative;
+        overflow: hidden;
+    }
+ 
     .base-border-bottom {
         border-bottom: $base-border;
     }
@@ -8,30 +32,7 @@
         border-radius: 4px;
         padding: 10px;
         &:hover {
-            background: lighten($color: $primary-color, $amount: 5);
-        }
-    }
-    .ant-input,
-    .ant-input-affix-wrapper {
-        background: $transition-color-4;
-        border: 1px solid #3f51b5;
-        color: #999;
-        border-radius: 4px;
-    }
-    .ant-btn-primary[disabled] {
-        background: #939fc1;
-        border: 1px solid #878eb5;
-        &:hover {
-            background: #a3b0d3;
-        }
-    }
-    .ant-form-item-label > label {
-        color: #999;
-    }
-    .has-error .ant-input {
-        background-color: $transition-color-4;
-        &:hover {
-            background-color: inherit;
+            // background: lighten($color: $primary-color, $amount: 2);
         }
     }
 }

@@ -14,6 +14,9 @@ import { AxiosRequest, CustomResponse } from './types';
 import { message } from 'ant-design-vue';
 import storage from '@/common/storage';
 import { mapperHelper } from '@/mapper/mapperHelper';
+import { CONTENT_TYPE } from '@/config';
+
+var qs = require('qs');
 
 class Abstract {
     // console.log(process.env.VUE_APP_BASE_API_URL)
@@ -22,9 +25,7 @@ class Abstract {
 
     // 自定义header头
     protected headers: object = {
-        // ContentType: 'application/json;charset=UTF-8'
-        // ContentType: 'application/x-www-form-urlencoded;charset=UTF-8',
-        'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8'
+        'Content-Type': CONTENT_TYPE
     }
 
     private apiAxios({ baseURL = this.baseURL, headers = this.headers, method, url, data, params, responseType, mapper }: AxiosRequest): Promise<CustomResponse> {
@@ -32,6 +33,10 @@ class Abstract {
         //  Authorization
         if (token) {
             headers.Authorization = token
+        }
+
+        if (headers['Content-Type'] === 'application/x-www-form-urlencoded;charset=UTF-8') {
+            data = qs.stringify(data); // 参数转换
         }
         // url解析
         const reg = /^http(s)?:/; // 是否为完整的绝对路径
@@ -50,13 +55,13 @@ class Abstract {
                 if (res.status === 200) {
                     const result = mapper ? mapperHelper<any>(res.data?.data, mapper) : res.data?.data; // 数据清洗
                     if (res.data.success || res.data.code == 200 || res.data.status === 'S') {
-                        resolve({ status: true, code: 200, msg: res.data?.msg, data: result, origin: res.data });
+                        resolve({ total: res.data?.pagesCount, status: true, code: 200, msg: res.data?.msg, data: result, origin: res.data });
                     } else {
                         message.error(res.data?.msg || (url + '请求失败'));
-                        resolve({ status: false, code: 200, msg: res.data?.msg || (url + '请求失败'), data: result, origin: res.data });
+                        resolve({ total: res.data?.pagesCount, status: false, code: 200, msg: res.data?.msg || (url + '请求失败'), data: result, origin: res.data });
                     }
                 } else {
-                    resolve({ status: false, code: res.status, msg: res.data?.msg || (url + '请求失败'), data: null });
+                    resolve({ total: res.data?.pagesCount, status: false, code: res.status, msg: res.data?.msg || (url + '请求失败'), data: null });
                 }
             }).catch((err) => {
                 const msg = err?.data?.msg || err?.message || (url + '请求失败');

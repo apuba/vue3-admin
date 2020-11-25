@@ -14,4 +14,4 @@ export const NESTED_MENU: boolean = false ; // 是否采用嵌套路由的菜单
 export const COMPONENT_SETTING: any ={ // 全局组件配置
 }
 export const RETENTION_STORE: boolean = true ; // 刷新页面时是否保留状态
-
+export  const CONTENT_TYPE = 'application/x-www-form-urlencoded;charset=UTF-8'; // 请求参数类型  'application/json;charset=UTF-8'
