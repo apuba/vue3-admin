@@ -1,16 +1,79 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-05 00:44:20
- * @LastEditTime: 2020-11-24 00:14:17
+ * @LastEditTime: 2020-11-26 00:55:48
  * @LastEditors: 侯兴章
  * @Description: 重写 ant样式
  */
-.ant-layout {
-    background-color: $bg_color;
-}
 
-.ant-menu-dark,
-.ant-menu-dark .ant-menu-sub {
-    background: $primary-color;
-}
+@import "@scss/base.scss";
+.mes-default-layout {
+    .ant-layout {
+        background-color: $bg_color;
+    }
 
+    .ant-menu-dark,
+    .ant-menu-dark .ant-menu-sub {
+        background: $primary-color;
+    }
+
+    .ant-input,
+    .ant-input-affix-wrapper {
+        background: $transition-color-4;
+        border: 1px solid #3f51b5;
+        color: #999;
+        border-radius: 4px;
+    }
+    .ant-btn-primary[disabled] {
+        background: #939fc1;
+        border: 1px solid #878eb5;
+        &:hover {
+            background: #a3b0d3;
+        }
+    }
+    .ant-form-item-label > label {
+        color: #999;
+    }
+    .has-error .ant-input {
+        background-color: $transition-color-4;
+        &:hover {
+            background-color: inherit;
+        }
+    }
+    .ant-table {
+        background: transparent;
+        color: #999;
+    }
+    .ant-table-small {
+        border: none;
+    }
+    .ant-table-tbody > tr > td {
+        border-bottom: 1px solid #3f397a;
+    }
+
+    .ant-table-tbody > tr:hover:not(.ant-table-expanded-row):not(.ant-table-row-selected) > td {
+        background-color: $transition-color-1;
+    }
+
+    .ant-table-thead > tr > th {
+        color: #ccc;
+    }
+
+    .ant-table-thead > tr > th {
+        border-bottom: 2px solid #544baa;
+    }
+
+    .ant-pagination-item-active {
+        background: $transition-color-1;
+        border-color: #1091c4;
+    }
+    .ant-pagination-item a{
+        color: #ccc;
+    }
+    .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-ellipsis, .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-ellipsis{
+        color: #666;
+    }
+    .ant-pagination-prev a, .ant-pagination-next a{
+        color: #666;
+    }
+}

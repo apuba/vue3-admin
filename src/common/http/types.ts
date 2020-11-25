@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 21:59:32
- * @LastEditTime: 2020-11-22 03:47:13
+ * @LastEditTime: 2020-11-25 23:20:43
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -32,9 +32,9 @@ export interface AxiosResponse {
 
 export interface CustomResponse<T = any> {
     readonly status?: boolean;
-    // readonly message: string;
     readonly code: number;
     readonly msg: string;
+    readonly total: number;
     data: T;
     origin?: any;
 }

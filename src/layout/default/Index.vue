@@ -54,30 +54,5 @@ export default defineComponent({
 @import './antd.scss';
 
 @import './style.scss';
-.mes-default-layout {
-  height: 100vh;
-  color: $base-text-color;
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    color: $base-text-color;
-  }
-  .ant-layout {
-    background-color: $bg-color;
-  }
 
-  .content {
-    text-align: left;
-    padding: 15px;
-  }
-  .content-page{
-    height: calc(100vh - 129px);
-    position: relative;
-    overflow: hidden;
-  }
-
-}
 </style>

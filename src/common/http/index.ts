@@ -50,13 +50,13 @@ class Abstract {
                 if (res.status === 200) {
                     const result = mapper ? mapperHelper<any>(res.data?.data, mapper) : res.data?.data; // 数据清洗
                     if (res.data.success || res.data.code == 200 || res.data.status === 'S') {
-                        resolve({ status: true, code: 200, msg: res.data?.msg, data: result, origin: res.data });
+                        resolve({ total:res.data?.pagesCount, status: true, code: 200, msg: res.data?.msg, data: result, origin: res.data });
                     } else {
                         message.error(res.data?.msg || (url + '请求失败'));
-                        resolve({ status: false, code: 200, msg: res.data?.msg || (url + '请求失败'), data: result, origin: res.data });
+                        resolve({ total:res.data?.pagesCount, status: false, code: 200, msg: res.data?.msg || (url + '请求失败'), data: result, origin: res.data });
                     }
                 } else {
-                    resolve({ status: false, code: res.status, msg: res.data?.msg || (url + '请求失败'), data: null });
+                    resolve({ total:res.data?.pagesCount, status: false, code: res.status, msg: res.data?.msg || (url + '请求失败'), data: null });
                 }
             }).catch((err) => {
                 const msg = err?.data?.msg || err?.message || (url + '请求失败');
