@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 20:26:11
- * @LastEditTime: 2020-11-26 01:41:28
+ * @LastEditTime: 2020-11-29 17:46:05
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -18,7 +18,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, reactive } from 'vue';
+import { defineComponent, onMounted, PropType, reactive, toRefs } from 'vue';
 import { ItableConfig, Ipagination } from './types';
 import http from '@/common/http/index.ts';
 import { BaseRequestModel } from '@/service/baseModel';
@@ -52,7 +52,7 @@ export default defineComponent({
      * @param {*} params
      * @return {*}
      */
-    function getData(params?: object, currentPage = 1) {
+    const getData = (params?: object, currentPage = 1) => {
       state.pagination.current = currentPage === 1 ? 1 : currentPage;
 
       state.isDataLoaded = false;
@@ -80,12 +80,12 @@ export default defineComponent({
         state.isDataLoaded = true; // 数据请求完成标识
         console.log(res);
       });
-    }
-    function changePagination(pagination: Ipagination, filters: any) {
+    };
+    // 分页事件
+    const changePagination = (pagination: Ipagination, filters: any) => {
       state.pagination.current = pagination.current;
       getData(undefined, pagination.current);
-    }
-
+    };
     onMounted(() => {
       state.autoLoading && getData();
     });

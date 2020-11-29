@@ -1,16 +1,18 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-12 21:33:17
- * @LastEditTime: 2020-11-24 23:23:57
+ * @LastEditTime: 2020-11-29 15:50:09
  * @LastEditors: 侯兴章
  * @Description: 字典列表
 -->
 <template>
-  <div class="panel mb10">
+  <div  >
+   <div class="panel mb10">
     <CompSearchForm :items="formItems"  @submit="searchFormClick" />
   </div>
   <div class="panel">
     <CompTable ref="refTable" :config="dataTableConfig" />
+  </div>
   </div>
 </template>
 

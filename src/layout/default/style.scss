@@ -1,4 +1,8 @@
 @import "@scss/base.scss";
+.routerStyle {
+    position:  absolute;
+    width: 100%;
+}
 .mes-default-layout {
     height: 100vh;
     color: $base-text-color;

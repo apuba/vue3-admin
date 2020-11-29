@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 00:52:57
- * @LastEditTime: 2020-11-26 00:58:15
+ * @LastEditTime: 2020-11-29 22:26:20
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -18,7 +18,7 @@ export interface Icolumns {
 
 export interface ItableConfig {
     api: string; // 后台接口的地址
-    columns: Array<any>; // 表格列表的配置
+    columns: Array<Icolumns>; // 表格列表的配置
     rowKey?: string; // 绑定的主键,
     dataSource?: Array<any>; // 外部传数据
     autoLoading?: boolean; // 是否自动加载数据？组件加载完毕即请求数据 
@@ -26,12 +26,29 @@ export interface ItableConfig {
     mapper?: Array<any> | Object; // 映身文件
     size?: string; // 表格大小
     // isDataLoaded: boolean; // 数据请求是否完成？
-
+    rowSelection: IrowSelection
 }
 
 export interface Ipagination {
     pageSize: number; // 分页大小
     current: number; // 当前页面
     total: number; // 总记录
- 
+
+}
+
+// 表格可选择类型
+enum selectionType {
+    checkbox,
+    radio
+}
+
+// 行选择配置
+export interface IrowSelection {
+    onChange: Function;
+    onSelect: Function;
+    onSelectAll: Function;
+    type: selectionType;
+    columnWidth: string | number;
+    columnTitle: string | number;
+
 }
