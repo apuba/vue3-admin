@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-05 00:44:20
- * @LastEditTime: 2020-11-26 01:58:59
+ * @LastEditTime: 2020-11-30 21:32:13
  * @LastEditors: 侯兴章
  * @Description: 重写 ant样式
  */
@@ -66,17 +66,38 @@
 
     .ant-pagination-item-active {
         background: $transition-color-1;
-        border-color:  $transition-color-3;
+        border-color: $transition-color-3;
         border-radius: 20px;
-        box-shadow: $transition-color-3 0 0 10px  ;
+        box-shadow: $transition-color-3 0 0 10px;
     }
-    .ant-pagination-item a{
+    .ant-pagination-item a {
         color: #ccc;
     }
-    .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-ellipsis, .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-ellipsis{
+    .ant-pagination-jump-prev .ant-pagination-item-container .ant-pagination-item-ellipsis,
+    .ant-pagination-jump-next .ant-pagination-item-container .ant-pagination-item-ellipsis {
         color: #666;
     }
-    .ant-pagination-prev a, .ant-pagination-next a{
+    .ant-pagination-prev a,
+    .ant-pagination-next a {
         color: #666;
+    }
+    .ant-btn {
+        color: #fafafa;
+        background-color: #06c;
+        border-color: #1890ff;
+    }
+    .ant-btn-primary {
+        color: #fff;
+        background-color: #1890ff;
+        border-color: #1890ff;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
+    }
+    .ant-btn-danger {
+        color: #fff;
+        background-color: #ff4d4f;
+        border-color: #ff4d4f;
+        text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 0 rgba(0, 0, 0, 0.045);
     }
 }

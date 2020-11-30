@@ -14,7 +14,7 @@ import { AxiosRequest, CustomResponse } from './types';
 import { message } from 'ant-design-vue';
 import storage from '@/common/storage';
 import { mapperHelper } from '@/mapper/mapperHelper';
-import { CONTENT_TYPE } from '@/config';
+import { REQUEST_CONTENT_TYPE } from '@/config';
 
 var qs = require('qs');
 
@@ -25,7 +25,7 @@ class Abstract {
 
     // 自定义header头
     protected headers: object = {
-        'Content-Type': CONTENT_TYPE
+        'Content-Type': REQUEST_CONTENT_TYPE
     }
 
     private apiAxios({ baseURL = this.baseURL, headers = this.headers, method, url, data, params, responseType, mapper }: AxiosRequest): Promise<CustomResponse> {

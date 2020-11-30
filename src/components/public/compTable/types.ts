@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 00:52:57
- * @LastEditTime: 2020-11-29 22:26:20
+ * @LastEditTime: 2020-11-29 22:55:47
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -26,7 +26,7 @@ export interface ItableConfig {
     mapper?: Array<any> | Object; // 映身文件
     size?: string; // 表格大小
     // isDataLoaded: boolean; // 数据请求是否完成？
-    rowSelection: IrowSelection
+    rowSelection?: IrowSelection
 }
 
 export interface Ipagination {
@@ -50,5 +50,10 @@ export interface IrowSelection {
     type: selectionType;
     columnWidth: string | number;
     columnTitle: string | number;
+
+}
+
+// 表头上的工具栏
+export interface ItoolBar {
 
 }

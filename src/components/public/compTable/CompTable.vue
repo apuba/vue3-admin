@@ -1,25 +1,35 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 20:26:11
- * @LastEditTime: 2020-11-29 17:46:05
+ * @LastEditTime: 2020-11-30 21:39:02
  * @LastEditors: 侯兴章
  * @Description:
 -->
 <template>
-  <a-table
-    @change="changePagination"
-    :pagination="state.pagination"
-    :columns="config.columns"
-    :data-source="state.data"
-    :row-key="config.rowKey"
-    :size="state.size"
-    :loading="!state.isDataLoaded"
-  ></a-table>
+  <div>
+    <div class="tableBar">
+      <a-button-group>
+        <a-button type="primary" size="small">添加</a-button>
+        <a-button type="primary" size="small">修改</a-button>
+        <a-button type="primary" size="small">删除</a-button>
+        <a-button type="primary" size="small">导出</a-button>
+      </a-button-group>
+    </div>
+    <a-table
+      @change="changePagination"
+      :pagination="state.pagination"
+      :columns="config.columns"
+      :data-source="state.data"
+      :row-key="config.rowKey"
+      :size="state.size"
+      :loading="!state.isDataLoaded"
+    ></a-table>
+  </div>
 </template>
 
 <script lang="ts">
 import { defineComponent, onMounted, PropType, reactive, toRefs } from 'vue';
-import { ItableConfig, Ipagination } from './types';
+import { ItableConfig, Ipagination, ItoolBar } from './types';
 import http from '@/common/http/index.ts';
 import { BaseRequestModel } from '@/service/baseModel';
 
@@ -29,6 +39,9 @@ export default defineComponent({
     config: {
       type: Object as PropType<ItableConfig>,
       required: true
+    },
+    toolBar: {
+      type: Object as PropType<ItoolBar>
     }
   },
   setup(props) {

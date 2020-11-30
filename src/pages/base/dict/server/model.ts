@@ -1,12 +1,13 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-17 00:46:00
- * @LastEditTime: 2020-11-24 00:26:33
+ * @LastEditTime: 2020-11-29 23:40:49
  * @LastEditors: 侯兴章
  * @Description: 
  */
 
-export interface DTOdict {
+ // 字典-用于查询
+export interface IDTOdict {
     dictSort?: string;
     dictLabel?: string;
     dictValue?: string;
@@ -15,10 +16,10 @@ export interface DTOdict {
 }
 
 
-// 字典类型
-export interface ModelDictList {
+// 字典类型-
+export interface IModelDictType{
     dictName: string;
-    dictId: number;
+    dictId?: number | string;
     dictType: string;
     status: string;
 }
@@ -27,7 +28,4 @@ export interface ModelDictList {
 export const mapperDict = ['dictSort', 'dictLabel', 'dictValue', { status: 'createdBy' }];
 
 export const mapperDictType = ['dictName', 'dictId', 'dictType', 'status'];
-
-export interface ListDict {
-    data: Array<DTOdict>
-}
+ 
