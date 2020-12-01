@@ -7,12 +7,12 @@
  */
 
 import { defineComponent, onMounted, reactive, ref } from 'vue';
-import { ApiDict } from '../server/api';
+import { ApiRole } from '../server/api';
 import CompSearchForm, { IFormItems, EcomponentType } from '@/components/public/compSearchForm';
 import CompTable, { Icolumns, ItableConfig } from '@/components/public/compTable';
 import { mapperDictType } from '../server/model';
 export default defineComponent({
-    name: 'dictIndex',
+    name: 'roleIndex',
     components: {
         CompSearchForm,
         CompTable
@@ -22,19 +22,19 @@ export default defineComponent({
         // 查询表单参数配置
         const formItems: IFormItems[] = [
             {
-                label: '字典名称',
-                model: 'dictName',
+                label: '角色名称',
+                model: 'roleName',
                 rules: [{
-                    required: true,
+                    required: false,
                     message: '请输名称'
                 }]
             },
             {
-                label: '字典类型',
-                model: 'dictType',
+                label: '组织名称',
+                model: 'orgName',
                 rules: [{
-                    required: true,
-                    message: '请输字典类型'
+                    required: false,
+                    message: '请输入组织名称'
                 }]
             }
         ]
@@ -42,30 +42,35 @@ export default defineComponent({
         // 表格列表的配置
         const columns: Array<Icolumns> = [{
             title: 'ID',
-            dataIndex: 'dictId',
-            key: 'dictId'
+            dataIndex: 'roleId',
+            key: 'roleId'
         }, {
-          title: '字典类型',
-          dataIndex: 'dictType',
-          key: 'dictType',
+          title: '角色名称',
+          dataIndex: 'roleName',
+          key: 'roleName',
 
         }, {
-            title: '字典类型名称',
-            dataIndex: 'dictName',
-            key: 'dictName',
+            title: '企业编码',
+            dataIndex: 'roleCode',
+            key: 'roleCode',
             ellipsis: true,
         }, {
-          title: '字典状态',
-          dataIndex: 'dictLabelStatus',
-          key: 'dictLabelStatus',
+          title: '组织名称',
+          dataIndex: 'orgName',
+          key: 'orgName',
+
+        },{
+          title: '创建时间',
+          dataIndex: 'creationDate',
+          key: 'creationDate',
 
         }]
 
         // 表格的配置项
         const dataTableConfig: ItableConfig = {
-            api: ApiDict.getDictTypeList,
+            api: ApiRole.getRoleList,
             columns,
-            rowKey: 'dictId',
+            rowKey: 'roleId',
             mapper: mapperDictType // 清洗数据的映射配置
         }
 

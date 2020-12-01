@@ -7,7 +7,7 @@
  */
 
 import { defineComponent, onMounted, reactive, ref } from 'vue';
-import { ApiDict } from '../server/api';
+import { ApiUser } from '../server/api';
 import CompSearchForm, { IFormItems, EcomponentType } from '@/components/public/compSearchForm';
 import CompTable, { Icolumns, ItableConfig } from '@/components/public/compTable';
 import { mapperDictType } from '../server/model';
@@ -22,19 +22,19 @@ export default defineComponent({
         // 查询表单参数配置
         const formItems: IFormItems[] = [
             {
-                label: '字典名称',
-                model: 'dictName',
+                label: '用户名称',
+                model: 'varUserName',
                 rules: [{
-                    required: true,
+                    required: false,
                     message: '请输名称'
                 }]
             },
             {
-                label: '字典类型',
-                model: 'dictType',
+                label: '手机号码',
+                model: 'varPhoneNumber',
                 rules: [{
-                    required: true,
-                    message: '请输字典类型'
+                    required: false,
+                    message: '请输入手机号码'
                 }]
             }
         ]
@@ -42,30 +42,60 @@ export default defineComponent({
         // 表格列表的配置
         const columns: Array<Icolumns> = [{
             title: 'ID',
-            dataIndex: 'dictId',
-            key: 'dictId'
+            dataIndex: 'userId',
+            key: 'userId'
         }, {
-          title: '字典类型',
-          dataIndex: 'dictType',
-          key: 'dictType',
+          title: '用户名称',
+          dataIndex: 'userName',
+          key: 'userName',
 
         }, {
-            title: '字典类型名称',
-            dataIndex: 'dictName',
-            key: 'dictName',
+            title: '真实姓名',
+            dataIndex: 'userFullName',
+            key: 'userFullName',
             ellipsis: true,
         }, {
-          title: '字典状态',
-          dataIndex: 'dictLabelStatus',
-          key: 'dictLabelStatus',
+          title: '手机号码',
+          dataIndex: 'phoneNumber',
+          key: 'phoneNumber',
+
+        }, {
+          title: '所属组织',
+          dataIndex: 'orgName',
+          key: 'orgName',
+
+        }, {
+          title: '是否为管理员',
+          dataIndex: 'isAdmin',
+          key: 'isAdmin',
+
+        }, {
+          title: '账号类型',
+          dataIndex: 'userTypeLabel',
+          key: 'userTypeLabel',
+
+        }, {
+          title: '状态',
+          dataIndex: 'statusLabel',
+          key: 'statusLabel',
+
+        }, {
+          title: '创建人',
+          dataIndex: 'createName',
+          key: 'createName',
+
+        }, {
+          title: '创建时间',
+          dataIndex: 'creationDate',
+          key: 'creationDate',
 
         }]
 
         // 表格的配置项
         const dataTableConfig: ItableConfig = {
-            api: ApiDict.getDictTypeList,
+            api: ApiUser.getUserList,
             columns,
-            rowKey: 'dictId',
+            rowKey: 'userId',
             mapper: mapperDictType // 清洗数据的映射配置
         }
 

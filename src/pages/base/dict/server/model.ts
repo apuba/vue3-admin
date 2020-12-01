@@ -3,7 +3,7 @@
  * @Date: 2020-11-17 00:46:00
  * @LastEditTime: 2020-11-29 23:40:49
  * @LastEditors: 侯兴章
- * @Description: 
+ * @Description:
  */
 
  // 字典-用于查询
@@ -28,4 +28,3 @@ export interface IModelDictType{
 export const mapperDict = ['dictSort', 'dictLabel', 'dictValue', { status: 'createdBy' }];
 
 export const mapperDictType = ['dictName', 'dictId', 'dictType', 'status'];
- 

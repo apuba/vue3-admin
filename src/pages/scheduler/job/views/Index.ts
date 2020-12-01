@@ -7,12 +7,12 @@
  */
 
 import { defineComponent, onMounted, reactive, ref } from 'vue';
-import { ApiDict } from '../server/api';
+import { ApiJob } from '../server/api';
 import CompSearchForm, { IFormItems, EcomponentType } from '@/components/public/compSearchForm';
 import CompTable, { Icolumns, ItableConfig } from '@/components/public/compTable';
 import { mapperDictType } from '../server/model';
 export default defineComponent({
-    name: 'dictIndex',
+    name: 'roleIndex',
     components: {
         CompSearchForm,
         CompTable
@@ -22,19 +22,11 @@ export default defineComponent({
         // 查询表单参数配置
         const formItems: IFormItems[] = [
             {
-                label: '字典名称',
-                model: 'dictName',
+                label: '实例名称',
+                model: 'jobName',
                 rules: [{
-                    required: true,
+                    required: false,
                     message: '请输名称'
-                }]
-            },
-            {
-                label: '字典类型',
-                model: 'dictType',
-                rules: [{
-                    required: true,
-                    message: '请输字典类型'
                 }]
             }
         ]
@@ -42,30 +34,50 @@ export default defineComponent({
         // 表格列表的配置
         const columns: Array<Icolumns> = [{
             title: 'ID',
-            dataIndex: 'dictId',
-            key: 'dictId'
+            dataIndex: 'jobId',
+            key: 'jobId'
         }, {
-          title: '字典类型',
-          dataIndex: 'dictType',
-          key: 'dictType',
+          title: '实例名称',
+          dataIndex: 'jobName',
+          key: 'jobName',
 
         }, {
-            title: '字典类型名称',
-            dataIndex: 'dictName',
-            key: 'dictName',
+          title: '请求地址',
+          dataIndex: 'requestUrl',
+          key: 'requestUrl',
+
+        }, {
+            title: '请求类型',
+            dataIndex: 'requestType',
+            key: 'requestType',
             ellipsis: true,
         }, {
-          title: '字典状态',
-          dataIndex: 'dictLabelStatus',
-          key: 'dictLabelStatus',
+          title: '任务类型',
+          dataIndex: 'jobType',
+          key: 'jobType',
+
+        }, {
+          title: '是否为单例',
+          dataIndex: 'singleInstance',
+          key: 'singleInstance',
+
+        },{
+          title: '创建人',
+          dataIndex: 'createName',
+          key: 'createName',
+
+        },{
+          title: '创建时间',
+          dataIndex: 'creationDate',
+          key: 'creationDate',
 
         }]
 
         // 表格的配置项
         const dataTableConfig: ItableConfig = {
-            api: ApiDict.getDictTypeList,
+            api: ApiJob.getJobList,
             columns,
-            rowKey: 'dictId',
+            rowKey: 'roleId',
             mapper: mapperDictType // 清洗数据的映射配置
         }
 

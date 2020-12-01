@@ -7,12 +7,12 @@
  */
 
 import { defineComponent, onMounted, reactive, ref } from 'vue';
-import { ApiDict } from '../server/api';
+import { ApiEnterprise } from '../server/api';
 import CompSearchForm, { IFormItems, EcomponentType } from '@/components/public/compSearchForm';
 import CompTable, { Icolumns, ItableConfig } from '@/components/public/compTable';
 import { mapperDictType } from '../server/model';
 export default defineComponent({
-    name: 'dictIndex',
+    name: 'enterIndex',
     components: {
         CompSearchForm,
         CompTable
@@ -22,19 +22,19 @@ export default defineComponent({
         // 查询表单参数配置
         const formItems: IFormItems[] = [
             {
-                label: '字典名称',
-                model: 'dictName',
+                label: '企业名称',
+                model: 'enterName',
                 rules: [{
-                    required: true,
+                    required: false,
                     message: '请输名称'
                 }]
             },
             {
-                label: '字典类型',
-                model: 'dictType',
+                label: '手机号码',
+                model: 'telPhone',
                 rules: [{
-                    required: true,
-                    message: '请输字典类型'
+                    required: false,
+                    message: '请输入手机号码'
                 }]
             }
         ]
@@ -42,30 +42,65 @@ export default defineComponent({
         // 表格列表的配置
         const columns: Array<Icolumns> = [{
             title: 'ID',
-            dataIndex: 'dictId',
-            key: 'dictId'
+            dataIndex: 'enterId',
+            key: 'enterId'
         }, {
-          title: '字典类型',
-          dataIndex: 'dictType',
-          key: 'dictType',
+          title: '企业名称',
+          dataIndex: 'enterName',
+          key: 'enterName',
 
         }, {
-            title: '字典类型名称',
-            dataIndex: 'dictName',
-            key: 'dictName',
+            title: '企业编码',
+            dataIndex: 'enterCode',
+            key: 'enterCode',
             ellipsis: true,
         }, {
-          title: '字典状态',
-          dataIndex: 'dictLabelStatus',
-          key: 'dictLabelStatus',
+          title: '入驻时间',
+          dataIndex: 'entryTime',
+          key: 'entryTime',
+
+        }, {
+          title: '法人',
+          dataIndex: 'legalPerson',
+          key: 'legalPerson',
+
+        }, {
+          title: '手机号码',
+          dataIndex: 'telPhone',
+          key: 'telPhone',
+
+        }, {
+          title: '固话',
+          dataIndex: 'mobilePhone',
+          key: 'mobilePhone',
+
+        }, {
+          title: '地址',
+          dataIndex: 'address',
+          key: 'address',
+
+        }, {
+          title: '企业状态',
+          dataIndex: 'statusLabel',
+          key: 'statusLabel',
+
+        }, {
+          title: '创建人',
+          dataIndex: 'createName',
+          key: 'createName',
+
+        }, {
+          title: '创建时间',
+          dataIndex: 'creationDate',
+          key: 'creationDate',
 
         }]
 
         // 表格的配置项
         const dataTableConfig: ItableConfig = {
-            api: ApiDict.getDictTypeList,
+            api: ApiEnterprise.getEnterList,
             columns,
-            rowKey: 'dictId',
+            rowKey: 'enterId',
             mapper: mapperDictType // 清洗数据的映射配置
         }
 

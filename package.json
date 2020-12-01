@@ -10,6 +10,7 @@
   "dependencies": {
     "@types/nprogress": "^0.2.0",
     "animate": "^1.0.0",
+    "animate.css": "^4.1.1",
     "ant-design-vue": "^2.0.0-beta.12",
     "lodash": "^4.17.20",
     "nprogress": "^0.2.0",
@@ -24,7 +25,7 @@
     "@typescript-eslint/parser": "^2.33.0",
     "@vue/cli-plugin-eslint": "~4.5.0",
     "@vue/cli-plugin-router": "~4.5.0",
-    "@vue/cli-plugin-typescript": "~4.5.0",
+    "@vue/cli-plugin-typescript": "^4.5.9",
     "@vue/cli-plugin-vuex": "~4.5.0",
     "@vue/cli-service": "~4.5.0",
     "@vue/compiler-sfc": "^3.0.0",
