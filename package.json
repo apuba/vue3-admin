@@ -9,7 +9,9 @@
   },
   "dependencies": {
     "@types/nprogress": "^0.2.0",
+    "@vue/composition-api": "^1.0.0-beta.20",
     "animate": "^1.0.0",
+    "animate.css": "^4.1.1",
     "ant-design-vue": "^2.0.0-beta.12",
     "lodash": "^4.17.20",
     "nprogress": "^0.2.0",

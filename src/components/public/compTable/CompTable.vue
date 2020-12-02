@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 20:26:11
- * @LastEditTime: 2020-11-30 21:39:02
+ * @LastEditTime: 2020-12-01 23:19:54
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -29,7 +29,7 @@
 
 <script lang="ts">
 import { defineComponent, onMounted, PropType, reactive, toRefs } from 'vue';
-import { ItableConfig, Ipagination, ItoolBar } from './types';
+import { ItableProps, Ipagination, ItoolBar } from './types';
 import http from '@/common/http/index.ts';
 import { BaseRequestModel } from '@/service/baseModel';
 
@@ -37,7 +37,7 @@ export default defineComponent({
   name: 'CompTable',
   props: {
     config: {
-      type: Object as PropType<ItableConfig>,
+      type: Object as PropType<ItableProps>,
       required: true
     },
     toolBar: {
@@ -91,7 +91,7 @@ export default defineComponent({
         state.data = res.data;
         state.pagination.total = res.total;
         state.isDataLoaded = true; // 数据请求完成标识
-        console.log(res);
+        // console.log(res);
       });
     };
     // 分页事件

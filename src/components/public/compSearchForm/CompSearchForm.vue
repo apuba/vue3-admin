@@ -1,9 +1,9 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-20 00:41:41
- * @LastEditTime: 2020-11-24 22:46:40
+ * @LastEditTime: 2020-12-02 23:24:38
  * @LastEditors: 侯兴章
- * @Description: 常用查询表单的封装，未实现v-model的双向绑定
+ * @Description: 常用查询表单的封装， v-model:parame 为数据双向绑定 父级定义一个 ref let formParams = ref({});
 -->
 
 <template>
@@ -18,8 +18,8 @@
 </template>
 
 <script lang="ts">
-import { IFormItems, EcomponentType } from './types';
-import { defineComponent, reactive } from 'vue';
+import { IFormItems } from './types';
+import { defineComponent, reactive, toRefs, unref } from 'vue';
 import { useForm } from '@ant-design-vue/use';
 import type { PropType } from 'vue';
 
@@ -29,7 +29,9 @@ interface IfromItem {
 
 export default defineComponent({
   name: 'CompSearchForm',
+  emits: ['update:params', 'submit'],
   props: {
+    params: [Object, String, Number],
     items: {
       type: Array as PropType<IFormItems[]>,
       default: () => []
@@ -37,6 +39,8 @@ export default defineComponent({
     value: Object
   },
   setup(props, context) {
+    console.log('5555', props.params);
+
     const fromItem: IfromItem = {};
     const fromRules: IfromItem = {};
 
@@ -53,7 +57,9 @@ export default defineComponent({
       validate()
         .then(() => {
           context.emit('submit', formRef);
-          // context.emit('update:value', unref(formRef)); // 数据双向绑定
+          console.log('props.params', props.params);
+          // context.emit('update:modelValue', unref(formRef)); // 数据双向绑定
+          context.emit('update:params', unref(formRef)); // 数据双向绑定
         })
         .catch(err => {
           console.log('error', err);

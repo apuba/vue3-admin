@@ -1,24 +1,33 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-22 01:39:26
- * @LastEditTime: 2020-11-25 00:18:25
+ * @LastEditTime: 2020-12-03 01:58:11
  * @LastEditors: 侯兴章
  * @Description: 字典列表
  */
 
-import { defineComponent, onMounted, reactive, ref } from 'vue';
+import { defineComponent, onMounted, provide, reactive, ref, toRefs, unref } from 'vue';
 import { ApiDict } from '../server/api';
 import CompSearchForm, { IFormItems, EcomponentType } from '@/components/public/compSearchForm';
-import CompTable, { Icolumns, ItableConfig } from '@/components/public/compTable';
+import CompTable, { Icolumns, ItableProps } from '@/components/public/compTable';
 import { mapperDictType } from '../server/model';
+
+import CompAdd from './Add.vue'; // 导入ADD新增页面组件
 export default defineComponent({
     name: 'dictIndex',
     components: {
         CompSearchForm,
-        CompTable
+        CompTable,
+        CompAdd
+    },
+    provide: {
+        user: 'John Doe'
     },
     setup() {
 
+        let formParams = ref({});
+        const compAddVisible = ref(false);
+        provide('addVisible', compAddVisible); // 向组件传递 参数
         // 查询表单参数配置
         const formItems: IFormItems[] = [
             {
@@ -57,7 +66,7 @@ export default defineComponent({
         }]
 
         // 表格的配置项
-        const dataTableConfig: ItableConfig = {
+        const dataTableConfig: ItableProps = {
             api: ApiDict.getDictTypeList,
             columns,
             rowKey: 'dictId',
@@ -71,9 +80,27 @@ export default defineComponent({
             refTable.value.getData(params); // 由于是ref对象，所以要使用refTable.value.getData进行调用
 
         };
+
+        const tableClick = (): void => {
+            compAddVisible.value = true;
+            // provide('addVisible', true); // 向组件传递 参数
+            console.log('formParams', unref(formParams));  // 拿到searchForm的数据  ， 使用unref 转化为对象
+        }
+
+
         onMounted(() => {
             // 页面加载完成
         });
-        return { refTable, searchFormClick, formItems, dataTableConfig, columns };
+        return {
+
+            refTable,
+            searchFormClick,
+            formItems,
+            dataTableConfig,
+            columns,
+            formParams,
+            tableClick,
+
+        };
     }
 });

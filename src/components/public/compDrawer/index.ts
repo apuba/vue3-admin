@@ -6,8 +6,6 @@
  * @Description: 
  */
 
-import CompTable from './CompTable.vue';
-import { Icolumns, ItableProps } from './types';
-
-export { Icolumns, ItableProps };
-export default CompTable;
+import CompDrawer from './CompDrawer.vue';
+ 
+export default CompDrawer;

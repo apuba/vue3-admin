@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 00:52:57
- * @LastEditTime: 2020-11-29 22:55:47
+ * @LastEditTime: 2020-12-01 21:01:22
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -16,7 +16,7 @@ export interface Icolumns {
     slots?: any; // 超过宽度将自动省略，暂不支持和排序筛选一起使用。设置为 true 时，表格布局将变成 tableLayout="fixed"
 }
 
-export interface ItableConfig {
+export interface ItableProps {
     api: string; // 后台接口的地址
     columns: Array<Icolumns>; // 表格列表的配置
     rowKey?: string; // 绑定的主键,
