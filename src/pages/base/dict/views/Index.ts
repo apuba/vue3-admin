@@ -54,14 +54,19 @@ export default defineComponent({
             dataIndex: 'dictId',
             key: 'dictId'
         }, {
+          title: '字典类型',
+          dataIndex: 'dictType',
+          key: 'dictType',
+
+        }, {
             title: '字典类型名称',
             dataIndex: 'dictName',
             key: 'dictName',
             ellipsis: true,
         }, {
-            title: '字典类型',
-            dataIndex: 'dictType',
-            key: 'dictType',
+          title: '字典状态',
+          dataIndex: 'dictLabelStatus',
+          key: 'dictLabelStatus',
 
         }]
 

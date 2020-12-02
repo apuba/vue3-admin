@@ -17,8 +17,8 @@ const createProxy = () => {
   if (enablePro === 'yes') {
     return {
       '/api': {
-        target: 'http://localhost:4000',
-        // target: 'http://49.234.61.48:9091',
+        // target: 'http://localhost:4000',
+        target: 'http://127.0.0.1:9091/api',
         secure: false,
         changeOrigin: false, // 开启代理，在本地创建一个虚拟服务端
         // ws: true, // 是否启用websockets
@@ -69,7 +69,7 @@ module.exports = {
         // 详情: https://cli.vuejs.org/guide/css.html#passing-options-to-pre-processor-loaders
         prependData: `
         @import '@scss/var.scss';
-        @import '@scss/mixin.scss';      
+        @import '@scss/mixin.scss';
         $src: '${process.env.VUE_APP_PUBLIC_PATH}';
         `
       },

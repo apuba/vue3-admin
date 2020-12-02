@@ -6,21 +6,18 @@
  * @Description:
 -->
 <template>
-    <div style="height:300px; background-color:#f00;">
-        user 页面
+  <div  >
+    <div class="panel mb10">
+      <CompSearchForm :items="formItems"  @submit="searchFormClick" />
     </div>
+    <div class="panel">
+      <CompTable ref="refTable" :config="dataTableConfig" />
+    </div>
+  </div>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
-
-export default defineComponent({
-  setup () {
-    return {};
-  }
-});
+<script lang="ts" src="./Index.ts">
 </script>
 
 <style scoped>
-
 </style>
