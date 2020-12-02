@@ -9,7 +9,7 @@
 import { defineComponent, onMounted, reactive, ref } from 'vue';
 import { ApiRole } from '../server/api';
 import CompSearchForm, { IFormItems, EcomponentType } from '@/components/public/compSearchForm';
-import CompTable, { Icolumns, ItableConfig } from '@/components/public/compTable';
+import CompTable, { Icolumns, ItableProps } from '@/components/public/compTable';
 import { mapperDictType } from '../server/model';
 export default defineComponent({
     name: 'roleIndex',
@@ -67,7 +67,7 @@ export default defineComponent({
         }]
 
         // 表格的配置项
-        const dataTableConfig: ItableConfig = {
+        const dataTableConfig: ItableProps = {
             api: ApiRole.getRoleList,
             columns,
             rowKey: 'roleId',

@@ -1,13 +1,13 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 20:26:11
- * @LastEditTime: 2020-12-01 23:19:54
+ * @LastEditTime: 2020-12-03 02:19:35
  * @LastEditors: 侯兴章
  * @Description:
 -->
 <template>
   <div>
-    <div class="tableBar">
+    <div class="tableBar p5">
       <a-button-group>
         <a-button type="primary" size="small">添加</a-button>
         <a-button type="primary" size="small">修改</a-button>
