@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-22 01:39:26
- * @LastEditTime: 2020-12-03 01:58:11
+ * @LastEditTime: 2020-12-04 03:40:19
  * @LastEditors: 侯兴章
  * @Description: 字典列表
  */
@@ -19,12 +19,8 @@ export default defineComponent({
         CompSearchForm,
         CompTable,
         CompAdd
-    },
-    provide: {
-        user: 'John Doe'
-    },
+    },  
     setup() {
-
         let formParams = ref({});
         const compAddVisible = ref(false);
         provide('addVisible', compAddVisible); // 向组件传递 参数
@@ -82,30 +78,35 @@ export default defineComponent({
         const refTable = ref({ getData: Function });
         // 过滤表单的查询事件
         const searchFormClick = (params: any): void => {
-            refTable.value.getData(params); // 由于是ref对象，所以要使用refTable.value.getData进行调用
-
+            unref(refTable).getData(params); // 由于是ref对象，所以要使用refTable.value.getData进行调用        
         };
 
-        const tableClick = (): void => {
+        const addDictHandler = (): void => {
             compAddVisible.value = true;
-            // provide('addVisible', true); // 向组件传递 参数
-            console.log('formParams', unref(formParams));  // 拿到searchForm的数据  ， 使用unref 转化为对象
+            
+            // console.log('formParams', unref(formParams));  // 拿到searchForm的数据  ， 使用unref 转化为对象
         }
 
+
+        // 重载数据表格
+        const reloadTable = (): void => {
+            unref(refTable).getData();
+        }
+
+        provide('reloadTable', reloadTable); // 向子组件传递重载表格方法
 
         onMounted(() => {
             // 页面加载完成
         });
         return {
-
             refTable,
             searchFormClick,
             formItems,
             dataTableConfig,
             columns,
             formParams,
-            tableClick,
-
+            addDictHandler,
+            reloadTable
         };
     }
 });

@@ -12,7 +12,7 @@ import { VuexModule, Module, getModule, Mutation, Action } from 'vuex-module-dec
 import { IModelDictType } from '../server/model';
 
 
-const NAME = 'distStore';
+const NAME = 'jobStore';
 hotUnregisterModule(NAME);
 
 // dynamic: true: 动态创建动态模块,即new Vuex.Store({})里面不用注册的.空着就行,
@@ -22,9 +22,9 @@ hotUnregisterModule(NAME);
 class App extends VuexModule {
 
   private modelDictForm: IModelDictType = {
-    dictName: '',
-    dictType: '',
-    status: ''
+    jobName: '',
+    jobType: '',
+    description: ''
   }
 
   get getModelDictForm() {

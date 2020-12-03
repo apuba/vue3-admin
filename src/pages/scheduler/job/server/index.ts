@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-16 22:54:42
- * @LastEditTime: 2020-11-30 01:26:11
+ * @LastEditTime: 2020-12-03 21:00:47
  * @LastEditors: 侯兴章
  * @Description:
  */
@@ -13,9 +13,9 @@ import { ApiJob } from './api'
 
 // 获取字典  此方式为表格请求数据，已弃用，仅供参考
 export const ServiceGetDictList = async (params: IDTOdict) => {
-    const request: BaseRequestModel<IDTOdict> = {
+  /*   const request: BaseRequestModel<IDTOdict> = {
         params
     }
     const res = await http.post(ApiJob.getRoleList, request, mapperDictType);
-    return res
+    return res */
 }

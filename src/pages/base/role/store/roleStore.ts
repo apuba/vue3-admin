@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 00:44:21
- * @LastEditTime: 2020-11-30 01:25:15
+ * @LastEditTime: 2020-12-03 21:02:25
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -21,21 +21,7 @@ hotUnregisterModule(NAME);
 @Module({ namespaced: true, name: NAME, dynamic: true, store })
 class App extends VuexModule {
 
-  private modelDictForm: IModelDictType = {
-    dictName: '',
-    dictType: '',
-    status: ''
-  }
-
-  get getModelDictForm() {
-    return this.modelDictForm;
-  }
-
-  @Mutation
-  commitDictFormModel(val: IModelDictType): void {
-    this.modelDictForm = val;
-  }
- 
+   
 /*   @Action
   async getMenuAction(): Promise<Menu[]> {
     let menuList: Menu[] = []

@@ -1,11 +1,11 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 00:52:47
- * @LastEditTime: 2020-11-24 20:27:33
+ * @LastEditTime: 2020-12-03 21:49:52
  * @LastEditors: 侯兴章
  * @Description: 
  */
 
-import CompDrawer from './CompDrawer.vue';
+import CompPopup from './CompPopup.vue';
  
-export default CompDrawer;
+export default CompPopup;

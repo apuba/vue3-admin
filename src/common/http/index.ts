@@ -36,6 +36,10 @@ class Abstract {
         }
 
         if (headers['Content-Type'] === 'application/x-www-form-urlencoded;charset=UTF-8') {
+             // 把params的对象转为字符串
+             if (data.params && typeof data.params === 'object') {
+                data.params = JSON.stringify(data.params)
+            }
             data = qs.stringify(data); // 参数转换
         }
         // url解析
@@ -92,7 +96,7 @@ class Abstract {
      */
     post(obj: string | AxiosRequest, data: any, mapper?: any, headers?: any) {
         let url;
-        if (typeof obj === 'object') {
+        if (typeof obj === 'object') {           
             return this.postReq(obj);
         } else {
             url = obj;

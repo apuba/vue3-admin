@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-12-01 20:38:51
- * @LastEditTime: 2020-12-03 02:01:10
+ * @LastEditTime: 2020-12-03 21:50:48
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -16,6 +16,7 @@
 import { defineComponent, reactive } from 'vue';
 import { COMPONENT_SETTING } from '@/config';
 export default defineComponent({
+  name: 'CompPopup',
   props: {
     visible: {
       type: Boolean,

@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 20:26:11
- * @LastEditTime: 2020-12-03 02:19:35
+ * @LastEditTime: 2020-12-04 03:38:12
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -9,9 +9,7 @@
   <div>
     <div class="tableBar p5">
       <a-button-group>
-        <a-button type="primary" size="small">添加</a-button>
-        <a-button type="primary" size="small">修改</a-button>
-        <a-button type="primary" size="small">删除</a-button>
+        <slot name="buttons"></slot>
         <a-button type="primary" size="small">导出</a-button>
       </a-button-group>
     </div>
@@ -85,7 +83,7 @@ export default defineComponent({
       }
       state.params = { ...request.params }; // 存储查询参数
 
-      request.params = JSON.stringify(request.params);
+      // request.params = JSON.stringify(request.params);
 
       http.post(props.config.api, request, props.config.mapper).then(res => {
         state.data = res.data;
@@ -99,10 +97,15 @@ export default defineComponent({
       state.pagination.current = pagination.current;
       getData(undefined, pagination.current);
     };
+
+    /* 重新加载数据 */
+    const reloadData = () => {
+      getData(undefined, 1);
+    };
     onMounted(() => {
       state.autoLoading && getData();
     });
-    return { getData, state, changePagination };
+    return { getData, state, changePagination, reloadData };
   }
 });
 </script>
