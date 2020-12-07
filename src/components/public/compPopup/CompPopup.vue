@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-12-01 20:38:51
- * @LastEditTime: 2020-12-08 06:32:42
+ * @LastEditTime: 2020-12-08 06:36:05
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -64,7 +64,7 @@ export default defineComponent({
     },
     confirmLoading: { // 确认按钮的loading
       type: Boolean,
-      default: true
+      default: false
     }
   },
   emits: ['update:visible', 'submit', 'cancel'],
