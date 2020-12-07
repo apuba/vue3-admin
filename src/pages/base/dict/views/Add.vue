@@ -1,41 +1,39 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-29 22:58:16
- * @LastEditTime: 2020-12-04 03:26:13
+ * @LastEditTime: 2020-12-08 06:35:01
  * @LastEditors: 侯兴章
  * @Description:
 -->
 
 <template>
-  <CompPopup v-model:visible="addVisible" title="字典弹窗">
-    <div class="panel">
-      <a-form>
-        <a-form-item label="字典名称" v-bind="validateInfos.dictName">
-          <a-input v-model:value="modelAddDictRef.dictName" maxlength="20" />
-        </a-form-item>
-        <a-form-item label="字典类型" v-bind="validateInfos.dictType">
-          <a-input v-model:value="modelAddDictRef.dictType" maxlength="30" />
-        </a-form-item>
-
-        <a-form-item label="启用状态">
-          <a-select v-model:value="modelAddDictRef.status">
-            <a-select-option value="1">是</a-select-option>
-            <a-select-option value="2">否</a-select-option>
-          </a-select>
-        </a-form-item>
-        <a-form-item>
-          <a-button type="primary" @click="addHandler">添加</a-button>
-        </a-form-item>
-      </a-form>
-    </div>
-  </CompPopup>
+  <div>
+    <CompPopup v-model:visible="addVisible" title="新增字典" :showFooter="true" :confirmLoading="submitLoading" @submit="addHandler">
+      <div class="panel">
+        <a-form :labelCol="{span: 6}">
+          <a-form-item label="字典名称" v-bind="validateInfos.dictName">
+            <a-input v-model:value="modelAddDictRef.dictName" maxlength="20" />
+          </a-form-item>
+          <a-form-item label="字典类型" v-bind="validateInfos.dictType">
+            <a-input v-model:value="modelAddDictRef.dictType" maxlength="30" />
+          </a-form-item>
+          <a-form-item label="启用状态" v-bind="validateInfos.status">
+            <CompDictionaries v-model:value="modelAddDictRef.status" dictType="sys_enabled" width="175px" type="radio" />
+          </a-form-item>
+          <!-- <a-col :offset="6"><a-button type="primary" @click="addHandler" :loading="submitLoading">添加</a-button></a-col> -->
+        </a-form>
+      </div>
+    </CompPopup>
+  </div>
 </template>
 
 <script lang="ts">
 import { useForm } from '@ant-design-vue/use';
 import { defineComponent, inject, reactive, readonly, ref, unref } from 'vue';
-import { IModelDictType } from '../server/model';
+import { IModelDictType, mapperDictType } from '../server/model';
 import { ServSaveDict } from '../server';
+import { Icolumns, ItableProps } from '@/components/public/compTable';
+import { ApiDict } from '../server/api';
 export default defineComponent({
   name: ' DictAdd',
   components: {
@@ -44,6 +42,7 @@ export default defineComponent({
   setup(props, context) {
     const addVisible = ref(inject('addVisible'));
     const reloadTable: Function = inject('reloadTable') || Function; // 接受重载表格事件
+    const submitLoading = ref(false);
 
     // 添加字典表单，
     const modelAddDictRef: IModelDictType = reactive({
@@ -53,6 +52,12 @@ export default defineComponent({
     });
 
     const rulesRef = reactive({
+      status: [
+        {
+          required: true,
+          message: '请选择字典状态'
+        }
+      ],
       dictName: [
         {
           required: true,
@@ -74,14 +79,14 @@ export default defineComponent({
     const { resetFields, validate, validateInfos } = useForm(modelAddDictRef, rulesRef);
 
     const addHandler = (e: MouseEvent) => {
-      e.preventDefault();
+      e && e.preventDefault();
       validate()
         .then(() => {
+          submitLoading.value = true; // 按钮loading
           console.log('表单参数', modelAddDictRef);
           ServSaveDict(modelAddDictRef).then(res => {
+            submitLoading.value = false;
             if (res.status) {
-              reloadTable(); // 执行重截表格
-              resetFields(); // 重置表单
               reloadTable(); // 执行重截表格
               resetFields(); // 重置表单
               addVisible.value = false; // 隐藏弹窗
@@ -94,7 +99,41 @@ export default defineComponent({
         });
     };
 
-    return { addVisible, resetFields, validate, validateInfos, modelAddDictRef, rulesRef, addHandler, reloadTable };
+    // 弹窗配置 ------------------------------
+
+    const showModal = ref(true);
+
+    // 表格列表的配置
+    const columns: Array<Icolumns> = [{
+      title: 'ID',
+      dataIndex: 'dictId',
+      key: 'dictId'
+    }, {
+      title: '字典类型',
+      dataIndex: 'dictType',
+      key: 'dictType'
+
+    }, {
+      title: '字典类型名称',
+      dataIndex: 'dictName',
+      key: 'dictName',
+      ellipsis: true
+    }, {
+      title: '字典状态',
+      dataIndex: 'dictLabelStatus',
+      key: 'dictLabelStatus'
+
+    }];
+
+    // 表格的配置项
+    const dataTableConfig: ItableProps = {
+      api: ApiDict.getDictTypeList,
+      columns,
+      rowKey: 'dictId',
+      mapper: mapperDictType // 清洗数据的映射配置
+    };
+
+    return { showModal, dataTableConfig, addVisible, resetFields, validate, validateInfos, modelAddDictRef, rulesRef, addHandler, reloadTable, submitLoading };
   }
 });
 </script>

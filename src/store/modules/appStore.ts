@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 00:44:21
- * @LastEditTime: 2020-11-21 23:30:14
+ * @LastEditTime: 2020-12-08 01:51:07
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -21,7 +21,7 @@ import { mappingMenu } from '@/mapper'
 import { NESTED_MENU, APP_NAME } from '@/config';
 import { ServiceGetMenus, ServiceLogin } from '@/service/appService';
 import storage from '@/common/storage';
-import { DTOlogin, UserInfoModel } from '@/service/appModel';
+import { DTOlogin, IModelUserInfo, IModelDict } from '@/service/appModel';
 
 const NAME = 'appStore';
 hotUnregisterModule(NAME);
@@ -107,6 +107,7 @@ class App extends VuexModule {
   private menuSelectedKeys: Array<string | number> = [''];  // 已选中的主导航菜单
   private keepList = []; // 需要缓存的页面name
   private userInfo = {};
+  private dictList: Array<IModelDict> = []; // 缓存字典内容
 
   private isLoadMenu: boolean = false; // 是否已加载菜单？
 
@@ -133,6 +134,16 @@ class App extends VuexModule {
 
   get getMenuData() {
     return this.menuData;
+  }
+
+  // 获取字典列表
+  get getDictList() {
+    return this.dictList;
+  }
+
+  @Mutation
+  commitAddDictList(payload: Array<IModelDict>) {
+    this.dictList = payload;
   }
 
   @Mutation
@@ -206,7 +217,7 @@ class App extends VuexModule {
   }
 
   @Mutation
-  commitSetUserIfo(user: UserInfoModel) {
+  commitSetUserIfo(user: IModelUserInfo) {
     this.userInfo = user;
   }
   /* 获取菜单与路由 */
@@ -219,14 +230,25 @@ class App extends VuexModule {
     return menuList
   }
 
+
+  // 账户登录
   @Action
-  async actionLogin(params: DTOlogin) {
-    const userInfo: UserInfoModel = await ServiceLogin(params);
-    this.commitSetUserIfo(userInfo);
-    sessionStorage.removeItem('store'); // 登录清除刷新后的store
-    storage().set('token', userInfo.token);
-    storage().set('userInfo', JSON.stringify(userInfo));
-    router.push('/dashbord');
+  async actionLogin(payload: any) {
+    const { params, callback } = payload;
+
+    const userInfo: IModelUserInfo = await ServiceLogin(params);
+    if (userInfo.name) {
+      this.commitSetUserIfo(userInfo);
+      sessionStorage.removeItem('store'); // 登录清除刷新后的store
+      storage().set('token', userInfo.token);
+      storage().set('userInfo', JSON.stringify(userInfo));
+      router.push('/dashbord');
+      typeof callback === 'function' && callback();
+
+    } else {
+      console.log('登录失败')
+    }
+
   }
 
 }

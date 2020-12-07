@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-10-13 00:13:21
- * @LastEditTime: 2020-11-19 01:34:08
+ * @LastEditTime: 2020-12-08 01:40:29
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -52,6 +52,7 @@ import { DTOlogin } from '@/service/appModel';
 import MakeEffect from '@/effect';
 import { useForm } from '@ant-design-vue/use';
 import { appStore } from '@/store/modules/appStore';
+import { ServiceGetDict } from '@/service/appService';
 
 const eff = new MakeEffect(38, 100, 150); // 实例一个28-88个粒子的动画效果
 export default defineComponent({
@@ -81,12 +82,17 @@ export default defineComponent({
     };
     const { resetFields, validate, validateInfos } = useForm(formRef, rulesRef);
 
+    // 缓存数据字典列表
+    const cacheDictList = () => {
+      ServiceGetDict();
+    };
+
     // 登录事件
     const loginHandler = (e: MouseEvent) => {
       e.preventDefault();
       validate()
         .then(() => {
-          appStore.actionLogin(formRef);
+          appStore.actionLogin({ params: formRef, callback: cacheDictList });
         })
         .catch(err => {
           console.log('error', err);

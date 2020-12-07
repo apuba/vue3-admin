@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 00:52:57
- * @LastEditTime: 2020-12-01 21:01:22
+ * @LastEditTime: 2020-12-05 23:33:11
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -33,23 +33,24 @@ export interface Ipagination {
     pageSize: number; // 分页大小
     current: number; // 当前页面
     total: number; // 总记录
-
 }
 
 // 表格可选择类型
-enum selectionType {
-    checkbox,
-    radio
+export enum EselectionType {
+    checkbox = 'checkbox',
+    radio = 'radio'
 }
 
 // 行选择配置
 export interface IrowSelection {
-    onChange: Function;
-    onSelect: Function;
-    onSelectAll: Function;
-    type: selectionType;
-    columnWidth: string | number;
-    columnTitle: string | number;
+    onChange?: Function; // 选中项发生变化时的回调
+    onSelect?: Function; // 用户手动选择/取消选择某列的回调
+    onSelectAll?: Function; // 用户手动选择/取消选择所有列的回调
+    onSelectInvert?: Function; // 用户手动选择反选的回调
+    type?: EselectionType;
+    columnWidth?: string | number;
+    columnTitle?: string | number;
+    selectedRowKeys?: Array<string | number>
 
 }
 

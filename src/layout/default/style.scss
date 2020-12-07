@@ -39,4 +39,10 @@
             // background: lighten($color: $primary-color, $amount: 2);
         }
     }
+    .ant-table-tbody > tr.ant-table-row-selected td{
+        background: $transition-color-1;
+    }
+    .ant-table-thead > tr:hover.ant-table-row-selected > td, .ant-table-tbody > tr:hover.ant-table-row-selected > td {
+        background: $transition-color-4;
+    }
 }

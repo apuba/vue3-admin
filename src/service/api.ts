@@ -8,5 +8,6 @@
 
 export const ApiAPP = {
     getMenuList: '/systemServer/sysMenuController/findMenu',
-    login: '/systemServer/baseLogin/login'
+    login: '/systemServer/baseLogin/login',
+    getDictList: '/systemServer/sysDictDataController/findSysDictData'
 }

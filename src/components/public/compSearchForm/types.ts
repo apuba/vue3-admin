@@ -16,12 +16,12 @@ export interface IFormItems {
 }
 
 export enum EcomponentType {
-    Input,
-    Password,
-    Number,
-    Select,
-    Checkbox,
-    Radio
+    Input='Input',
+    Password='Password',
+    Number='Number',
+    Select='Select',
+    Checkbox='Checkbox',
+    Radio='Radio'
 }
 
  

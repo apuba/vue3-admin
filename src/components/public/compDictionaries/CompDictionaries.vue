@@ -1,0 +1,85 @@
+<!--
+ * @Author: 侯兴章 3603317@qq.com
+ * @Date: 2020-12-06 00:43:43
+ * @LastEditTime: 2020-12-08 05:33:19
+ * @LastEditors: 侯兴章
+ * @Description: 字典控件，有三种类型 select \ checkbox \ radio
+-->
+
+<template>
+  <a-select v-model:value="selectVal" @change="selectChangeHandler" v-if="type === Edicitionary.select" :options="options" :style="style"></a-select>
+  <a-radio-group :name="name" v-if="type === Edicitionary.radio" :options="options" v-model:value="selectVal" @change="radioChangeHandler" />
+  <a-checkbox-group v-if="type === Edicitionary.checkbox" v-model:value="selectVal" :name="name" :options="options" @change="checkBoxChangeHandler" />
+</template>
+
+<script lang="ts">
+import { defineComponent, onMounted, reactive, toRefs, unref } from 'vue';
+import { Edicitionary } from './types';
+import { IModelDict, IDictOptions } from '@/service/appModel';
+import { appStore } from '@/store/modules/appStore';
+import { mapperHelper } from '@/common/helper';
+
+export default defineComponent({
+  name: 'CompDictionaries',
+  props: {
+    value: [String, Number, Array],
+    type: {
+      type: String, // 字典控件的类型
+      default: Edicitionary.select
+    },
+    width: {
+      type: [String, Number],
+      default: '120px'
+    },
+    dictType: String, // 绑定字典类型的值
+    name: {
+      type: String,
+      default: ''
+    }
+  },
+  emits: ['update:value'],
+  setup(props, context) {
+    const options: Array<IDictOptions> = [];
+    const selectVal = props.value as string | number | Array<string | number>; // 当前 选择的值
+    const style = typeof props.width === 'string' ? `width: ${props.width}` : `width: ${props.width}px`;
+    const name: string = props.name ? props.name : props.type + new Date().getTime(); // 控件名
+
+    const state = reactive({ ...props, options, style, selectVal, name });
+    const getData = () => {
+      const data: Array<IModelDict> = unref(appStore.getDictList); // 获取缓存的字典
+      const mapper: IDictOptions = { // 字段映射
+        value: 'dictValue',
+        label: 'dictLabel'
+      };
+      state.options = mapperHelper<IDictOptions>(data.filter(item => item.dictType === state.dictType), mapper);
+    };
+
+    // select 事件
+    const selectChangeHandler = (val: string | number | Array<string | number>): void => {
+      debugger;
+      console.log(val);
+      context.emit('update:value', val);
+    };
+
+    // checkBox 事件
+    const checkBoxChangeHandler = (val: Array<string | number>): void => {
+      console.log(val);
+      context.emit('update:value', val);
+    };
+
+    // radio 事件
+    const radioChangeHandler = (e: Event): void => {
+      console.log((e.target as HTMLInputElement).value);
+      context.emit('update:value', (e.target as HTMLInputElement).value);
+    };
+
+    onMounted(() => {
+      getData();
+    });
+    return { ...toRefs(state), Edicitionary, checkBoxChangeHandler, radioChangeHandler, selectChangeHandler };
+  }
+});
+</script>
+
+<style scoped>
+</style>

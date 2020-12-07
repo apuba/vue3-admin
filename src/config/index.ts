@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-24 14:49:06
- * @LastEditTime: 2020-12-03 00:32:21
+ * @LastEditTime: 2020-12-04 22:43:16
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -13,6 +13,7 @@ export const ENABLED_ROUTER_TRANSTION: boolean = true; // 是否启用路由转�
 export const LOCK_SCREEN_TIME: number = 0; // 自动锁屏时间，分钟
 export const NESTED_MENU: boolean = false; // 是否采用嵌套路由的菜单？ 当前嵌套路由有问题，暂时先用下划线模式
 export const COMPONENT_SETTING: any = { // 全局组件配置
+    popupType: 'modal', //  弹窗方法有两种，modal \ drawer 
     drawerPlacement: 'right', // 弹窗出现的位置  top \ left \ right \ bottom
 }
 

@@ -1,16 +1,16 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 20:26:11
- * @LastEditTime: 2020-12-04 03:38:12
+ * @LastEditTime: 2020-12-07 21:38:16
  * @LastEditors: 侯兴章
  * @Description:
 -->
 <template>
   <div>
-    <div class="tableBar p5">
+    <div class="tableBar p5" v-if="showButtons">
       <a-button-group>
         <slot name="buttons"></slot>
-        <a-button type="primary" size="small">导出</a-button>
+        <!-- <a-button type="primary" size="small">导出</a-button> -->
       </a-button-group>
     </div>
     <a-table
@@ -21,30 +21,39 @@
       :row-key="config.rowKey"
       :size="state.size"
       :loading="!state.isDataLoaded"
+      :row-selection="rowSelection"
     ></a-table>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, reactive, toRefs } from 'vue';
-import { ItableProps, Ipagination, ItoolBar } from './types';
+import { defineComponent, onMounted, PropType, reactive, toRefs, unref } from 'vue';
+import { ItableProps, Ipagination, ItoolBar, IrowSelection, EselectionType } from './types';
 import http from '@/common/http/index.ts';
 import { BaseRequestModel } from '@/service/baseModel';
 
 export default defineComponent({
   name: 'CompTable',
+  emits: ['update:selectedRowKeys', 'update:selectedRowNames'],
   props: {
+    selectedRowKeys: { // 已选择的行的主键
+      type: Array
+    },
     config: {
-      type: Object as PropType<ItableProps>,
+      type: Object as PropType<ItableProps>, // 表格的配置
       required: true
     },
-    toolBar: {
+    showButtons: { // 是否显示功能按钮
+      type: Boolean,
+      default: true
+    },
+    toolBar: { // 是否显示常规功能按钮栏
       type: Object as PropType<ItoolBar>
     }
   },
-  setup(props) {
+  setup(props, context) {
     const pagination: Ipagination = {
-      pageSize: 20,
+      pageSize: 10,
       current: 1,
       total: 0
     };
@@ -57,6 +66,28 @@ export default defineComponent({
       pagination,
       params: undefined // 请求的参数
     });
+
+    // 行选择操作
+    let rowSelection: IrowSelection = reactive({
+      type: EselectionType.checkbox,
+      selectedRowKeys: [],
+      onChange: Function
+    });
+
+    const onSelectChange = (selectedRowKeys: Array<number | string>) => {
+      console.log('selectedRowKeys changed: ', selectedRowKeys);
+      rowSelection.selectedRowKeys = selectedRowKeys;
+      context.emit('update:selectedRowKeys', selectedRowKeys); // 数据双向绑定
+    };
+
+    rowSelection.onChange = onSelectChange;
+    if (props.config.rowSelection) {
+      // rowSelection = props.config.rowSelection as IrowSelection;
+      rowSelection = reactive({
+        ...rowSelection,
+        ...props.config.rowSelection
+      });
+    }
 
     /**
      * @description: 请求数据
@@ -105,7 +136,7 @@ export default defineComponent({
     onMounted(() => {
       state.autoLoading && getData();
     });
-    return { getData, state, changePagination, reloadData };
+    return { getData, state, changePagination, reloadData, rowSelection };
   }
 });
 </script>

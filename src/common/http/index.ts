@@ -57,12 +57,12 @@ class Abstract {
             }).then((res) => {
                 // 200:服务端业务处理正常结束
                 if (res.status === 200) {
-                    const result = mapper ? mapperHelper<any>(res.data?.data, mapper) : res.data?.data; // 数据清洗
                     if (res.data.success || res.data.code == 200 || res.data.status === 'S') {
+                        const result = mapper ? mapperHelper<any>(res.data?.data, mapper) : res.data?.data; // 数据清洗
                         resolve({ total: res.data?.pagesCount, status: true, code: 200, msg: res.data?.msg, data: result, origin: res.data });
                     } else {
                         message.error(res.data?.msg || (url + '请求失败'));
-                        resolve({ total: res.data?.pagesCount, status: false, code: 200, msg: res.data?.msg || (url + '请求失败'), data: result, origin: res.data });
+                        resolve({ total: res.data?.pagesCount, status: false, code: 200, msg: res.data?.msg || (url + '请求失败'), data: null, origin: res.data });
                     }
                 } else {
                     resolve({ total: res.data?.pagesCount, status: false, code: res.status, msg: res.data?.msg || (url + '请求失败'), data: null });

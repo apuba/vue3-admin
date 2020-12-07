@@ -1,13 +1,13 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 00:52:47
- * @LastEditTime: 2020-11-24 20:27:33
+ * @LastEditTime: 2020-12-05 22:57:01
  * @LastEditors: 侯兴章
  * @Description: 
  */
 
+import type { Icolumns, Ipagination, ItableProps, EselectionType, IrowSelection } from './types';
 import CompTable from './CompTable.vue';
-import { Icolumns, ItableProps } from './types';
 
-export { Icolumns, ItableProps };
+export { Icolumns, ItableProps, Ipagination, EselectionType, IrowSelection };
 export default CompTable;
