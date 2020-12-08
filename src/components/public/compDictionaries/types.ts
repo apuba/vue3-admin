@@ -6,7 +6,7 @@
  * @Description: 
  */
 export enum Edicitionary {
-    select = 'select',
-    checkbox = 'checkbox',
-    radio = 'radio'
+    Select = 'select',
+    Checkbox = 'checkbox',
+    Radio = 'radio'
 }

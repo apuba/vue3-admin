@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-20 00:41:41
- * @LastEditTime: 2020-12-02 23:24:38
+ * @LastEditTime: 2020-12-09 01:23:12
  * @LastEditors: 侯兴章
  * @Description: 常用查询表单的封装， v-model:parame 为数据双向绑定 父级定义一个 ref let formParams = ref({});
 -->
@@ -9,7 +9,8 @@
 <template>
   <a-form layout="inline" @submit="searchHandler" class="search-form">
     <a-form-item v-bind="validateInfos[item.model]" v-for="(item, index) in items" :key="index" :label="item.label">
-      <a-input v-model:value="formRef[item.model]" :placeholder="item.placeholder" />
+      <CompDictionaries v-model:value="formRef[item.model]" :defaultValue="item.defaultValue" :type="item.type" v-if="['select', 'radio', 'checkbox'].includes(item.type)" :dictType="item.dictType" />
+      <a-input :defaultValue="item.defaultValue" v-model:value="formRef[item.model]" :placeholder="item.placeholder" v-else />
     </a-form-item>
     <a-form-item>
       <a-button type="primary" @click="searchHandler">搜索</a-button>
