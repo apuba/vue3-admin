@@ -16,9 +16,10 @@ import router from '@/router';
 export default defineComponent({
   setup() {
     const id = ref(router.currentRoute.value.query.id); // 获取路由的传id
-    /* onActivated(() => {
-      console.log('重新激活了');
-    }); */
+
+    const getData = () => {
+      // 获取数据
+    };
 
     watch(router.currentRoute, (nval, oval) => {
       id.value = nval.query.id; // 监听路由参数切换。数据不变化
