@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 00:44:21
- * @LastEditTime: 2020-12-08 01:51:07
+ * @LastEditTime: 2020-12-10 00:30:44
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -181,6 +181,7 @@ class App extends VuexModule {
 
   @Mutation
   commitAddTab(route: TabItem | Menu): void {
+    debugger
     const { path, name, meta, id } = route;
     // 404  页面不需要添加tab
     if (path === PageEnum.ERROR_PAGE) {

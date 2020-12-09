@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 20:26:11
- * @LastEditTime: 2020-12-07 21:38:16
+ * @LastEditTime: 2020-12-09 23:05:38
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -22,7 +22,11 @@
       :size="state.size"
       :loading="!state.isDataLoaded"
       :row-selection="rowSelection"
-    ></a-table>
+    >
+      <template #operation="{text, record, index}">
+        <slot name="operation" :record="record" :text="text" :index="index"></slot>
+      </template>
+    </a-table>
   </div>
 </template>
 

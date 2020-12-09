@@ -1,14 +1,14 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-12-08 21:30:58
- * @LastEditTime: 2020-12-09 01:01:32
+ * @LastEditTime: 2020-12-09 01:45:07
  * @LastEditors: 侯兴章
  * @Description:
 -->
 
 <template>
   <div class="panel p10">
-    <h4>数据表格控件</h4>
+    <h2>数据表格控件</h2>
     <ul class="list">
       <li>
         select类型：
@@ -16,11 +16,11 @@
       </li>
       <li>
         checkbox类型：
-        <CompDictionaries type="checkbox" v-model:value="form.checkbox" dictType="sys_user_type" />
+        <CompDictionaries type="radio" v-model:value="form.checkbox" dictType="sys_user_type" />
       </li>
       <li>
         radio类型：
-        <CompDictionaries type="radio" v-model:value="form.radio" dictType="schedule_schedules_status_code" />
+        <CompDictionaries type="checkbox" v-model:value="form.radio" dictType="schedule_schedules_status_code" />
       </li>
     </ul>
   </div>

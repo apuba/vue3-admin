@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-22 01:39:26
- * @LastEditTime: 2020-12-08 04:21:50
+ * @LastEditTime: 2020-12-10 01:20:26
  * @LastEditors: 侯兴章
  * @Description: 字典列表
  */
@@ -12,6 +12,8 @@ import CompSearchForm, { IFormItems, EcomponentType } from '@/components/public/
 import CompTable, { Icolumns, ItableProps } from '@/components/public/compTable';
 import { EselectionType } from '@/components/public/compTable/types';
 import { mapperDictType } from '../server/model';
+import { appStore } from '@/store/modules/appStore';
+import { TabItem } from '@/store/modules/appTypes';
 
 import CompAdd from './Add.vue'; // 导入ADD新增页面组件
 export default defineComponent({
@@ -62,10 +64,16 @@ export default defineComponent({
             ellipsis: true,
         }, {
             title: '字典状态',
-            dataIndex: 'dictLabelStatus',
-            key: 'dictLabelStatus',
+            dataIndex: 'status',
+            key: 'status',
 
-        }]
+        }, {
+            title: '操作',
+            dataIndex: 'dictId',
+            slots: { customRender: 'operation' },
+        }
+
+        ]
 
         // 表格的配置项
         const dataTableConfig: ItableProps = {
@@ -86,12 +94,23 @@ export default defineComponent({
         };
 
 
-        // 添加字典弹框
-        const addDictHandler = (): void => {
+        // 添加字典类型弹框
+        const addDictTypeHandler = (): void => {
             compAddVisible.value = true;
             console.log('selectedRowKeys', unref(selectedRowKeys)); // 
-
             // console.log('formParams', unref(formParams));  // 拿到searchForm的数据  ， 使用unref 转化为对象
+        }
+
+        // 新增字典事件
+        const addDictHandler = (row: any) => {
+            console.log(row);
+
+            const menu: TabItem = {
+                id: (new Date()).getTime(),
+                path: '/base/dict/DictList?id=' + row.text,
+                name: row.record.dictName
+            }
+            appStore.commitAddTab(menu); // 打开tab
         }
 
         // 重载数据表格
@@ -101,8 +120,6 @@ export default defineComponent({
 
         let selectedRowKeys = ref(['']); // 当前表格选择的Kyes 数据双向绑定 
         provide('reloadTable', reloadTable); // 向子组件传递重载表格方法
-
-
 
 
         const showModal = ref(false); // 显示模型弹窗
@@ -129,6 +146,7 @@ export default defineComponent({
             dataTableConfig,
             columns,
             formParams,
+            addDictTypeHandler,
             addDictHandler,
             reloadTable,
             searchFormClick,

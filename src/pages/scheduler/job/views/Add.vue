@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-29 22:58:16
- * @LastEditTime: 2020-12-08 06:35:01
+ * @LastEditTime: 2020-12-09 20:20:26
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -30,7 +30,7 @@
             <CompDictionaries dictType="schedule_schedules_model" v-model:value="modelAddJobRef.module" />
           </a-form-item>
           <a-form-item label="单例模式" v-bind="validateInfos.singleInstance">
-            <CompDictionaries type="radio" v-model:value="validateInfos.singleInstance" dictType="schedule_jobs_single_instance" />
+            <CompDictionaries type="radio" v-model:value="modelAddJobRef.singleInstance" dictType="schedule_jobs_single_instance" />
           </a-form-item>
 <!--          <a-form-item label="执行方式" v-bind="validateInfos.jobType">-->
 <!--            <CompDictionaries dictType="schedule_schedules_schedule_type" v-model:value="modelAddJobRef.jobType" />-->

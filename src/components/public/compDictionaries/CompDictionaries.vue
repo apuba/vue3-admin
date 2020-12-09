@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-12-06 00:43:43
- * @LastEditTime: 2020-12-09 01:39:23
+ * @LastEditTime: 2020-12-09 20:35:02
  * @LastEditors: 侯兴章
  * @Description: 字典控件，有三种类型 select \ checkbox \ radio
 -->
@@ -44,10 +44,8 @@ export default defineComponent({
     // const selectVal = props.value as string | number | Array<string | number>; // 当前 选择的值
 
     const selectVal = (props.value || props.defaultValue); // 当前 选择的值
-
     const style = typeof props.width === 'string' ? `width: ${props.width}` : `width: ${props.width}px`;
     const name: string = props.name ? props.name : props.type + new Date().getTime(); // 控件名
-
     const state = reactive({ ...props, options, style, selectVal, name });
     const getData = () => {
       const data: Array<IModelDict> = unref(appStore.getDictList); // 获取缓存的字典
