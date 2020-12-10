@@ -1,15 +1,15 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-22 01:39:26
- * @LastEditTime: 2020-12-10 01:20:26
+ * @LastEditTime: 2020-12-11 01:05:43
  * @LastEditors: 侯兴章
  * @Description: 字典列表
  */
 
 import { defineComponent, onMounted, provide, reactive, ref, toRefs, unref } from 'vue';
 import { ApiDict } from '../server/api';
-import CompSearchForm, { IFormItems, EcomponentType } from '@/components/public/compSearchForm';
-import CompTable, { Icolumns, ItableProps } from '@/components/public/compTable';
+import { IFormItems, EcomponentType } from '@/components/public/compSearchForm';
+import { Icolumns, ItableProps } from '@/components/public/compTable';
 import { EselectionType } from '@/components/public/compTable/types';
 import { mapperDictType } from '../server/model';
 import { appStore } from '@/store/modules/appStore';
@@ -19,8 +19,7 @@ import CompAdd from './Add.vue'; // 导入ADD新增页面组件
 export default defineComponent({
     name: 'dictIndex',
     components: {
-        CompSearchForm,
-        CompTable,
+
         CompAdd
     },
     setup() {
@@ -31,19 +30,11 @@ export default defineComponent({
         const formItems: IFormItems[] = [
             {
                 label: '字典名称',
-                model: 'dictName',
-                rules: [{
-                    required: true,
-                    message: '请输名称'
-                }]
+                model: 'dictName'
             },
             {
                 label: '字典类型',
-                model: 'dictType',
-                rules: [{
-                    required: true,
-                    message: '请输字典类型'
-                }]
+                model: 'dictType'
             }
         ]
 
@@ -104,9 +95,8 @@ export default defineComponent({
         // 新增字典事件
         const addDictHandler = (row: any) => {
             console.log(row);
-
             const menu: TabItem = {
-                id: (new Date()).getTime(),
+                id: 'dictId' + row.record.dictId, //  (new Date()).getTime(),
                 path: '/base/dict/DictList?id=' + row.text,
                 name: row.record.dictName
             }

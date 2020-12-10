@@ -1,44 +1,40 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-12-09 23:57:45
- * @LastEditTime: 2020-12-10 02:08:05
+ * @LastEditTime: 2020-12-11 01:18:14
  * @LastEditors: 侯兴章
  * @Description:
 -->
 <template>
-  <div>字典列表</div>
-  <div>当前路由的ID 为： {{ id }}</div>
+  <div class="panel mb10">
+    <CompSearchForm :items="formItems" @submit="searchFormClick" v-model:params="formParams" />
+  </div>
+  <div class="panel">
+    <CompTable ref="refTable" :config="dataTableConfig" v-model:selectedRowKeys="selectedRowKeys">
+      <template v-slot:buttons>
+        <a-button type="primary" size="small" @click="addDictTypeHandler">添加字典</a-button>
+      </template>
+
+      <template v-slot:operation="scope" data-desc="自定操作栏">
+        <a-button-group>
+          <a-button type="primary" size="small" @click="editDictHandler(scope)">修改</a-button>
+
+          <a-popconfirm title="确认要删除?" @confirm="delDictHandler(scope)">
+            <a-button type="warin" size="small">删除</a-button>
+          </a-popconfirm>
+        </a-button-group>
+      </template>
+    </CompTable>
+    <!-- 弹窗组件 -->
+    <!-- <CompModalSelect :config="dataTableConfig" v-model:visible="showModal" title="选择弹窗" v-model:selectedRowKeys="modalRowKeys" /> -->
+  </div>
+
+  <!-- 引入添加组件 -->
+  <CompAdd />
 </template>
 
-<script lang="ts">
-import { defineComponent, onActivated, ref, watch } from 'vue';
-import router from '@/router';
-import { onBeforeRouteUpdate } from 'vue-router';
-export default defineComponent({
-  setup() {
-    const id = ref(router.currentRoute.value.query.id); // 获取路由的传id
+<script lang="ts" src="./DictList.ts" >
 
-    const getData = () => {
-      // 获取数据
-    };
-
-    /*   watch(router.currentRoute, (nval, oval) => {
-        id.value = nval.query.id; // 监听路由参数切换。数据不变化
-      });
-   */
-    onBeforeRouteUpdate((to, from, next) => {
-      console.log(to);
-      // 在当前路由改变，但是该组件被复用时调用
-      // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
-      // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
-      // 可以访问组件实例 `this`
-      id.value = to.query.id;
-      next();
-    });
-
-    return { id };
-  }
-});
 </script>
 
 <style scoped>
