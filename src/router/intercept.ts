@@ -22,11 +22,14 @@ router.beforeEach(async (to, from, next) => {
     NProgress.start();
     const token = storage().get('token') || storage('localstorage').get('token');
     // 判断是否登录
-    if (token) { 
-        next();
+    if (token) {
+
         if (!appStore.getIsLoadMenu) {
-            addDynamicMenuAndRoutes(router); // 动态添加路由与菜单
+            await addDynamicMenuAndRoutes(router, to, next); // 动态添加路由与菜单
+        } else {
+            next();
         }
+
     } else {
         if (ROUTER_WIHITELIST.includes(to.path)) {
             next();

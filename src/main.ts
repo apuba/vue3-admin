@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-13 00:04:42
- * @LastEditTime: 2020-12-03 22:11:34
+ * @LastEditTime: 2020-12-12 14:56:33
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -23,10 +23,12 @@ import { setupComp } from '@/components/public';
 
 const app = createApp(App);
 app.use(Antd);
-// router
-setupRouter(app);
+
 // store
 setupStore(app);
+
+// router
+setupRouter(app);
 
 // 注册全局组件
 setupComp(app);

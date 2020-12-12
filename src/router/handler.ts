@@ -1,12 +1,12 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-12 22:44:49
- * @LastEditTime: 2020-11-25 00:38:02
+ * @LastEditTime: 2020-12-12 16:25:05
  * @LastEditors: 侯兴章
  * @Description: 
  */
 
-import type { Router, RouteRecordRaw } from 'vue-router';
+import type { NavigationGuardNext, RouteLocationNormalized, Router, RouteRecordRaw } from 'vue-router';
 import http from '@/common/http/index.ts';
 import { appStore } from '@/store/modules/appStore';
 import type { Menu, AppRouteRecordRaw } from '@/router/types.d';
@@ -43,7 +43,7 @@ function addDynamicRoutes(menuList: Menu[] = [], routes: Array<RouteRecordRaw> =
                 },
                 component: () => import(`@/pages/${vuePath}`)
             }
-            routes.push(route)             
+            routes.push(route)
         }
 
         if (item.children) {
@@ -64,8 +64,11 @@ function handleStaticComponent(router: Router, dynamicRoutes: Array<RouteRecordR
 
 
 /* 动态添加路由与菜单 */
-export const addDynamicMenuAndRoutes = async (router: Router): Promise<Router> => {
-    const menuList = await appStore.getMenuAction();
+export const addDynamicMenuAndRoutes = async (router: Router, to: RouteLocationNormalized, next: NavigationGuardNext): Promise<Router> => {
+    let menuList = appStore.getMenuData;
+    if (!menuList.length) {
+        menuList = await appStore.getMenuAction();
+    }
     console.log('menuList-', menuList)
     let dynamicRoutes = addDynamicRoutes(menuList);
     console.log('动态路由加载...')
@@ -73,10 +76,13 @@ export const addDynamicMenuAndRoutes = async (router: Router): Promise<Router> =
     console.log('动态路由加载完成.')
     // 处理路由，追动态的路由返回所有路由
     const allRouter: Array<RouteRecordRaw> = handleStaticComponent(router, dynamicRoutes);
+    console.log('所有路由', allRouter)
     allRouter.forEach(item => {
         router.addRoute(item)
     })
-    appStore.commitLoadMenu(); // 更新是否添加菜单标识，避免重复请求添加
+    // appStore.commitRouter(router); // 保存当前路由，用于刷新页面还原
+    appStore.commitLoadMenu(true); // 更新是否添加菜单标识，避免重复请求添加
+    next(to.path)
 
     return router
 }

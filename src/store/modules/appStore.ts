@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 00:44:21
- * @LastEditTime: 2020-12-10 02:09:00
+ * @LastEditTime: 2020-12-12 15:42:40
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -22,6 +22,7 @@ import { NESTED_MENU, APP_NAME } from '@/config';
 import { ServiceGetMenus, ServiceLogin } from '@/service/appService';
 import storage from '@/common/storage';
 import { DTOlogin, IModelUserInfo, IModelDict } from '@/service/appModel';
+import { Router, RouteRecordRaw } from 'vue-router';
 
 const NAME = 'appStore';
 hotUnregisterModule(NAME);
@@ -108,8 +109,9 @@ class App extends VuexModule {
   private keepList = []; // 需要缓存的页面name
   private userInfo = {};
   private dictList: Array<IModelDict> = []; // 缓存字典内容
+  private router: any = null; // 缓存已加载的动态路由，避免刷新页面丢失
 
-  private isLoadMenu: boolean = false; // 是否已加载菜单？
+  private isLoadMenu: boolean = false; // 是否已加载菜单
 
   get getMenuSelectedKeys() {
     return this.menuSelectedKeys;
@@ -136,9 +138,20 @@ class App extends VuexModule {
     return this.menuData;
   }
 
+  get getRouter() {
+    return this.router;
+  }
+
   // 获取字典列表
   get getDictList() {
     return this.dictList;
+  }
+
+
+
+  @Mutation
+  commitRouter(payload: Router) {
+    this.router = payload;
   }
 
   @Mutation
