@@ -1,12 +1,12 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-12-09 23:57:45
- * @LastEditTime: 2020-12-11 01:18:14
+ * @LastEditTime: 2020-12-13 14:24:19
  * @LastEditors: 侯兴章
  * @Description:
 -->
 <template>
-  <div class="panel mb10">
+  <div class="panel mb10" v-if="!dictType">
     <CompSearchForm :items="formItems" @submit="searchFormClick" v-model:params="formParams" />
   </div>
   <div class="panel">

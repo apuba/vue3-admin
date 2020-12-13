@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-12-10 23:05:49
- * @LastEditTime: 2020-12-11 01:44:42
+ * @LastEditTime: 2020-12-13 14:25:40
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -15,7 +15,7 @@ import { EselectionType, Icolumns, ItableProps } from '@/components/public/compT
 import { ApiDict } from '../server/api';
 export default defineComponent({
     setup() {
-        let id = router.currentRoute.value.query.id; // 获取路由的传id
+        let dictType = ref(router.currentRoute.value.query.dictType); // 获取路由的传id
         let formParams = ref({}); // 查询表单对象，数据双向绑定
 
         // 查询表单参数配置
@@ -92,7 +92,7 @@ export default defineComponent({
             api: ApiDict.getDictList,
             columns,
             rowKey: 'dictDataId',
-            requestParams: { dictDataId: id },
+            requestParams: { dictType: dictType.value },
             rowSelection: {
                 type: EselectionType.radio
             },
@@ -111,11 +111,11 @@ export default defineComponent({
             // 举例来说，对于一个带有动态参数的路径 /foo/:id，在 /foo/1 和 /foo/2 之间跳转的时候，
             // 由于会渲染同样的 Foo 组件，因此组件实例会被复用。而这个钩子就会在这个情况下被调用。
             // 可以访问组件实例 `this`
-            id = to.query.id;
-            methods.searchFormClick({ dictDataId: id });
+            dictType.value = to.query.dictType;
+            methods.searchFormClick({ dictType: dictType.value });
             next();
         });
 
-        return { refTable, id, formItems, formParams, dataTableConfig, selectedRowKeys, ...toRefs(methods) };
+        return { refTable, dictType, formItems, formParams, dataTableConfig, selectedRowKeys, ...toRefs(methods) };
     }
 });

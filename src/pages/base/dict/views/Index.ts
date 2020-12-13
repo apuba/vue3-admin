@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-22 01:39:26
- * @LastEditTime: 2020-12-11 01:05:43
+ * @LastEditTime: 2020-12-12 22:52:36
  * @LastEditors: 侯兴章
  * @Description: 字典列表
  */
@@ -97,7 +97,7 @@ export default defineComponent({
             console.log(row);
             const menu: TabItem = {
                 id: 'dictId' + row.record.dictId, //  (new Date()).getTime(),
-                path: '/base/dict/DictList?id=' + row.text,
+                path: '/base/dict/DictList?dictType=' + row.record.dictType,
                 name: row.record.dictName
             }
             appStore.commitAddTab(menu); // 打开tab

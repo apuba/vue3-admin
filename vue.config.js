@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-13 01:19:23
- * @LastEditTime: 2020-12-09 20:24:40
+ * @LastEditTime: 2020-12-12 16:42:48
  * @LastEditors: 侯兴章
  * @Description: 配置
  */
@@ -17,8 +17,8 @@ const createProxy = () => {
   if (enablePro === 'yes') {
     return {
       '/api': {
-        target: 'http://localhost:4000',
-        // target: 'http://127.0.0.1:9091/api',
+        // target: 'http://localhost:4000',
+        target: 'http://47.115.141.0:9091/api',
         // target: 'http://49.234.61.48:9091/api',
         secure: false,
         changeOrigin: false, // 开启代理，在本地创建一个虚拟服务端

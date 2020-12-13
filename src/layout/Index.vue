@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-11-01 13:10:36
- * @LastEditTime: 2020-12-12 14:57:48
+ * @LastEditTime: 2020-12-13 01:35:10
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -28,7 +28,8 @@ export default defineComponent({
         sessionStorage.setItem('store', JSON.stringify(store.state));
       });
 
-      /*  const sessionStore: string = sessionStorage.store;
+      /* 此逻辑移动到 vuex 处理
+       const sessionStore: string = sessionStorage.store;
       if (sessionStore) {
         store.replaceState(Object.assign({}, store.state, JSON.parse(sessionStore)));
       } */

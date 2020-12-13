@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 00:44:21
- * @LastEditTime: 2020-12-12 15:42:40
+ * @LastEditTime: 2020-12-13 14:14:35
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -109,7 +109,6 @@ class App extends VuexModule {
   private keepList = []; // 需要缓存的页面name
   private userInfo = {};
   private dictList: Array<IModelDict> = []; // 缓存字典内容
-  private router: any = null; // 缓存已加载的动态路由，避免刷新页面丢失
 
   private isLoadMenu: boolean = false; // 是否已加载菜单
 
@@ -138,21 +137,12 @@ class App extends VuexModule {
     return this.menuData;
   }
 
-  get getRouter() {
-    return this.router;
-  }
 
   // 获取字典列表
   get getDictList() {
     return this.dictList;
   }
 
-
-
-  @Mutation
-  commitRouter(payload: Router) {
-    this.router = payload;
-  }
 
   @Mutation
   commitAddDictList(payload: Array<IModelDict>) {
@@ -163,6 +153,15 @@ class App extends VuexModule {
   commitLoadMenu(val: boolean = true): void {
     this.isLoadMenu = val;
   }
+
+  @Mutation
+  commitDelTab(payload: any) {
+    const { index } = payload;
+    const menu = this.tabList[index - 1];
+    this.tabList.splice(index, 1);
+
+  }
+
 
   @Mutation
   commitChangeTabActive(payload: any): void {
@@ -221,6 +220,8 @@ class App extends VuexModule {
 
     this.tabActiveKey = this.tabList.length // 添加tab的索引
     this.tabList.push(route);
+
+    console.log(this.tabActiveKey)
 
     /* if (unref(getOpenKeepAliveRef) && name) {
       const noKeepAlive = meta && meta.ignoreKeepAlive;
