@@ -12,7 +12,9 @@ import CompSearchForm, { IFormItems, EcomponentType } from '@/components/public/
 import CompTable, { Icolumns, ItableProps } from '@/components/public/compTable';
 import { mapperDictType } from '../server/model';
 
-import CompAdd from './Add.vue'; // 导入ADD新增页面组件
+import CompAdd from './Add.vue';
+import {TabItem} from "@/store/modules/appTypes";
+import {appStore} from "@/store/modules/appStore"; // 导入ADD新增页面组件
 export default defineComponent({
     name: 'roleIndex',
     components: {
@@ -35,6 +37,17 @@ export default defineComponent({
                 }]
             }
         ]
+
+
+      // 新增调度任务实例
+      const addHandler = (row: any) => {
+        const menu: TabItem = {
+          id: 'dictId',
+          path: '/scheduler/schedules/Add',
+          name: '22'
+        }
+        appStore.commitAddTab(menu); // 打开tab
+      }
 
         // 表格列表的配置
         const columns: Array<Icolumns> = [{
@@ -109,6 +122,6 @@ export default defineComponent({
 
 
 
-        return { add,refTable, searchFormClick, formItems, dataTableConfig, columns,compAddVisible };
+        return { add,refTable, searchFormClick, formItems, dataTableConfig, columns,compAddVisible,addHandler };
     }
 });
