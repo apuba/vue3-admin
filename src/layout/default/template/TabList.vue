@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-11-08 23:38:56
- * @LastEditTime: 2020-11-15 01:37:16
+ * @LastEditTime: 2020-12-13 14:15:49
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -13,6 +13,7 @@
       </li>
       <li class="item" v-for="(li, index) in tabList" :key="index" :class="{active: tabActiveKey === index}" @click="tabClickHandler(index, li)">
         <span>{{ li.name }}</span>
+        <span class="close" @click.stop="delTabHandler(index, li)">x</span>
       </li>
     </ul>
   </div>
@@ -29,10 +30,21 @@ export default defineComponent({
     const tabActiveKey = computed(() => appStore.getTabActiveKey);
     const tabList = computed(() => appStore.getTabList);
 
-    function tabClickHandler(index = -1, menu: Menu): void {
+    const tabClickHandler = (index = -1, menu: Menu) => {
       appStore.commitChangeTabActive({ index, menu });
-    }
-    return { tabList, tabActiveKey, tabClickHandler };
+    };
+
+    const delTabHandler = (index: number, menu: Menu) => {
+      appStore.commitDelTab({ index, menu });
+
+      if (tabActiveKey.value === index) { // 删除的是当前激活的tab页面时，进行路由切换
+        const activeMenu = appStore.getTabList[index - 1];
+        console.log('activeMenu', activeMenu);
+        appStore.commitChangeTabActive({ index: index - 1, menu: activeMenu });
+      }
+    };
+
+    return { tabList, tabActiveKey, tabClickHandler, delTabHandler };
   }
 });
 </script>
@@ -47,6 +59,7 @@ export default defineComponent({
   white-space: nowrap;
   .item {
     display: inline-block;
+    position: relative;
     background-color: $primary-color;
     border-radius: 30px;
     padding: 0 18px;
@@ -68,6 +81,25 @@ export default defineComponent({
       &:hover {
         background-size: 200%;
         color: #ddd;
+      }
+    }
+
+    .close {
+      display: none;
+      width: 16px;
+      height: 16px;
+      line-height: 16px;
+      text-align: center;
+      border-radius: 12px;
+      background: $blue;
+      position: absolute;
+      right: 0;
+      color: #ccc;
+      font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    }
+    &:hover {
+      .close {
+        display: inline-block;
       }
     }
   }

@@ -51,4 +51,24 @@
     .ant-checkbox-wrapper {
         color: #ccc;
     }
+
+    // 内联表单
+    .inline-form {
+        .ant-col {
+            display: inline-block;
+        }
+        .ant-form-item {
+            display: inline-block;            
+            white-space: nowrap;
+        }
+        .ant-form-item-label {
+            min-width: 110px;
+        }
+        .ant-form-explain{
+            position: absolute;
+        }
+        .ant-form-item-with-help{
+            margin-bottom: 24px;
+        }
+    }
 }

@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 00:44:21
- * @LastEditTime: 2020-12-10 02:09:00
+ * @LastEditTime: 2020-12-13 14:14:35
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -22,6 +22,7 @@ import { NESTED_MENU, APP_NAME } from '@/config';
 import { ServiceGetMenus, ServiceLogin } from '@/service/appService';
 import storage from '@/common/storage';
 import { DTOlogin, IModelUserInfo, IModelDict } from '@/service/appModel';
+import { Router, RouteRecordRaw } from 'vue-router';
 
 const NAME = 'appStore';
 hotUnregisterModule(NAME);
@@ -109,7 +110,7 @@ class App extends VuexModule {
   private userInfo = {};
   private dictList: Array<IModelDict> = []; // 缓存字典内容
 
-  private isLoadMenu: boolean = false; // 是否已加载菜单？
+  private isLoadMenu: boolean = false; // 是否已加载菜单
 
   get getMenuSelectedKeys() {
     return this.menuSelectedKeys;
@@ -136,10 +137,12 @@ class App extends VuexModule {
     return this.menuData;
   }
 
+
   // 获取字典列表
   get getDictList() {
     return this.dictList;
   }
+
 
   @Mutation
   commitAddDictList(payload: Array<IModelDict>) {
@@ -150,6 +153,15 @@ class App extends VuexModule {
   commitLoadMenu(val: boolean = true): void {
     this.isLoadMenu = val;
   }
+
+  @Mutation
+  commitDelTab(payload: any) {
+    const { index } = payload;
+    const menu = this.tabList[index - 1];
+    this.tabList.splice(index, 1);
+
+  }
+
 
   @Mutation
   commitChangeTabActive(payload: any): void {
@@ -208,6 +220,8 @@ class App extends VuexModule {
 
     this.tabActiveKey = this.tabList.length // 添加tab的索引
     this.tabList.push(route);
+
+    console.log(this.tabActiveKey)
 
     /* if (unref(getOpenKeepAliveRef) && name) {
       const noKeepAlive = meta && meta.ignoreKeepAlive;

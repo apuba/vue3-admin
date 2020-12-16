@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-13 00:04:42
- * @LastEditTime: 2020-12-08 21:44:16
+ * @LastEditTime: 2020-12-12 15:53:42
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -37,4 +37,5 @@ const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes
 })
+
 export default router

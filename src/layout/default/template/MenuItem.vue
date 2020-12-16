@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-11-09 00:54:26
- * @LastEditTime: 2020-12-09 23:41:23
+ * @LastEditTime: 2020-12-13 14:54:40
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -15,7 +15,7 @@
     <template v-for="item in menuInfo.children" :key="item.id">
       <template v-if="!item.children">
         <a-menu-item :key="item.id" @click="handleClick(item)">
-          <span :class="item.icon" v-if="item.icon"></span>
+          <!-- <span :class="item.icon" v-if="item.icon"></span> -->
           <span class="txt">{{ item.name }}</span>
         </a-menu-item>
       </template>

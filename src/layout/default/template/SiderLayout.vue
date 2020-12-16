@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章
  * @Date: 2020-11-03 01:51:48
- * @LastEditTime: 2020-11-17 02:53:53
+ * @LastEditTime: 2020-12-13 14:51:01
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -243,6 +243,15 @@ export default defineComponent({
           font-size: 24px;
           width: 30px;
           padding-bottom: 0;
+          color: $blue;
+        }
+      }
+      .ant-menu-submenu {
+        .iconfont {
+          position: absolute;
+          color: inherit;
+          font-size: 18px;
+          line-height: 24px;
         }
       }
     }
