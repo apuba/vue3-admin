@@ -8,5 +8,5 @@
 
 export enum ApiJob {
     getJobList = 'schedulerServer/scheduleJobsController/findScheduleJobs', // 查询
-    saveJob = 'schedulerServer/scheduleJobsController/saveScheduleJobs' // 保存
+    saveJob = 'schedulerServer/scheduleJobsController/saveScheduleJobs' // 保存  
 }
