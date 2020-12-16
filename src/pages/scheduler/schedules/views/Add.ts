@@ -1,14 +1,14 @@
 import { defineComponent, onActivated, ref, reactive, unref, toRefs } from 'vue';
 import router from '@/router';
-import { ApiJob } from '../server/api';
+// import { ApiScheduler } from '../server/api';
 
 import { useForm } from '@ant-design-vue/use';
 import { IModelJob } from '../server/model';
-import {ServSaveJob} from "@/pages/scheduler/job/server";
+import {ServSaveJob} from "@/pages/scheduler/schedules/server";
 import {Icolumns, ItableProps} from "@/components/public/compTable";
 import { EselectionType } from '@/components/public/compTable/types';
-import {ApiDict} from "@/pages/base/dict/server/api";
-import {mapperDictType} from "@/pages/base/dict/server/model";
+import {ApiJob} from "@/pages/scheduler/job/server/api";
+import {mapperDictType} from "@/pages/scheduler/job/server/model";
 
 
 export default defineComponent({
@@ -23,6 +23,7 @@ export default defineComponent({
     // 添加任务表单，
     const modelAddJobRef: IModelJob = reactive({
       quartzJobName: '',
+      jobId: '',
       scheduleType: '',
       cornexpress: '',
       scheduleExpectStartDate: '',
@@ -69,15 +70,16 @@ export default defineComponent({
 
 
     const onTimeRangeHandler =(value: any) => {
-      console.log(value[0].format('YYYY-MM-DD HH:mm:ss'));
+      modelAddJobRef.scheduleExpectStartDate = value[0].format('YYYY-MM-DD HH:mm:ss');
+      modelAddJobRef.scheduleExpectEndDate = value[1].format('YYYY-MM-DD HH:mm:ss');
     }
 
     const addHandler = (e: MouseEvent) => {
       e && e.preventDefault();
       validate()
         .then(() => {
-          console.log(modalRowKeys.value);
           submitLoading.value = true; // 按钮loading
+          modelAddJobRef.jobId = 12;
           ServSaveJob(modelAddJobRef).then(res => {
             submitLoading.value = false;
             if (res.status) {
@@ -102,36 +104,26 @@ export default defineComponent({
     // 表格列表的配置
     const columns: Array<Icolumns> = [{
       title: 'ID',
-      dataIndex: 'dictId',
-      key: 'dictId'
+      dataIndex: 'jobId',
     }, {
-      title: '字典类型',
-      dataIndex: 'dictType',
-      key: 'dictType',
+      title: '任务名称',
+      dataIndex: 'jobName',
 
     }, {
-      title: '字典类型名称',
-      dataIndex: 'dictName',
-      key: 'dictName',
+      title: '创建时间',
+      dataIndex: 'creationDate',
       ellipsis: true,
     }, {
       title: '字典状态',
       dataIndex: 'status',
-      key: 'status',
 
-    }, {
-      title: '操作',
-      dataIndex: 'dictId',
-      slots: { customRender: 'operation' },
-    }
-
-    ]
+    }]
 
     // 表格的配置项
     const dataTableConfig: ItableProps = {
-      api: ApiDict.getDictTypeList,
+      api: ApiJob.getJobList,
       columns,
-      rowKey: 'dictId',
+      rowKey: 'jobId',
       rowSelection: {
         type: EselectionType.radio
       },

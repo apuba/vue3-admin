@@ -11,11 +11,8 @@
       <a-button type="primary" :confirmLoading="submitLoading" @click="addHandler">保存</a-button>
     </div>
     <a-form class="inline-form">
-      <a-form-item label="实例任务" v-bind="validateInfos.quartzJobName1">
-        <a-input v-model:value="modelAddJobRef.quartzJobName1" maxlength="20" @click="openModalHandler"/>
-      </a-form-item>
-      <a-form-item label="调度名称" v-bind="validateInfos.quartzJobName">
-        <a-input v-model:value="modelAddJobRef.quartzJobName" maxlength="20" />
+      <a-form-item label="实例任务" v-bind="validateInfos.jobId">
+        <a-input v-model:value="modelAddJobRef.jobId" maxlength="20" @click="openModalHandler"/>
       </a-form-item>
       <a-form-item label="任务类型" v-bind="validateInfos.scheduleType">
         <CompDictionaries  dictType="schedule_schedules_schedule_type" v-model:value="modelAddJobRef.scheduleType" />
@@ -32,11 +29,9 @@
           @ok="onTimeRangeHandler"
         />
       </a-form-item>
-
-
     </a-form>
 
-    <CompModalSelect :config="dataTableConfig" v-model:visible="showModal" title="选择弹窗" v-model:selectedRowKeys="modelAddJobRef.quartzJobName1" />
+    <CompModalSelect :config="dataTableConfig" v-model:visible="showModal" title="选择弹窗" v-model:selectedRowKeys="modelAddJobRef.jobId" />
 
   </div>
 

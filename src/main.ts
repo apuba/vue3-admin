@@ -3,14 +3,14 @@
  * @Date: 2020-10-13 00:04:42
  * @LastEditTime: 2020-12-12 14:56:33
  * @LastEditors: 侯兴章
- * @Description: 
+ * @Description:
  */
 import { createApp } from 'vue'
 import App from './App.vue'
 import router, { setupRouter } from './router/intercept'
 import { setupStore } from './store'
 
-import CompPopup from '@/components/public/compPopup'; // 全局注册弹窗组件
+// import CompPopup from '@/components/public/compPopup'; // 全局注册弹窗组件
 
 import Antd from 'ant-design-vue';
 // import moment from 'moment';
