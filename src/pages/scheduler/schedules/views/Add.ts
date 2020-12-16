@@ -4,7 +4,7 @@ import { ApiJob } from '../server/api';
 
 import { useForm } from '@ant-design-vue/use';
 import { IModelJob } from '../server/model';
-import {ServSaveJob} from "@/pages/scheduler/job/server";
+import {ServSaveJob} from "@/pages/scheduler/schedules/server";
 import {Icolumns, ItableProps} from "@/components/public/compTable";
 import { EselectionType } from '@/components/public/compTable/types';
 import {ApiDict} from "@/pages/base/dict/server/api";
@@ -69,7 +69,8 @@ export default defineComponent({
 
 
     const onTimeRangeHandler =(value: any) => {
-      console.log(value[0].format('YYYY-MM-DD HH:mm:ss'));
+      modelAddJobRef.scheduleExpectStartDate = value[0].format('YYYY-MM-DD HH:mm:ss');
+      modelAddJobRef.scheduleExpectEndDate = value[1].format('YYYY-MM-DD HH:mm:ss');
     }
 
     const addHandler = (e: MouseEvent) => {
@@ -78,6 +79,7 @@ export default defineComponent({
         .then(() => {
           console.log(modalRowKeys.value);
           submitLoading.value = true; // 按钮loading
+          modelAddJobRef.jobId = 2;
           ServSaveJob(modelAddJobRef).then(res => {
             submitLoading.value = false;
             if (res.status) {
@@ -126,7 +128,6 @@ export default defineComponent({
     }
 
     ]
-
     // 表格的配置项
     const dataTableConfig: ItableProps = {
       api: ApiDict.getDictTypeList,
@@ -137,13 +138,7 @@ export default defineComponent({
       },
       mapper: mapperDictType // 清洗数据的映射配置
     }
-
     const modalRowKeys = ref({});
-
-
-
-
-
     return { id, addHandler, onTimeRangeHandler,dataTableConfig,modalRowKeys, formParams, selectedRowKeys,validateInfos,modelAddJobRef,openModalHandler,showModal };
   }
 });

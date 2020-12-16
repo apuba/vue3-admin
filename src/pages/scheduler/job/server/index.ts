@@ -10,7 +10,7 @@ import http from '@/common/http/index.ts';
 import { BaseResponseModel, BaseRequestModel } from '@/service/baseModel';
 import { IDTOdict, mapperDict, mapperDictType } from './model';
 import { ApiJob } from './api'
-import {IModelJob} from "@/pages/scheduler/job/server/model";
+import {IModelJob} from "@/pages/scheduler/schedules/server/model";
 
 // 保存字典
 export const ServSaveJob = async (params: IModelJob) => {

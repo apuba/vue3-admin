@@ -20,11 +20,17 @@
           <a-form-item label="任务名称" v-bind="validateInfos.jobName">
             <a-input v-model:value="modelAddJobRef.jobName" maxlength="20" />
           </a-form-item>
-          <a-form-item label="任务类型" v-bind="validateInfos.requestType">
-            <CompDictionaries dictType="schedule_jobs_job_type" v-model:value="modelAddJobRef.requestType" />
+          <a-form-item label="任务类型" v-bind="validateInfos.jobType">
+            <CompDictionaries dictType="schedule_jobs_job_type" v-model:value="modelAddJobRef.jobType" />
           </a-form-item>
-          <a-form-item label="请求地址" v-bind="validateInfos.requestUrl" v-if="modelAddJobRef.requestType=='WEBSERVICE'">
+          <a-form-item label="请求类型" v-bind="validateInfos.requestType" v-if="modelAddJobRef.jobType=='WEBSERVICE'">
+            <CompDictionaries dictType="schedule_job_request_type" v-model:value="modelAddJobRef.requestType" />
+          </a-form-item>
+          <a-form-item label="请求地址" v-bind="validateInfos.requestUrl" v-if="modelAddJobRef.jobType=='WEBSERVICE'">
             <a-input v-model:value="modelAddJobRef.requestUrl" maxlength="30" />
+          </a-form-item>
+          <a-form-item label="请求参数" v-bind="validateInfos.argumentsText" v-if="modelAddJobRef.jobType=='WEBSERVICE'">
+            <a-input v-model:value="modelAddJobRef.argumentsText" maxlength="30" />
           </a-form-item>
           <a-form-item label="单例模式" v-bind="validateInfos.singleInstance">
             <CompDictionaries type="radio" v-model:value="modelAddJobRef.singleInstance" dictType="schedule_jobs_single_instance" />
@@ -66,6 +72,7 @@ export default defineComponent({
       system: '',
       module: '',
       jobType: '',
+      argumentsText: '',
       creationDate: '',
       createName: ''
     });
