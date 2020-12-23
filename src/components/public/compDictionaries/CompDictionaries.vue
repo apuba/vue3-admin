@@ -1,19 +1,20 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-12-06 00:43:43
- * @LastEditTime: 2020-12-09 20:35:02
+ * @LastEditTime: 2020-12-16 16:45:05
  * @LastEditors: 侯兴章
  * @Description: 字典控件，有三种类型 select \ checkbox \ radio
 -->
 
 <template>
+
   <a-select v-model:value="selectVal" @change="selectChangeHandler" v-if="type === Edicitionary.Select" :options="options" :style="style"></a-select>
   <a-radio-group :defaultValue="defaultValue" :name="name" v-if="type === Edicitionary.Radio" :options="options" v-model:value="selectVal" @change="radioChangeHandler" />
   <a-checkbox-group :defaultValue="defaultValue" v-if="type === Edicitionary.Checkbox" v-model:value="selectVal" :name="name" :options="options" @change="checkBoxChangeHandler" />
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, reactive, toRefs, unref } from 'vue';
+import { defineComponent, onActivated, onMounted, reactive, ref, toRefs, unref, watch } from 'vue';
 import { Edicitionary } from './types';
 import { IModelDict, IDictOptions } from '@/service/appModel';
 import { appStore } from '@/store/modules/appStore';
@@ -22,7 +23,10 @@ import { mapperHelper } from '@/common/helper';
 export default defineComponent({
   name: 'CompDictionaries',
   props: {
-    value: [String, Number, Array],
+    value: {
+      type: [String, Number, Array],
+      default: ''
+    },
     type: {
       type: String, // 字典控件的类型
       default: Edicitionary.Select
@@ -39,14 +43,15 @@ export default defineComponent({
     defaultValue: [String, Number, Array]
   },
   emits: ['update:value'],
+
   setup(props, context) {
     const options: Array<IDictOptions> = [];
     // const selectVal = props.value as string | number | Array<string | number>; // 当前 选择的值
 
-    const selectVal = (props.value || props.defaultValue); // 当前 选择的值
+    const selectVal = ref(props.value || props.defaultValue); // 当前 选择的值
     const style = typeof props.width === 'string' ? `width: ${props.width}` : `width: ${props.width}px`;
     const name: string = props.name ? props.name : props.type + new Date().getTime(); // 控件名
-    const state = reactive({ ...props, options, style, selectVal, name });
+    const state = reactive({ ...props, options, selectVal, style, name });
     const getData = () => {
       const data: Array<IModelDict> = unref(appStore.getDictList); // 获取缓存的字典
       const mapper: IDictOptions = { // 字段映射
@@ -55,6 +60,10 @@ export default defineComponent({
       };
       state.options = mapperHelper<IDictOptions>(data.filter(item => item.dictType === state.dictType), mapper);
     };
+
+    watch(() => props.value, (nval) => {
+      selectVal.value = nval;
+    });
 
     // select 事件
     const selectChangeHandler = (val: string | number | Array<string | number>): void => {

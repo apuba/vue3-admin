@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-12-09 23:57:45
- * @LastEditTime: 2020-12-13 14:24:19
+ * @LastEditTime: 2020-12-16 16:51:53
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -12,7 +12,7 @@
   <div class="panel">
     <CompTable ref="refTable" :config="dataTableConfig" v-model:selectedRowKeys="selectedRowKeys">
       <template v-slot:buttons>
-        <a-button type="primary" size="small" @click="addDictTypeHandler">添加字典</a-button>
+        <a-button type="primary" size="small" @click="addDictDataHandler">添加字典</a-button>
       </template>
 
       <template v-slot:operation="scope" data-desc="自定操作栏">
@@ -30,7 +30,7 @@
   </div>
 
   <!-- 引入添加组件 -->
-  <CompAdd />
+  <AddDictData />
 </template>
 
 <script lang="ts" src="./DictList.ts" >

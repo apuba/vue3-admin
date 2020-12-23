@@ -20,7 +20,7 @@
         <template v-slot:operation="scope" data-desc="自定操作栏">
           <a-button-group>
             <a-button type="primary" size="small" @click="addDictHandler(scope)">新增字典</a-button>
-            <a-button type="primary" size="small" @click="addDictHandler(scope)">修改</a-button>
+            <a-button type="primary" size="small" @click="editDictHandler(scope)">修改</a-button>
           </a-button-group>
         </template>
       </CompTable>

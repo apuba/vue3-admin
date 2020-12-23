@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-14 18:18:52
- * @LastEditTime: 2020-11-22 03:35:56
+ * @LastEditTime: 2020-12-16 15:33:22
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -15,7 +15,7 @@ import { isArray } from 'lodash';
  * @param {Array} children 嵌套的节点名
  * @return {*}　返回清洗后映射结果的数据, 只做对象第一层清洗，如果为嵌套的则一起清洗嵌套的数据
  */
-export const mapperHelper = <T>(originData: any | any[], config: any | any[], result: Array<T> = [], children: string = 'children', childrens?: Array<T>): Array<T> => {
+export const mapping = <T>(originData: any | any[], config: any | any[], children: string = 'children', result: Array<T> = [], childrens?: Array<T>): Array<T> => {
     let sourceData: any[];
     const originDataIsArray = isArray(originData);
     if (originDataIsArray) {
@@ -58,8 +58,12 @@ export const mapperHelper = <T>(originData: any | any[], config: any | any[], re
 
         if (item[children] && item[children].length) {
             obj[children] = [];
-            mapperHelper<T>(item[children], config, result, children, obj[children])
+            mapping<T>(item[children], config, children, result, obj[children])
         }
     })
     return result;
+}
+
+export const mapperHelper = <T>(originData: any | any[], config: any | any[], children: string = 'children',) => {
+    return mapping<T>(originData, config);
 }

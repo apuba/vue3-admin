@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-12-13 13:30:11
- * @LastEditTime: 2020-12-13 15:25:16
+ * @LastEditTime: 2020-12-16 18:04:26
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -20,7 +20,9 @@ export interface IMenuModel extends IRequestMenuModel {
     imageLink?: string, // 图标或图片地址
     color?: string, // 菜单字体颜色
     htmlUrl: string, // 路由地址
-    fromType?: string // 菜单类型   
+    fromType?: string, // 菜单类型
+    enabled?: string,
+    isShow?: string
 }
 
 
@@ -32,4 +34,3 @@ export interface ITreeNodes {
     disabled?: boolean,
     selectabled?: Array<string | number>
 }
- 

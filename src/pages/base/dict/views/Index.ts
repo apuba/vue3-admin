@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-22 01:39:26
- * @LastEditTime: 2020-12-12 22:52:36
+ * @LastEditTime: 2020-12-16 16:49:46
  * @LastEditors: 侯兴章
  * @Description: 字典列表
  */
@@ -11,21 +11,24 @@ import { ApiDict } from '../server/api';
 import { IFormItems, EcomponentType } from '@/components/public/compSearchForm';
 import { Icolumns, ItableProps } from '@/components/public/compTable';
 import { EselectionType } from '@/components/public/compTable/types';
-import { mapperDictType } from '../server/model';
+import { IModelDictType, mapperDictType } from '../server/model';
 import { appStore } from '@/store/modules/appStore';
 import { TabItem } from '@/store/modules/appTypes';
+import mapperHelper from '@/mapper'
 
-import CompAdd from './Add.vue'; // 导入ADD新增页面组件
+import CompAdd from './AddDictType.vue'; // 导入ADD新增页面组件
+import _ from 'lodash';
 export default defineComponent({
     name: 'dictIndex',
     components: {
-
         CompAdd
     },
     setup() {
         let formParams = ref({}); // 查询表单对象，数据双向绑定
         const compAddVisible = ref(false);
+        const dictTypeRow = ref({})
         provide('addVisible', compAddVisible); // 向组件传递 参数
+        provide('dictTypeRow', dictTypeRow)
         // 查询表单参数配置
         const formItems: IFormItems[] = [
             {
@@ -90,6 +93,11 @@ export default defineComponent({
             compAddVisible.value = true;
             console.log('selectedRowKeys', unref(selectedRowKeys)); // 
             // console.log('formParams', unref(formParams));  // 拿到searchForm的数据  ， 使用unref 转化为对象
+            dictTypeRow.value = {
+                dictName: '',
+                dictType: '',
+                status: '0'
+            }
         }
 
         // 新增字典事件
@@ -101,6 +109,17 @@ export default defineComponent({
                 name: row.record.dictName
             }
             appStore.commitAddTab(menu); // 打开tab
+        }
+
+        const editDictHandler = (row: any) => {
+            console.log(row.record);
+            compAddVisible.value = true;
+
+            /*  const mapper = ['dictId', 'dictName', 'dictType', 'status']
+             const data = mapperHelper<IModelDictType>(row.record, mapper)[0]; */
+            //  debugger;
+            // dictTypeRow.value = data;
+            dictTypeRow.value = _.cloneDeep(row.record);
         }
 
         // 重载数据表格
@@ -141,6 +160,7 @@ export default defineComponent({
             reloadTable,
             searchFormClick,
             openModalHandler,
+            editDictHandler,
             selectedRowKeys,
             showModal,
             modalRowKeys,

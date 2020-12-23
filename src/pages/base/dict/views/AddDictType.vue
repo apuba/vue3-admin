@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-29 22:58:16
- * @LastEditTime: 2020-12-08 06:35:01
+ * @LastEditTime: 2020-12-16 16:43:46
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -18,7 +18,7 @@
             <a-input v-model:value="modelAddDictRef.dictType" maxlength="30" />
           </a-form-item>
           <a-form-item label="启用状态" v-bind="validateInfos.status">
-            <CompDictionaries v-model:value="modelAddDictRef.status" dictType="sys_enabled" width="175px" type="radio" />
+            <CompDictionaries v-model:value="modelAddDictRef.status"  dictType="sys_enabled" width="175px" type="radio" />
           </a-form-item>
           <!-- <a-col :offset="6"><a-button type="primary" @click="addHandler" :loading="submitLoading">添加</a-button></a-col> -->
         </a-form>
@@ -29,27 +29,38 @@
 
 <script lang="ts">
 import { useForm } from '@ant-design-vue/use';
-import { defineComponent, inject, reactive, readonly, ref, unref } from 'vue';
+import { defineComponent, inject, reactive, readonly, ref, unref, watch } from 'vue';
 import { IModelDictType, mapperDictType } from '../server/model';
 import { ServSaveDict } from '../server';
 import { Icolumns, ItableProps } from '@/components/public/compTable';
 import { ApiDict } from '../server/api';
 export default defineComponent({
-  name: ' DictAdd',
+  name: ' DictTypeAdd',
   components: {
 
   },
   setup(props, context) {
     const addVisible = ref(inject('addVisible'));
+    const dictTypeRow = inject('dictTypeRow') as IModelDictType; // 编辑字典类型的数据
+    console.log('dictTypeRow', dictTypeRow);
+
     const reloadTable: Function = inject('reloadTable') || Function; // 接受重载表格事件
     const submitLoading = ref(false);
 
     // 添加字典表单，
+    const modelAddDictRef = ref(dictTypeRow);
+
+    /* // 添加字典表单，
     const modelAddDictRef: IModelDictType = reactive({
       dictName: '',
       dictType: '',
-      status: '1'
-    });
+      status: '0'
+      ...dictTypeRow
+    }); */
+
+    /*    watch(dictTypeRow, (nval, oval) => {
+      console.log(nval);
+    }); */
 
     const rulesRef = reactive({
       status: [
@@ -83,8 +94,8 @@ export default defineComponent({
       validate()
         .then(() => {
           submitLoading.value = true; // 按钮loading
-          console.log('表单参数', modelAddDictRef);
-          ServSaveDict(modelAddDictRef).then(res => {
+          console.log('表单参数', modelAddDictRef.value);
+          ServSaveDict(modelAddDictRef.value).then(res => {
             submitLoading.value = false;
             if (res.status) {
               reloadTable(); // 执行重截表格
@@ -133,7 +144,7 @@ export default defineComponent({
       mapper: mapperDictType // 清洗数据的映射配置
     };
 
-    return { showModal, dataTableConfig, addVisible, resetFields, validate, validateInfos, modelAddDictRef, rulesRef, addHandler, reloadTable, submitLoading };
+    return { showModal, dictTypeRow, dataTableConfig, addVisible, resetFields, validate, validateInfos, modelAddDictRef, rulesRef, addHandler, reloadTable, submitLoading };
   }
 });
 </script>

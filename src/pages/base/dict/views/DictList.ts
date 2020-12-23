@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-12-10 23:05:49
- * @LastEditTime: 2020-12-13 14:25:40
+ * @LastEditTime: 2020-12-15 00:44:20
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -11,9 +11,14 @@ import { defineComponent, onActivated, ref, reactive, unref, toRefs } from 'vue'
 import router from '@/router';
 import { onBeforeRouteUpdate } from 'vue-router';
 import { IFormItems } from '@/components/public/compSearchForm';
+import { EcomponentType } from '@/components/public/compSearchForm/types';
 import { EselectionType, Icolumns, ItableProps } from '@/components/public/compTable/types';
 import { ApiDict } from '../server/api';
+import AddDictData from './AddDictData.vue';
 export default defineComponent({
+    components: {
+        AddDictData
+    },
     setup() {
         let dictType = ref(router.currentRoute.value.query.dictType); // 获取路由的传id
         let formParams = ref({}); // 查询表单对象，数据双向绑定
@@ -35,6 +40,8 @@ export default defineComponent({
             {
                 label: '字典类型',
                 model: 'dictType',
+                type: EcomponentType.Select,
+                dictType: 'sys_user_status'
             }
         ]
 
@@ -53,6 +60,9 @@ export default defineComponent({
             searchFormClick: (params: any): void => {
                 // 过滤表单的查询事件
                 unref(refTable).getData(params); // 由于是ref对象，所以要使用refTable.value.getData进行调用        
+            },
+            addDictDataHandler:() => {
+                
             }
         })
 

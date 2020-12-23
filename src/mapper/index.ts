@@ -18,3 +18,4 @@ export const mappingMenu = (originData: Array<any>): Menu[] => {
     return mapperHelper<Menu>(originData, modelMenu)
 }
 
+export default mapperHelper;
