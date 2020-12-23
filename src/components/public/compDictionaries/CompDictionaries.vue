@@ -33,7 +33,7 @@ export default defineComponent({
     },
     width: {
       type: [String, Number],
-      default: '120px'
+      default: '175px'
     },
     dictType: String, // 绑定字典类型的值
     name: {

@@ -9,7 +9,7 @@
 import http from '@/common/http/index.ts';
 import { BaseResponseModel, BaseRequestModel } from '@/service/baseModel';
 import { IDTOdict, mapperDict, mapperDictType } from './model';
-import { ApiJob } from './api'
+import { ApiScheduler } from './api'
 import {IModelJob} from "@/pages/scheduler/job/server/model";
 
 // 保存字典
@@ -17,5 +17,5 @@ export const ServSaveJob = async (params: IModelJob) => {
   const request: BaseRequestModel<IDTOdict> = {
     params
   }
-  return http.post(ApiJob.saveJob, request);
+  return http.post(ApiScheduler.saveJob, request);
 }

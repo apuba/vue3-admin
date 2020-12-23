@@ -34,6 +34,9 @@ export interface IModelJob{
   system?: string;
   module?: string;
   jobType?: string;
+  scheduleExpectStartDate?: string;
+  scheduleExpectEndDate?: string;
+  cornexpress?: string;
 }
 
 export const mapperDict = ['jobId','jobName', 'description', 'requestUrl','requestType', 'outputFileType','system','jobTypeLabel','singleInstanceLabel',

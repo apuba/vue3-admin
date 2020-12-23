@@ -6,21 +6,18 @@
  * @Description:
 -->
 <template>
-  <div  >
+  <div>
     <div class="panel mb10">
       <CompSearchForm :items="formItems"  @submit="searchFormClick" />
     </div>
     <div class="panel">
       <CompTable ref="refTable" :config="dataTableConfig" v-model:selectedRowKeys="selectedRowKeys">
       <template v-slot:buttons>
-        <a-button type="primary" size="small" @click="add">添加</a-button>
+        <a-button type="primary" size="small" @click="addHandler(scope)">添加</a-button>
       </template>
       </CompTable>
     </div>
   </div>
-
-  <!-- 引入添加组件 -->
-  <CompAdd />
 </template>
 <script lang="ts" src="./Index.ts">
 </script>
