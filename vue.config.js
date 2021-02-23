@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-13 01:19:23
- * @LastEditTime: 2020-12-12 16:42:48
+ * @LastEditTime: 2021-02-23 22:47:21
  * @LastEditors: 侯兴章
  * @Description: 配置
  */
@@ -18,8 +18,8 @@ const createProxy = () => {
     return {
       '/api': {
         // target: 'http://localhost:4000',
-        // target: 'http://47.115.141.0:9091/api',
-        target: 'http://localhost:9091/api',
+        target: 'http://192.168.100.7:9091/api',
+        // target: 'http://localhost:9091/api',
         secure: false,
         changeOrigin: false, // 开启代理，在本地创建一个虚拟服务端
         // ws: true, // 是否启用websockets
