@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-22 01:39:26
- * @LastEditTime: 2020-12-03 02:18:39
+ * @LastEditTime: 2021-02-24 00:08:10
  * @LastEditors: 侯兴章
  * @Description: 字典列表
  */
@@ -47,12 +47,10 @@ export default defineComponent({
     }, {
       title: '用户名称',
       dataIndex: 'userName',
-      key: 'userName',
 
     }, {
       title: '真实姓名',
       dataIndex: 'userFullName',
-      key: 'userFullName',
       ellipsis: true,
     }, {
       title: '手机号码',
@@ -96,7 +94,7 @@ export default defineComponent({
       api: ApiUser.getUserList,
       columns,
       rowKey: 'userId',
-      mapper: mapperDictType // 清洗数据的映射配置
+      // mapper: mapperDictType // 清洗数据的映射配置      ### 可选项
     }
 
     // 定义表格的 ref, 请注意给表格添加 ref="reftable" 属性， getData是由表格提供查询数据的方法

@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-17 00:46:00
- * @LastEditTime: 2020-11-29 23:40:49
+ * @LastEditTime: 2021-02-24 00:08:02
  * @LastEditors: 侯兴章
  * @Description:
  */
@@ -26,4 +26,4 @@ export interface IModelDictType{
 
 export const mapperDict = ['userId','userName', 'phoneNumber', 'userTypeLabel', 'userFullName','startDate','orgName','statusLabel','isAdmin','createName','creationDate', { status: 'createdBy' }];
 
-export const mapperDictType = ['userId','phoneNumber', 'userTypeLabel', 'userFullName','startDate','orgName','statusLabel','isAdmin','createName','creationDate'];
+export const mapperDictType = ['userName','userId','phoneNumber', 'userTypeLabel', 'userFullName','startDate','orgName','statusLabel','isAdmin','createName','creationDate'];
