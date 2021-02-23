@@ -58,7 +58,7 @@
 
 <script lang="ts">
 
-import Pinyin from '@/common/helper/pinyin.js'; // 首字母大写
+// import Pinyin from '@/common/helper/pinyin.js'; // 首字母大写
 
 import { defineComponent, onMounted, reactive, toRefs } from 'vue';
 
@@ -67,7 +67,7 @@ import { IMenuModel, IRequestMenuModel } from '../server/model';
 import { useForm } from '@ant-design-vue/use';
 import CompDictionaries from '@/components/public/compDictionaries/CompDictionaries.vue';
 
-const pinyin = new Pinyin({ charCase: 0 });
+// const pinyin = new Pinyin({ charCase: 0 });
 
 export default defineComponent({
   components: { CompDictionaries },

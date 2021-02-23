@@ -7,7 +7,7 @@
  */
 
 import {defineComponent, onMounted, provide, reactive, ref, unref} from 'vue';
-import { ApiScheduler } from '../server/api';
+ import { ApiJob } from '../server/api';
 import CompSearchForm, { IFormItems, EcomponentType } from '@/components/public/compSearchForm';
 import CompTable, { Icolumns, ItableProps } from '@/components/public/compTable';
 import { mapperDictType } from '../server/model';
@@ -92,7 +92,7 @@ export default defineComponent({
 
         // 表格的配置项
         const dataTableConfig: ItableProps = {
-            api: ApiScheduler.getJobList,
+            api: ApiJob.getJobList,
             columns,
             rowKey: 'jobId',
             mapper: mapperDictType // 清洗数据的映射配置
