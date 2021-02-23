@@ -15,6 +15,7 @@ import { message } from 'ant-design-vue';
 import storage from '@/common/storage';
 import { mapperHelper } from '@/mapper/mapperHelper';
 import { REQUEST_CONTENT_TYPE } from '@/config';
+import { isArray } from 'lodash';
 
 var qs = require('qs');
 
@@ -36,8 +37,8 @@ class Abstract {
         }
 
         if (headers['Content-Type'] === 'application/x-www-form-urlencoded;charset=UTF-8') {
-             // 把params的对象转为字符串
-             if (data.params && typeof data.params === 'object') {
+            // 把params的对象转为字符串
+            if (data.params && typeof data.params === 'object') {
                 data.params = JSON.stringify(data.params)
             }
             data = qs.stringify(data); // 参数转换
@@ -58,14 +59,16 @@ class Abstract {
                 // 200:服务端业务处理正常结束
                 if (res.status === 200) {
                     if (res.data.success || res.data.code == 200 || res.data.status === 'S') {
-                        const result = mapper ? mapperHelper<any>(res.data?.data, mapper) : res.data?.data; // 数据清洗
-                        resolve({ total: res.data?.pagesCount, status: true, code: 200, msg: res.data?.msg, data: result, origin: res.data });
+                        // 有分页的情况
+                        let data = res.data.data.size ? res.data.data.records : res.data.data;
+                        const result = mapper ? mapperHelper<any>(data, mapper) : data; // 数据清洗
+                        resolve({ total: res.data?.data.total, status: true, code: 200, msg: res.data?.msg, data: result, origin: res.data });
                     } else {
                         message.error(res.data?.msg || (url + '请求失败'));
-                        resolve({ total: res.data?.pagesCount, status: false, code: 200, msg: res.data?.msg || (url + '请求失败'), data: null, origin: res.data });
+                        resolve({ total: res.data?.data.total, status: false, code: 200, msg: res.data?.msg || (url + '请求失败'), data: null, origin: res.data });
                     }
                 } else {
-                    resolve({ total: res.data?.pagesCount, status: false, code: res.status, msg: res.data?.msg || (url + '请求失败'), data: null });
+                    resolve({ total: res.data?.data.total, status: false, code: res.status, msg: res.data?.msg || (url + '请求失败'), data: null });
                 }
             }).catch((err) => {
                 const msg = err?.data?.msg || err?.message || (url + '请求失败');
@@ -96,7 +99,7 @@ class Abstract {
      */
     post(obj: string | AxiosRequest, data: any, mapper?: any, headers?: any) {
         let url;
-        if (typeof obj === 'object') {           
+        if (typeof obj === 'object') {
             return this.postReq(obj);
         } else {
             url = obj;
