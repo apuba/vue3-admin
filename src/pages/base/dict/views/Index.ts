@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-22 01:39:26
- * @LastEditTime: 2020-12-16 16:49:46
+ * @LastEditTime: 2021-02-25 22:45:10
  * @LastEditors: 侯兴章
  * @Description: 字典列表
  */
@@ -135,12 +135,18 @@ export default defineComponent({
         // 已选择弹窗返回的数据
         let modalRowKeys = ref([]);
         // 打开选择弹窗
-        const openModalHandler = () => {
+        const openModalHandler = (row: any) => {
+            debugger
+            // row 为当前表格行的数据 或 MouseEvent 所以要通过数据属性进行判断
+            if(row.record) {
+                dataTableConfig.requestParams = {
+                    dictName:row.record.dictName
+                }; // 传递查询参数
+            }
+            
             showModal.value = true;
             console.log(unref(modalRowKeys)); // 打印获双向绑定后的已选择弹窗的参数
         }
-
-
         // 测试数据。可以删除
         const test = reactive({
             status: ['Y']
