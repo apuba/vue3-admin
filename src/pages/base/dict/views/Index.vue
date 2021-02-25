@@ -19,13 +19,14 @@
 
         <template v-slot:operation="scope" data-desc="自定操作栏">
           <a-button-group>
+             <a-button type="primary" size="small" @click="openModalHandler(scope)">弹窗哦</a-button>
             <a-button type="primary" size="small" @click="addDictHandler(scope)">新增字典</a-button>
             <a-button type="primary" size="small" @click="editDictHandler(scope)">修改</a-button>
           </a-button-group>
         </template>
       </CompTable>
       <!-- 弹窗组件 -->
-      <CompModalSelect :config="dataTableConfig" v-model:visible="showModal" title="选择弹窗" v-model:selectedRowKeys="modalRowKeys" />
+      <CompModalSelect :config="modalDataTableConfig" v-model:visible="showModal" title="选择弹窗" v-model:selectedRowKeys="modalRowKeys" />
     </div>
 
     <!-- 引入添加组件 -->
