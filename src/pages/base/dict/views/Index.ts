@@ -8,13 +8,12 @@
 
 import { defineComponent, onMounted, provide, reactive, ref, toRefs, unref } from 'vue';
 import { ApiDict } from '../server/api';
-import { IFormItems, EcomponentType } from '@/components/public/compSearchForm';
+import { IFormItems } from '@/components/public/compSearchForm';
 import { Icolumns, ItableProps } from '@/components/public/compTable';
 import { EselectionType } from '@/components/public/compTable/types';
-import { IModelDictType, mapperDictType } from '../server/model';
+import { mapperDictType } from '../server/model';
 import { appStore } from '@/store/modules/appStore';
 import { TabItem } from '@/store/modules/appTypes';
-import mapperHelper from '@/mapper'
 
 import CompAdd from './AddDictType.vue'; // 导入ADD新增页面组件
 import _ from 'lodash';
@@ -84,14 +83,14 @@ export default defineComponent({
         const refTable = ref({ getData: Function });
         // 过滤表单的查询事件
         const searchFormClick = (params: any): void => {
-            unref(refTable).getData(params); // 由于是ref对象，所以要使用refTable.value.getData进行调用        
+            unref(refTable).getData(params); // 由于是ref对象，所以要使用refTable.value.getData进行调用
         };
 
 
         // 添加字典类型弹框
         const addDictTypeHandler = (): void => {
             compAddVisible.value = true;
-            console.log('selectedRowKeys', unref(selectedRowKeys)); // 
+            console.log('selectedRowKeys', unref(selectedRowKeys)); //
             // console.log('formParams', unref(formParams));  // 拿到searchForm的数据  ， 使用unref 转化为对象
             dictTypeRow.value = {
                 dictName: '',
@@ -127,7 +126,7 @@ export default defineComponent({
             unref(refTable).getData();
         }
 
-        let selectedRowKeys = ref(['']); // 当前表格选择的Kyes 数据双向绑定 
+        let selectedRowKeys = ref(['']); // 当前表格选择的Kyes 数据双向绑定
         provide('reloadTable', reloadTable); // 向子组件传递重载表格方法
 
 
