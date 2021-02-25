@@ -26,7 +26,7 @@
         </template>
       </CompTable>
       <!-- 弹窗组件 -->
-      <CompModalSelect :config="dataTableConfig" v-model:visible="showModal" title="选择弹窗" v-model:selectedRowKeys="modalRowKeys" />
+      <CompModalSelect :config="modalDataTableConfig" v-model:visible="showModal" title="选择弹窗" v-model:selectedRowKeys="modalRowKeys" />
     </div>
 
     <!-- 引入添加组件 -->
