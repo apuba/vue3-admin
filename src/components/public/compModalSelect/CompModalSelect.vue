@@ -1,13 +1,13 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-12-04 23:17:37
- * @LastEditTime: 2020-12-05 19:12:01
- * @LastEditors: 侯兴章
+ * @LastEditTime: 2021-03-04 11:39:57
+ * @LastEditors: 3603317@qq.com
  * @Description: 模态选择弹窗
 -->
 <template>
   <CompPopup v-model:visible="isVisible" :title="state.title" :width="state.width" :showFooter="true" popupType="modal" @submit="clickHandler">
-    <CompTable :config="state.config" ref="refcompModalSelectTable" :showButtons="false" v-model:selectedRowKeys="chooseRowKeys" />
+    <CompTable v-if="isVisible" :config="state.config" ref="refcompModalSelectTable" :showButtons="false" v-model:selectedRowKeys="chooseRowKeys" />
   </CompPopup>
 </template>
 

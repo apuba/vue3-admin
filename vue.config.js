@@ -1,8 +1,8 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-13 01:19:23
- * @LastEditTime: 2021-02-23 22:47:21
- * @LastEditors: 侯兴章
+ * @LastEditTime: 2021-03-04 11:11:17
+ * @LastEditors: 3603317@qq.com
  * @Description: 配置
  */
 
@@ -18,8 +18,8 @@ const createProxy = () => {
     return {
       '/api': {
         // target: 'http://localhost:4000',
-        target: 'http://106.75.217.29:9091/api',
-        // target: 'http://localhost:9091/api',
+        // target: 'http://106.75.217.29:9091/api',
+        target: 'http://192.168.1.195:9091/api',
         secure: false,
         changeOrigin: false, // 开启代理，在本地创建一个虚拟服务端
         // ws: true, // 是否启用websockets
@@ -93,7 +93,7 @@ module.exports = {
       errors: true
     },
     // host: 'localhost',
-    // port: '8080', // 代理端口
+    port: '8088', // 代理端口
     https: false,
     hotOnly: true, // 热更新
     open: true, // 是否打开浏览器

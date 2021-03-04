@@ -1,8 +1,8 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 20:26:11
- * @LastEditTime: 2021-02-25 23:46:52
- * @LastEditors: 侯兴章
+ * @LastEditTime: 2021-03-04 11:41:21
+ * @LastEditors: 3603317@qq.com
  * @Description:
 -->
 <template>
@@ -100,13 +100,11 @@ export default defineComponent({
      */
     const getData = (params?: object, currentPage = 1) => {
       state.pagination.current = currentPage === 1 ? 1 : currentPage;
-
       state.isDataLoaded = false;
       const request: BaseRequestModel = {
         params: state.params || props.config.requestParams || {},
         pageIndex: state.pagination.current, // 当前页
         pageRows: state.pagination.pageSize
-
       };
 
       if (params) {
