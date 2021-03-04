@@ -17,8 +17,8 @@ const createProxy = () => {
   if (enablePro === 'yes') {
     return {
       '/api': {
-        target: 'http://192.168.1.195:9091/api',
-        // target: 'http://192.168.100.7:9091/api',
+        // target: 'http://localhost:4000',
+        target: 'http://106.75.217.29:9091/api',
         // target: 'http://localhost:9091/api',
         secure: false,
         changeOrigin: false, // 开启代理，在本地创建一个虚拟服务端
@@ -93,7 +93,7 @@ module.exports = {
       errors: true
     },
     // host: 'localhost',
-    port: '8088', // 代理端口
+    // port: '8080', // 代理端口
     https: false,
     hotOnly: true, // 热更新
     open: true, // 是否打开浏览器

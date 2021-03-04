@@ -1,7 +1,7 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 20:26:11
- * @LastEditTime: 2020-12-09 23:05:38
+ * @LastEditTime: 2021-02-25 23:46:52
  * @LastEditors: 侯兴章
  * @Description:
 -->
@@ -31,7 +31,7 @@
 </template>
 
 <script lang="ts">
-import { defineComponent, onMounted, PropType, reactive, toRefs, unref } from 'vue';
+import { defineComponent, onMounted, PropType, reactive, toRefs, unref, watch } from 'vue';
 import { ItableProps, Ipagination, ItoolBar, IrowSelection, EselectionType } from './types';
 import http from '@/common/http/index.ts';
 import { BaseRequestModel } from '@/service/baseModel';
@@ -119,7 +119,7 @@ export default defineComponent({
       state.params = { ...request.params }; // 存储查询参数
 
       // request.params = JSON.stringify(request.params);
-
+      // debugger;
       http.post(props.config.api, request, props.config.mapper).then(res => {
         state.data = res.data;
         state.pagination.total = res.total;
@@ -137,6 +137,14 @@ export default defineComponent({
     const reloadData = () => {
       getData(undefined, 1);
     };
+
+    watch(() => props.config.requestParams, (nval, oval) => {
+      // debugger;
+      if (nval && typeof (nval) === 'object' && JSON.stringify(nval) !== JSON.stringify(oval)) {
+        getData(nval, pagination.current);
+      }
+    });
+
     onMounted(() => {
       state.autoLoading && getData();
     });

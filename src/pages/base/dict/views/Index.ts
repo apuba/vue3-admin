@@ -1,20 +1,19 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-22 01:39:26
- * @LastEditTime: 2020-12-16 16:49:46
+ * @LastEditTime: 2021-02-25 23:41:47
  * @LastEditors: 侯兴章
  * @Description: 字典列表
  */
 
 import { defineComponent, onMounted, provide, reactive, ref, toRefs, unref } from 'vue';
 import { ApiDict } from '../server/api';
-import { IFormItems, EcomponentType } from '@/components/public/compSearchForm';
+import { IFormItems } from '@/components/public/compSearchForm';
 import { Icolumns, ItableProps } from '@/components/public/compTable';
 import { EselectionType } from '@/components/public/compTable/types';
-import { IModelDictType, mapperDictType } from '../server/model';
+import { mapperDictType } from '../server/model';
 import { appStore } from '@/store/modules/appStore';
 import { TabItem } from '@/store/modules/appTypes';
-import mapperHelper from '@/mapper'
 
 import CompAdd from './AddDictType.vue'; // 导入ADD新增页面组件
 import _ from 'lodash';
@@ -80,18 +79,20 @@ export default defineComponent({
             mapper: mapperDictType // 清洗数据的映射配置
         }
 
+        const modalDataTableConfig: ItableProps = reactive(dataTableConfig)
+
         // 定义表格的 ref, 请注意给表格添加 ref="reftable" 属性， getData是由表格提供查询数据的方法
         const refTable = ref({ getData: Function });
         // 过滤表单的查询事件
         const searchFormClick = (params: any): void => {
-            unref(refTable).getData(params); // 由于是ref对象，所以要使用refTable.value.getData进行调用        
+            unref(refTable).getData(params); // 由于是ref对象，所以要使用refTable.value.getData进行调用
         };
 
 
         // 添加字典类型弹框
         const addDictTypeHandler = (): void => {
             compAddVisible.value = true;
-            console.log('selectedRowKeys', unref(selectedRowKeys)); // 
+            console.log('selectedRowKeys', unref(selectedRowKeys)); //
             // console.log('formParams', unref(formParams));  // 拿到searchForm的数据  ， 使用unref 转化为对象
             dictTypeRow.value = {
                 dictName: '',
@@ -127,7 +128,7 @@ export default defineComponent({
             unref(refTable).getData();
         }
 
-        let selectedRowKeys = ref(['']); // 当前表格选择的Kyes 数据双向绑定 
+        let selectedRowKeys = ref(['']); // 当前表格选择的Kyes 数据双向绑定
         provide('reloadTable', reloadTable); // 向子组件传递重载表格方法
 
 
@@ -135,12 +136,17 @@ export default defineComponent({
         // 已选择弹窗返回的数据
         let modalRowKeys = ref([]);
         // 打开选择弹窗
-        const openModalHandler = () => {
+        const openModalHandler = (row: any) => {
+            // row 为当前表格行的数据 或 MouseEvent 所以要通过数据属性进行判断
+            if(row.record) {
+                modalDataTableConfig.requestParams = {
+                    dictName:row.record.dictName
+                }; // 传递查询参数
+            }
+            
             showModal.value = true;
             console.log(unref(modalRowKeys)); // 打印获双向绑定后的已选择弹窗的参数
         }
-
-
         // 测试数据。可以删除
         const test = reactive({
             status: ['Y']
@@ -153,6 +159,7 @@ export default defineComponent({
             refTable,
             formItems,
             dataTableConfig,
+            modalDataTableConfig,
             columns,
             formParams,
             addDictTypeHandler,
@@ -165,7 +172,6 @@ export default defineComponent({
             showModal,
             modalRowKeys,
             test
-
         };
     }
 });
