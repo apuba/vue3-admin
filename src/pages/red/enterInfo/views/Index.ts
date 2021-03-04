@@ -132,13 +132,22 @@ export default defineComponent({
 
         };
 
-
+      const modalDataTableConfig: ItableProps = reactive(flowTableConfig)
       // 已选择弹窗返回的数据
       let modalRowKeys = ref([]);
       const showModal = ref(false); // 显示模型弹窗
       // 打开选择弹窗
-      const openModalHandler = () => {
+      const openModalHandler = (row: any) => {
         showModal.value = true;
+        console.log(dataTableConfig);
+        if(row.record) {
+          console.log(row);
+          modalDataTableConfig.requestParams = {
+            dictName:row.record.dictName
+          }; // 传递查询参数
+        }
+
+
         console.log(unref(modalRowKeys)); // 打印获双向绑定后的已选择弹窗的参数
       }
       return { refTable, searchFormClick, formItems, dataTableConfig, columns,compAddVisible,openModalHandler,showModal,flowTableConfig };
