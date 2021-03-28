@@ -60,16 +60,14 @@ class Abstract {
                 if (res.status === 200) {
                     if (res.data.success || res.data.code == 200 || res.data.status === 'S') {
                         // 有分页的情况
-                        let data = res.data.data.size ? res.data.data.records : res.data.data;
-                        const result = mapper ? mapperHelper<any>(data, mapper) : data; // 数据清洗
+                        let resData = res.data.data.size ? res.data.data.records : res.data.data;
+                        const result = mapper ? mapperHelper<any>(resData, mapper) : resData; // 数据清洗
                         resolve({ total: res.data?.data.total, status: true, code: 200, msg: res.data?.msg, data: result, origin: res.data });
-                    } else {
-                        message.error(res.data?.msg || (url + '请求失败'));
-                        resolve({ total: res.data?.data.total, status: false, code: 200, msg: res.data?.msg || (url + '请求失败'), data: null, origin: res.data });
+                        return
                     }
-                } else {
-                    resolve({ total: res.data?.data.total, status: false, code: res.status, msg: res.data?.msg || (url + '请求失败'), data: null });
                 }
+                res.data.msg && message.error(res.data.msg)
+                resolve({ total: res.data.data ? res.data.data.total : 0, status: false, code: res.data.code, msg: res.data?.msg || (url + '请求失败') });
             }).catch((err) => {
                 const msg = err?.data?.msg || err?.message || (url + '请求失败');
                 message.error(msg)
@@ -81,7 +79,7 @@ class Abstract {
     /**
      * GET类型的网络请求  
      */
-    get(obj: string | AxiosRequest, params: any, mapper: any, headers?: any) {
+    get(obj: string | AxiosRequest, params: any, mapper?: any, headers?: any) {
         let url;
         if (typeof obj === 'object') {
             return this.getReq(obj);

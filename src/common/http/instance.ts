@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 22:01:26
- * @LastEditTime: 2020-11-18 23:59:24
+ * @LastEditTime: 2021-03-26 13:20:10
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -10,6 +10,8 @@ import axios, { AxiosRequestConfig, Method } from 'axios';
 import storage from '../storage';
 // import { Loading } from 'element-ui';
 // import { ElLoadingComponent } from 'element-ui/types/loading';
+
+import { AXIOS_TIMOUT, AXIOS_ERR_RETRY } from '@/config';
 
 // 定义接口
 interface PendingType {
@@ -25,7 +27,7 @@ const pending: Array<PendingType> = [];
 const CancelToken = axios.CancelToken;
 // axios 实例
 const instance = axios.create({
-    timeout: 10000,
+    timeout: (AXIOS_TIMOUT || 30 ) * 1000,
     responseType: 'json'
 });
 // let loadingInstance: ElLoadingComponent;
@@ -109,7 +111,7 @@ instance.interceptors.response.use(
         // 超时重新请求
         const config = error.config;
         // 全局的请求次数,请求的间隙
-        const [RETRY_COUNT, RETRY_DELAY] = [3, 1000];
+        const [RETRY_COUNT, RETRY_DELAY] = [(AXIOS_ERR_RETRY || 3), 1000];
 
         if (config && RETRY_COUNT) {
             // 设置用于跟踪重试计数的变量

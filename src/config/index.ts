@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-24 14:49:06
- * @LastEditTime: 2020-12-13 14:16:59
+ * @LastEditTime: 2021-03-26 13:14:18
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -16,6 +16,9 @@ export const COMPONENT_SETTING: any = { // 全局组件配置
     popupType: 'modal', //  弹窗方法有两种，modal \ drawer 
     drawerPlacement: 'right', // 弹窗出现的位置  top \ left \ right \ bottom
 }
+
+export const AXIOS_TIMOUT = 30; // 请求超时时间 单位：秒
+export const AXIOS_ERR_RETRY = 2; // 请求错误或超时后重试次数
 
 export const RETENTION_STORE: boolean = true; // 刷新页面时是否保留状态
 
