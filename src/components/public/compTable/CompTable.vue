@@ -1,8 +1,8 @@
 <!--
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-24 20:26:11
- * @LastEditTime: 2021-03-04 11:41:21
- * @LastEditors: 3603317@qq.com
+ * @LastEditTime: 2021-03-26 18:42:01
+ * @LastEditors: 侯兴章
  * @Description:
 -->
 <template>
@@ -120,7 +120,7 @@ export default defineComponent({
       // debugger;
       http.post(props.config.api, request, props.config.mapper).then(res => {
         state.data = res.data;
-        state.pagination.total = res.total;
+        state.pagination.total = res.total || 0;
         state.isDataLoaded = true; // 数据请求完成标识
         // console.log(res);
       });

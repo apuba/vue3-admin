@@ -38,7 +38,7 @@
       </div>
     </div>
     <div class="foot">
-      <span class="copyright">Copyright © 2020 悟空云科技有限公司版权所有</span>
+      <span class="copyright">Copyright © 2020 元素精灵科技有限公司版权所有</span>
     </div>
   </div>
 </template>

@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章 3603317@qq.com
  * @Date: 2020-11-22 01:39:26
- * @LastEditTime: 2021-03-04 11:45:40
+ * @LastEditTime: 2021-03-04 11:50:40
  * @LastEditors: 3603317@qq.com
  * @Description: 字典列表
  */
@@ -154,6 +154,6 @@ export default defineComponent({
 
     const selectedRowKeys = ref([]); // 当前表格选择的Kyes 数据双向绑定
     
-    return { refTable, searchFormClick, formItems, dataTableConfig, columns, compAddVisible, openModalHandler, showModal, flowTableConfig, selectedRowKeys };
+    return { refTable, searchFormClick, formItems, dataTableConfig, columns, compAddVisible, openModalHandler, showModal, flowTableConfig, selectedRowKeys, modalRowKeys };
   }
 });

@@ -1,8 +1,8 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-10-13 01:19:23
- * @LastEditTime: 2021-03-04 11:11:17
- * @LastEditors: 3603317@qq.com
+ * @LastEditTime: 2021-03-25 12:40:58
+ * @LastEditors: 侯兴章
  * @Description: 配置
  */
 
@@ -10,6 +10,13 @@
 const path = require('path');
 const resolve = dir => path.join(__dirname, dir);
 const IS_PROD = ['production', 'prod'].includes(process.env.NODE_ENV);
+const IS_MOCK = process.env.PROXY ? process.env.PROXY.trim() === 'mock' : false;
+
+let proxyTarget = 'http://106.75.217.29/api'; // 最新服务地址
+// let proxyTarget = 'http://106.75.217.29:9091/api';
+// let proxyTarget = 'http://192.168.1.195:9091/api';
+
+if (IS_MOCK) proxyTarget = 'http://localhost:4000'; // 使用mockSer
 
 // 代理配置
 const createProxy = () => {
@@ -17,9 +24,7 @@ const createProxy = () => {
   if (enablePro === 'yes') {
     return {
       '/api': {
-        // target: 'http://localhost:4000',
-        target: 'http://106.75.217.29:9095/api',
-        // target: 'http://192.168.1.195:909/api',
+        target: proxyTarget,
         secure: false,
         changeOrigin: false, // 开启代理，在本地创建一个虚拟服务端
         // ws: true, // 是否启用websockets

@@ -51,7 +51,10 @@
     .ant-checkbox-wrapper {
         color: #ccc;
     }
-
+    .ant-input[disabled] {
+        background-color: #647c8f;
+        color: #ccc;
+    }
     // 内联表单
     .inline-form {
         .ant-col {

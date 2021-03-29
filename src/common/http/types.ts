@@ -1,7 +1,7 @@
 /*
  * @Author: 侯兴章
  * @Date: 2020-11-05 21:59:32
- * @LastEditTime: 2020-11-25 23:20:43
+ * @LastEditTime: 2021-03-26 18:31:39
  * @LastEditors: 侯兴章
  * @Description: 
  */
@@ -34,7 +34,7 @@ export interface CustomResponse<T = any> {
     readonly status?: boolean;
     readonly code: number;
     readonly msg: string;
-    readonly total: number;
-    data: T;
+    readonly total?: number;
+    data?: T;
     origin?: any;
 }

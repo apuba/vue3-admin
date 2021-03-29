@@ -5,12 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve --mode development",
     "build": "vue-cli-service build -mode production",
-    "lint": "vue-cli-service lint",
-    "mock": "npm run start --prefix ./mockSer",
-    "dev": "concurrently \" set PROXY=mock && npm run serve \"  \"npm run mock \" "
+    "lint": "vue-cli-service lint"
   },
   "dependencies": {
-    "@ant-design/icons-vue": "^6.0.1",
     "@types/nprogress": "^0.2.0",
     "@vue/composition-api": "^1.0.0-beta.20",
     "animate": "^1.0.0",
@@ -18,7 +15,6 @@
     "ant-design-vue": "^2.0.0-beta.12",
     "lodash": "^4.17.20",
     "nprogress": "^0.2.0",
-    "pinyin-pro": "^3.0.7",
     "vue": "^3.0.0",
     "vue-router": "^4.0.0-0",
     "vuex": "^4.0.0-0",
@@ -37,7 +33,6 @@
     "@vue/eslint-config-standard": "^5.1.2",
     "@vue/eslint-config-typescript": "^5.0.2",
     "axios": "^0.21.0",
-    "concurrently": "^6.0.0",
     "eslint": "^6.7.2",
     "eslint-plugin-import": "^2.20.2",
     "eslint-plugin-node": "^11.1.0",
@@ -46,7 +41,7 @@
     "eslint-plugin-vue": "^7.0.0-0",
     "less": "^3.12.2",
     "less-loader": "^7.1.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^4.12.0",
     "sass-loader": "^8.0.2",
     "typescript": "~3.9.3",
     "vue-class-component": "^7.2.6",

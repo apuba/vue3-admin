@@ -12,7 +12,7 @@ import { IModelUserInfo } from '@/service/appModel';
 // 菜单模型映射 Key为当前应用使用的字段 value对应为后端返回的字段
 export const modelMenu: Menu = {
     name: 'menuName',
-    icon: 'imageLink',
+    icon: 'icon',
     id: 'menuId',
     path: 'htmlUrl'
 }
